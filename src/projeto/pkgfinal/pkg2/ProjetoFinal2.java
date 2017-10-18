@@ -16,7 +16,7 @@ package projeto.pkgfinal.pkg2;
 public class ProjetoFinal2 {
 
     public static void main(String[] args) {
-        
+        int i;
     }
 
 }
