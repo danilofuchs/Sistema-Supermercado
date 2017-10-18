@@ -17,6 +17,8 @@ public class ProjetoFinal2 {
 
     public static void main(String[] args) {
         int i;
+        double j;
+        
     }
 
 }
