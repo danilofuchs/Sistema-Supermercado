@@ -17,8 +17,8 @@ public class Produto {
         this.nome = nome;
     }
     
-    
-     public String getNome() {
+    //Getters e Setters:
+    public String getNome() {
         return nome;
     }
 
