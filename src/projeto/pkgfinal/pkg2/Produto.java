@@ -6,11 +6,24 @@ public class Produto {
     private double preco;
     private double quantidadeEstoque;
     private String codigoDeBarras;
+    private String nome;
 
-    public Produto(double preco, double quantidadeEstoque, String codigoDeBarras) {
+
+    //Construtor:
+    public Produto(String nome, double preco, double quantidadeEstoque, String codigoDeBarras) {
         this.preco = preco;
         this.quantidadeEstoque = quantidadeEstoque;
         this.codigoDeBarras = codigoDeBarras;
+        this.nome = nome;
+    }
+    
+    
+     public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public double getPreco() {
