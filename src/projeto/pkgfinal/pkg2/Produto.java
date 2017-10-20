@@ -1,14 +1,42 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package projeto.pkgfinal.pkg2;
 
-/**
- *
- * @author danil
- */
 public class Produto {
+    private double preco;
+    private double quantidadeEstoque;
+    private String codigoDeBarras;
+
+    public Produto(double preco, double quantidadeEstoque, String codigoDeBarras) {
+        this.preco = preco;
+        this.quantidadeEstoque = quantidadeEstoque;
+        this.codigoDeBarras = codigoDeBarras;
+    }
+
+    public double getPreco() {
+        return preco;
+    }
+
+    public void setPreco(double preco) {
+        this.preco = preco;
+    }
+
+    public double getQuantidadeEstoque() {
+        return quantidadeEstoque;
+    }
+
+    public void setQuantidadeEstoque(double quantidadeEstoque) {
+        this.quantidadeEstoque = quantidadeEstoque;
+    }
+
+    public String getCodigoDeBarras() {
+        return codigoDeBarras;
+    }
+
+    public void setCodigoDeBarras(String codigoDeBarras) {
+        this.codigoDeBarras = codigoDeBarras;
+    }
+    
+    
+    
     
 }
