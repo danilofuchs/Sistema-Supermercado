@@ -12,6 +12,7 @@ public class ItemVenda {
     public ItemVenda(Produto produto, double qtd) {
 	this.produto = produto;
 	this.qtd = qtd;
+	this.precoTotalItem = produto.getPreco() * qtd;
     }
 
     public double getPrecoTotalItem() {
