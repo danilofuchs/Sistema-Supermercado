@@ -5,10 +5,13 @@
  */
 package interfaceGrafica;
 
-/**
- *
- * @author DAELN
- */
+import classes.Produto;
+import classes.ItemVenda;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
+import javax.swing.table.TableModel;
+
 public class VendaGUI extends javax.swing.JFrame {
 
     /**
@@ -45,6 +48,11 @@ public class VendaGUI extends javax.swing.JFrame {
 
         btn_addProduto.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btn_addProduto.setText("Adicionar Produto");
+        btn_addProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_addProdutoActionPerformed(evt);
+            }
+        });
 
         txtfd_nomeProduto.setEditable(false);
         txtfd_nomeProduto.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -65,63 +73,14 @@ public class VendaGUI extends javax.swing.JFrame {
         table_produtos.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         table_produtos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Produto", "Quantidade", "Preço Unitário", "Preço Total"
+                "Produto", "Quantidade", "Preço Unitário", "Preço Item"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false
@@ -220,6 +179,24 @@ public class VendaGUI extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private ArrayList<ItemVenda> itensVenda = new ArrayList<>();
+    
+    private void btn_addProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addProdutoActionPerformed
+        Produto p = new Produto("Feijão", 1, 10, "1234");
+	ItemVenda item = new ItemVenda(p, 1.5);
+	
+	DefaultTableModel table = (DefaultTableModel)table_produtos.getModel();
+
+	table.addRow(new Object[]{
+				    item.getProduto().getNome(),
+				    String.format("%4.3f", item.getQtd()),
+				    String.format("R$%04.2f", item.getProduto().getPreco()),
+				    String.format("R$%04.2f", item.getPrecoTotalItem())
+				 }
+	);
+	itensVenda.add(item);
+    }//GEN-LAST:event_btn_addProdutoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -253,6 +230,7 @@ public class VendaGUI extends javax.swing.JFrame {
                 new VendaGUI().setVisible(true);
             }
         });
+	
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
