@@ -56,7 +56,7 @@ public class Produto {
     }
     
     public void retiraQtdEstoque(BigDecimal qtd) throws NegativeStockException {
-        if (quantidadeEstoque.add(qtd.negate()).max(new BigDecimal("0")) == quantidadeEstoque) {
+        if (quantidadeEstoque.add(qtd.negate()).max(new BigDecimal("0")) != new BigDecimal("0")) {
             this.quantidadeEstoque.add(qtd.negate());
         } else {
             throw new NegativeStockException("Estoque ficaria negativo (" + (quantidadeEstoque.add(qtd.negate())) + ")");
