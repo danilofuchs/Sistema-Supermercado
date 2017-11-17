@@ -9,10 +9,9 @@ public class ItemVenda {
     public ItemVenda() {
     }
 
-    public ItemVenda(Produto produto, double qtd, double precoItem) {
+    public ItemVenda(Produto produto, double qtd) {
 	this.produto = produto;
 	this.qtd = qtd;
-	this.precoTotalItem = precoItem;
     }
 
     public double getPrecoTotalItem() {
@@ -27,16 +26,14 @@ public class ItemVenda {
 	return qtd;
     }
 
-    public void setPrecoTotalItem(double precoItem) {
-	this.precoTotalItem = precoItem;
-    }
-
     public void setProduto(Produto produto) {
 	this.produto = produto;
+	precoTotalItem = produto.getPreco() * qtd;
     }
 
     public void setQtd(double qtd) {
 	this.qtd = qtd;
+	precoTotalItem = produto.getPreco() * qtd;
     }
     
     
