@@ -5,13 +5,13 @@ import java.math.BigDecimal;
 
 public class Produto {
     private BigDecimal preco;
-    private double quantidadeEstoque;
+    private BigDecimal quantidadeEstoque;
     private String codigoDeBarras;
     private String nome;
 
 
     //Construtor:
-    public Produto(String nome, BigDecimal preco, double quantidadeEstoque, String codigoDeBarras) {
+    public Produto(String nome, BigDecimal preco, BigDecimal quantidadeEstoque, String codigoDeBarras) {
         this.preco = preco;
         this.quantidadeEstoque = quantidadeEstoque;
         this.codigoDeBarras = codigoDeBarras;
@@ -35,11 +35,11 @@ public class Produto {
         this.preco = preco;
     }
 
-    public double getQuantidadeEstoque() {
+    public BigDecimal getQuantidadeEstoque() {
         return quantidadeEstoque;
     }
 
-    public void setQuantidadeEstoque(double quantidadeEstoque) {
+    public void setQuantidadeEstoque(BigDecimal quantidadeEstoque) {
         this.quantidadeEstoque = quantidadeEstoque;
     }
 
@@ -55,11 +55,11 @@ public class Produto {
         this.codigoDeBarras = Integer.toString(codigoDeBarras);
     }
     
-    public void retiraQtdEstoque(int qtd) throws NegativeStockException {
-        if (quantidadeEstoque - qtd > 0) {
-            this.quantidadeEstoque -= qtd;
+    public void retiraQtdEstoque(BigDecimal qtd) throws NegativeStockException {
+        if (quantidadeEstoque.add(qtd.negate()).max(new BigDecimal("0")) == quantidadeEstoque) {
+            this.quantidadeEstoque.add(qtd.negate());
         } else {
-            throw new NegativeStockException("Estoque ficaria negativo (" + (quantidadeEstoque - qtd) + ")");
+            throw new NegativeStockException("Estoque ficaria negativo (" + (quantidadeEstoque.add(qtd.negate())) + ")");
         }
     }
     

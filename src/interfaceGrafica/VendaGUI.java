@@ -184,7 +184,7 @@ public class VendaGUI extends javax.swing.JFrame {
     private BigDecimal valorTotal = new BigDecimal("0");
     
     private void btn_addProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addProdutoActionPerformed
-        Produto p = new Produto("Feijão", new BigDecimal("1"), 10, "1234");
+        Produto p = new Produto("Feijão", new BigDecimal("1"), new BigDecimal("10"), "1234");
 	ItemVenda item = new ItemVenda(p, new BigDecimal("1.5"));
 	
 	DefaultTableModel table = (DefaultTableModel)table_produtos.getModel();
