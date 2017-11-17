@@ -4,7 +4,7 @@ package classes;
 public class ItemVenda {
     private Produto produto;
     private double qtd;
-    private double precoItem;
+    private double precoTotalItem;
 
     public ItemVenda() {
     }
@@ -12,11 +12,11 @@ public class ItemVenda {
     public ItemVenda(Produto produto, double qtd, double precoItem) {
 	this.produto = produto;
 	this.qtd = qtd;
-	this.precoItem = precoItem;
+	this.precoTotalItem = precoItem;
     }
 
-    public double getPrecoItem() {
-	return precoItem;
+    public double getPrecoTotalItem() {
+	return precoTotalItem;
     }
 
     public Produto getProduto() {
@@ -27,8 +27,8 @@ public class ItemVenda {
 	return qtd;
     }
 
-    public void setPrecoItem(double precoItem) {
-	this.precoItem = precoItem;
+    public void setPrecoTotalItem(double precoItem) {
+	this.precoTotalItem = precoItem;
     }
 
     public void setProduto(Produto produto) {
