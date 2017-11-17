@@ -180,6 +180,7 @@ public class VendaGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private ArrayList<ItemVenda> itensVenda = new ArrayList<>();
+    private double valorTotal = 0;
     
     private void btn_addProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addProdutoActionPerformed
         Produto p = new Produto("Feijão", 1, 10, "1234");
@@ -195,6 +196,9 @@ public class VendaGUI extends javax.swing.JFrame {
 				 }
 	);
 	itensVenda.add(item);
+        valorTotal += item.getPrecoTotalItem();
+        
+        txtfd_total.setText(String.format("R$%4.2f", valorTotal));
     }//GEN-LAST:event_btn_addProdutoActionPerformed
 
     /**
