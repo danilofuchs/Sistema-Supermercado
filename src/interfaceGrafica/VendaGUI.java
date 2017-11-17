@@ -7,6 +7,7 @@ package interfaceGrafica;
 
 import classes.Produto;
 import classes.ItemVenda;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
@@ -180,11 +181,11 @@ public class VendaGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private ArrayList<ItemVenda> itensVenda = new ArrayList<>();
-    private double valorTotal = 0;
+    private BigDecimal valorTotal = new BigDecimal("0");
     
     private void btn_addProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addProdutoActionPerformed
-        Produto p = new Produto("Feijão", 1, 10, "1234");
-	ItemVenda item = new ItemVenda(p, 1.5);
+        Produto p = new Produto("Feijão", new BigDecimal("1"), 10, "1234");
+	ItemVenda item = new ItemVenda(p, new BigDecimal("1.5"));
 	
 	DefaultTableModel table = (DefaultTableModel)table_produtos.getModel();
 
@@ -196,7 +197,7 @@ public class VendaGUI extends javax.swing.JFrame {
 				 }
 	);
 	itensVenda.add(item);
-        valorTotal += item.getPrecoTotalItem();
+        valorTotal = item.getPrecoTotalItem().add(valorTotal);
         
         txtfd_total.setText(String.format("R$%4.2f", valorTotal));
     }//GEN-LAST:event_btn_addProdutoActionPerformed

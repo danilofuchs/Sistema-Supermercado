@@ -1,16 +1,17 @@
 
 package classes;
 import exceptions.NegativeStockException;
+import java.math.BigDecimal;
 
 public class Produto {
-    private double preco;
+    private BigDecimal preco;
     private double quantidadeEstoque;
     private String codigoDeBarras;
     private String nome;
 
 
     //Construtor:
-    public Produto(String nome, double preco, double quantidadeEstoque, String codigoDeBarras) {
+    public Produto(String nome, BigDecimal preco, double quantidadeEstoque, String codigoDeBarras) {
         this.preco = preco;
         this.quantidadeEstoque = quantidadeEstoque;
         this.codigoDeBarras = codigoDeBarras;
@@ -26,11 +27,11 @@ public class Produto {
         this.nome = nome;
     }
 
-    public double getPreco() {
+    public BigDecimal getPreco() {
         return preco;
     }
 
-    public void setPreco(double preco) {
+    public void setPreco(BigDecimal preco) {
         this.preco = preco;
     }
 

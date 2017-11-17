@@ -1,21 +1,23 @@
 
 package classes;
 
+import java.math.BigDecimal;
+
 public class ItemVenda {
     private Produto produto;
-    private double qtd;
-    private double precoTotalItem;
+    private BigDecimal qtd;
+    private BigDecimal precoTotalItem;
 
     public ItemVenda() {
     }
 
-    public ItemVenda(Produto produto, double qtd) {
+    public ItemVenda(Produto produto, BigDecimal qtd) {
 	this.produto = produto;
 	this.qtd = qtd;
-	this.precoTotalItem = produto.getPreco() * qtd;
+	this.precoTotalItem = produto.getPreco().multiply(qtd);
     }
 
-    public double getPrecoTotalItem() {
+    public BigDecimal getPrecoTotalItem() {
 	return precoTotalItem;
     }
 
@@ -23,18 +25,18 @@ public class ItemVenda {
 	return produto;
     }
     
-    public double getQtd() {
+    public BigDecimal getQtd() {
 	return qtd;
     }
 
     public void setProduto(Produto produto) {
 	this.produto = produto;
-	precoTotalItem = produto.getPreco() * qtd;
+	precoTotalItem = this.produto.getPreco().multiply(qtd);
     }
 
-    public void setQtd(double qtd) {
+    public void setQtd(BigDecimal qtd) {
 	this.qtd = qtd;
-	precoTotalItem = produto.getPreco() * qtd;
+	precoTotalItem = produto.getPreco().multiply(qtd);
     }
     
     
