@@ -3,6 +3,7 @@ package classes;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -37,7 +38,7 @@ public class Usuario {
 
 	try {
 	    hash = md.digest(senha.getBytes("UTF-8"));
-	    if (hash == this.senha) {
+	    if (Arrays.equals(hash,this.senha)) {
 		result = true;
 	    }
 	}
