@@ -94,6 +94,7 @@ public class VendaGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btn_removeProduto = new javax.swing.JButton();
         btn_addProduto = new javax.swing.JButton();
         txtfd_nomeProduto = new javax.swing.JTextField();
         txtfd_codProduto = new javax.swing.JTextField();
@@ -109,6 +110,13 @@ public class VendaGUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Nova Venda");
         setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        btn_removeProduto.setText("Remover");
+        btn_removeProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_removeProdutoActionPerformed(evt);
+            }
+        });
 
         btn_addProduto.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btn_addProduto.setText("Adicionar Produto");
@@ -199,7 +207,10 @@ public class VendaGUI extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txtfd_nomeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(btn_addProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(btn_removeProduto)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btn_addProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(lbl_qtd)
@@ -235,7 +246,9 @@ public class VendaGUI extends javax.swing.JFrame {
                             .addComponent(txtfd_qtdProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lbl_qtd))
                         .addGap(18, 18, 18)
-                        .addComponent(btn_addProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btn_addProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_removeProduto))
                         .addGap(109, 164, Short.MAX_VALUE))))
         );
 
@@ -262,6 +275,13 @@ public class VendaGUI extends javax.swing.JFrame {
 	txtfd_total.setText(String.format("R$%4.2f", venda.getTotal()));
     }//GEN-LAST:event_btn_addProdutoActionPerformed
 
+    private void btn_removeProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_removeProdutoActionPerformed
+        DefaultTableModel table = (DefaultTableModel) table_produtos.getModel();
+	venda.removeItem(table.getRowCount()-1);
+	table.removeRow(table.getRowCount()-1);
+	txtfd_total.setText(String.format("R$%4.2f", venda.getTotal()));
+    }//GEN-LAST:event_btn_removeProdutoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -269,6 +289,7 @@ public class VendaGUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_addProduto;
+    private javax.swing.JButton btn_removeProduto;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lbl_cod;
     private javax.swing.JLabel lbl_nome;
