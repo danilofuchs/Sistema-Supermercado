@@ -7,6 +7,7 @@ package interfaceGrafica;
 
 import classes.Produto;
 import classes.ItemVenda;
+import classes.Venda;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
@@ -14,14 +15,76 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 public class VendaGUI extends javax.swing.JFrame {
-
+    private Venda venda;
     /**
      * Creates new form VendaGUI
      */
     public VendaGUI() {
-        initComponents();
+	/* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+	 * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+	 */
+	
+	try {
+	    for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+		if ("Nimbus".equals(info.getName())) {
+		    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+		    break;
+		}
+	    }
+	}
+	catch (ClassNotFoundException ex) {
+	    java.util.logging.Logger.getLogger(VendaGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	}
+	catch (InstantiationException ex) {
+	    java.util.logging.Logger.getLogger(VendaGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	}
+	catch (IllegalAccessException ex) {
+	    java.util.logging.Logger.getLogger(VendaGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	}
+	catch (javax.swing.UnsupportedLookAndFeelException ex) {
+	    java.util.logging.Logger.getLogger(VendaGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	}
+	
+	//</editor-fold>
+	initComponents();
     }
+    
+    public VendaGUI(Venda venda) {
+	
+	/* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+	 * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+	 */
+	
+	try {
+	    for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+		if ("Nimbus".equals(info.getName())) {
+		    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+		    break;
+		}
+	    }
+	}
+	catch (ClassNotFoundException ex) {
+	    java.util.logging.Logger.getLogger(VendaGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	}
+	catch (InstantiationException ex) {
+	    java.util.logging.Logger.getLogger(VendaGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	}
+	catch (IllegalAccessException ex) {
+	    java.util.logging.Logger.getLogger(VendaGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	}
+	catch (javax.swing.UnsupportedLookAndFeelException ex) {
+	    java.util.logging.Logger.getLogger(VendaGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	}
+	
+	//</editor-fold>
+	initComponents();
 
+	this.venda = venda;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -180,63 +243,29 @@ public class VendaGUI extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private ArrayList<ItemVenda> itensVenda = new ArrayList<>();
-    private BigDecimal valorTotal = new BigDecimal("0");
     
+
     private void btn_addProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addProdutoActionPerformed
-        Produto p = new Produto("Feijão", new BigDecimal("1"), new BigDecimal("10"), "1234");
+	Produto p = new Produto("Feijão", new BigDecimal("1"), new BigDecimal("10"), "1234");
 	ItemVenda item = new ItemVenda(p, new BigDecimal("1.5"));
-	
-	DefaultTableModel table = (DefaultTableModel)table_produtos.getModel();
+
+	DefaultTableModel table = (DefaultTableModel) table_produtos.getModel();
 
 	table.addRow(new Object[]{
-				    item.getProduto().getNome(),
-				    String.format("%4.3f", item.getQtd()),
-				    String.format("R$%04.2f", item.getProduto().getPreco()),
-				    String.format("R$%04.2f", item.getPrecoTotalItem())
-				 }
+	    item.getProduto().getNome(),
+	    String.format("%4.3f", item.getQtd()),
+	    String.format("R$%04.2f", item.getProduto().getPreco()),
+	    String.format("R$%04.2f", item.getPrecoTotalItem())
+	}
 	);
-	itensVenda.add(item);
-        valorTotal = item.getPrecoTotalItem().add(valorTotal);
-        
-        txtfd_total.setText(String.format("R$%4.2f", valorTotal));
+	venda.addItem(item);
+	txtfd_total.setText(String.format("R$%4.2f", venda.getTotal()));
     }//GEN-LAST:event_btn_addProdutoActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VendaGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VendaGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VendaGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VendaGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VendaGUI().setVisible(true);
-            }
-        });
-	
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_addProduto;
