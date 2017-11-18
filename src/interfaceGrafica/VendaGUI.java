@@ -5,9 +5,8 @@
  */
 package interfaceGrafica;
 
-import classes.Produto;
-import classes.ItemVenda;
-import classes.Venda;
+import classes.*;
+
 import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -295,7 +294,7 @@ public class VendaGUI extends javax.swing.JFrame {
     private void btn_addProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addProdutoActionPerformed
 
 	//Produto p = findProduto(fmtfd_codProduto.getText().replaceAll("\\s",""));
-
+	
 		
 	Produto p = new Produto("Feijão", new BigDecimal("1"), "UN", new BigDecimal("10"), "1234");
 	ItemVenda item = new ItemVenda(p, new BigDecimal("1.5"));
