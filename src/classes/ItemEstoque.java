@@ -29,6 +29,10 @@ public class ItemEstoque {
         this.qtd = qtd;
     }
     
+    public void removeQtdProduto(BigDecimal qtd){
+        this.qtd.subtract(qtd);
+    }
+    
     
     
     
