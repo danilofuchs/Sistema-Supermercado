@@ -93,8 +93,10 @@ public class UsuariosLista {
         while (input != null) {
             input = readFile.readLine();
             if (input != null) {
-                usuario = input.split(" ; ");
-                usuarios.add(new Usuario(usuario[0], usuario[1], usuario[2]));
+                usuario = input.split(" ; "); //gera 3 strings que estavam separadas por ;
+                if (usuario.length == 3) { //numero de parametros separados por ;
+                    usuarios.add(new Usuario(usuario[0], usuario[1], usuario[2]));
+                }
             }
         }
         readFile.close();
