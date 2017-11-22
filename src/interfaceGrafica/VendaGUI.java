@@ -113,7 +113,7 @@ public class VendaGUI extends javax.swing.JFrame {
 	    maskFormatterCod.setValueContainsLiteralCharacters(false);
 	    
 	    maskFormatterQtd = new MaskFormatter("*,***");
-	    maskFormatterCod.setValidCharacters("1234567890 ");
+	    maskFormatterQtd.setValidCharacters("1234567890 ");
 	    maskFormatterQtd.setPlaceholderCharacter('0');
 	    maskFormatterQtd.setValueContainsLiteralCharacters(true);
 	}
