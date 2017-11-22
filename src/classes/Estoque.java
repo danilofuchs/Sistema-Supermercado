@@ -1,5 +1,6 @@
 package classes;
 
+import exceptions.ProductNotUniqueException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
@@ -10,8 +11,12 @@ public class Estoque {
         itens = new ArrayList();
     }
     
-    public void addItem(ItemEstoque item){
-        itens.add(item);
+    public void addItem(ItemEstoque item) throws ProductNotUniqueException {
+        for(ItemEstoque i: itens){
+            if(i == item){
+                throw new ProductNotUniqueException("Código de barras já cadastrado.");
+            }
+        }
     }
     
     public void removeItem(ItemEstoque item){
