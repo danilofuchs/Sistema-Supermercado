@@ -30,7 +30,12 @@ public class UsuariosLista {
         try {
             getUsuariosArquivo();
         } catch (IOException ex) {
-            Logger.getLogger(UsuariosLista.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UsuariosLista.class.getName()).log(Level.FINE, null, ex);
+            try {
+                inicializarArquivo();
+            } catch (IOException e) {
+                Logger.getLogger(UsuariosLista.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
     
@@ -80,8 +85,7 @@ public class UsuariosLista {
         BufferedReader readFile = new BufferedReader(file);
 
         String input = readFile.readLine();
-        String[] usuario = input.split(" ; ");
-        usuarios.add(new Usuario(usuario[0], usuario[1], usuario[2]));
+        String[] usuario;
         while (input != null) {
             input = readFile.readLine();
             usuario = input.split(" ; ");
@@ -98,6 +102,14 @@ public class UsuariosLista {
         for (Usuario u : usuarios) {
             writeFile.println(String.format("%s ; %s ; %s", u.getNome(), u.getSenha(), u.getCargo()));
         }
+        writeFile.close();
+    }
+    
+    public void inicializarArquivo() throws IOException {
+        FileWriter file = new FileWriter(filename);
+        PrintWriter writeFile = new PrintWriter(file);
+        
+        writeFile.write("");
         writeFile.close();
     }
 }
