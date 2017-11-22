@@ -205,7 +205,7 @@ public class VendaGUI extends javax.swing.JFrame {
             table_produtos.getColumnModel().getColumn(0).setResizable(false);
             table_produtos.getColumnModel().getColumn(0).setPreferredWidth(200);
             table_produtos.getColumnModel().getColumn(1).setResizable(false);
-            table_produtos.getColumnModel().getColumn(1).setPreferredWidth(100);
+            table_produtos.getColumnModel().getColumn(1).setPreferredWidth(120);
             table_produtos.getColumnModel().getColumn(2).setResizable(false);
             table_produtos.getColumnModel().getColumn(2).setPreferredWidth(150);
             table_produtos.getColumnModel().getColumn(3).setResizable(false);
@@ -224,14 +224,16 @@ public class VendaGUI extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(56, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
+                .addContainerGap(51, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(lbl_total)
                         .addGap(18, 18, 18)
-                        .addComponent(txtfd_total, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 431, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
+                        .addComponent(txtfd_total, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lbl_nome)
@@ -296,14 +298,14 @@ public class VendaGUI extends javax.swing.JFrame {
 	//Produto p = findProduto(fmtfd_codProduto.getText().replaceAll("\\s",""));
 	
 		
-	Produto p = new Produto("Feijão", new BigDecimal("1"), "UN", new BigDecimal("10"), "1234");
+	Produto p = new Produto("Feijão", new BigDecimal("1"), "KG", new BigDecimal("10"), "1234");
 	ItemVenda item = new ItemVenda(p, new BigDecimal("1.5"));
 
 	DefaultTableModel table = (DefaultTableModel) table_produtos.getModel();
 
 	table.addRow(new Object[]{
 	    item.getProduto().getNome(),
-	    String.format("%4.3f", item.getQtd()),
+	    String.format("%4.3f %s", item.getQtd(), item.getProduto().getUnidade()),
 	    String.format("R$%04.2f", item.getProduto().getPreco()),
 	    String.format("R$%04.2f", item.getPrecoTotalItem())
 	}
