@@ -1,6 +1,7 @@
 package classes;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
@@ -55,6 +56,10 @@ public class Usuario {
 	} catch (UnsupportedEncodingException ex) {
 	    Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
 	}
+    }
+    
+    public String getSenha() {
+        return new String(senha, StandardCharsets.UTF_8);
     }
     
     public void setNome(String nome) {
