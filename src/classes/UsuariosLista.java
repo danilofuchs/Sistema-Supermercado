@@ -5,6 +5,8 @@
  */
 package classes;
 
+import exceptions.*;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -40,8 +42,36 @@ public class UsuariosLista {
         }
     }
     
-    public void addUsuario(String nome, String senha, String cargo) {
-        usuarios.add(new Usuario(nome, senha, cargo));
+    public void addUsuario(String nome, String senha, String cargo) throws UsernameNotUniqueException {
+        boolean unique = true;
+        for (Usuario u : usuarios) {
+            if (nome.equals(nome)) {
+                unique = false;
+                throw new UsernameNotUniqueException("Nome de usuário já existente, por favor selecione outro");
+            }
+        }
+        if (unique) {
+            usuarios.add(new Usuario(nome, senha, cargo));
+        }
+    }
+    
+    public void removeUsuario(String nome, String senha) throws PasswordInvalidException, UsernameNotFoundException {
+        boolean found = false;
+        for (Usuario u : usuarios) {
+            if (nome.equals(nome)) {
+                found = true;
+                if (u.checkPassword(senha) == true) {
+                    usuarios.remove(u);
+                    
+                } else {
+                    throw new PasswordInvalidException("Senha inválida. Usuário não removido.");
+                }
+                break;
+            }
+        }
+        if (!found) {
+            throw new UsernameNotFoundException("Usuário não cadastrado.");
+        }
     }
     
     
