@@ -47,13 +47,13 @@ public class UsuariosLista {
         }
     }
 
-    public void addUsuario(String nome, String senha, String cargo) throws UsernameNotUniqueException {
+    public void addUsuario(String nome, String senha, String cargo) throws NameNotUniqueException {
         boolean unique = true;
         if (usuarios.size() >= 1) {
             for (Usuario u : usuarios) {
-                if (nome.equals(nome)) {
+                if (nome.equals(u.getNome())) {
                     unique = false;
-                    throw new UsernameNotUniqueException("Nome de usuário já existente, por favor selecione outro");
+                    throw new NameNotUniqueException("Nome de usuário já existente, por favor selecione outro");
                 }
             }
         }
@@ -62,7 +62,7 @@ public class UsuariosLista {
         }
     }
 
-    public void removeUsuario(String nome, String senha) throws PasswordInvalidException, UsernameNotFoundException {
+    public void removeUsuario(String nome, String senha) throws PasswordInvalidException, NameNotFoundException {
         boolean found = false;
         if (usuarios.size() >= 1) {
             for (Usuario u : usuarios) {
@@ -79,7 +79,7 @@ public class UsuariosLista {
             }
         }
         if (!found) {
-            throw new UsernameNotFoundException("Usuário não cadastrado.");
+            throw new NameNotFoundException("Usuário não cadastrado.");
         }
 
     }
