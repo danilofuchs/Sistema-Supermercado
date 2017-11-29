@@ -28,31 +28,43 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="lbl_nome" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="lbl_nomeUsuario" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="lbl_cargo" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="lbl_senha" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="lbl_senhaConfirm" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="btn_cancelar" min="-2" max="-2" attributes="0"/>
+                  <Component id="lbl_nome" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="pass_senhaConfirm" alignment="0" pref="150" max="32767" attributes="0"/>
-                  <Component id="txtfd_nome" alignment="0" max="32767" attributes="0"/>
-                  <Component id="pass_senha" alignment="0" max="32767" attributes="0"/>
-                  <Component id="btn_cadastrar" alignment="1" min="-2" max="-2" attributes="0"/>
-                  <Component id="combo_cargo" alignment="0" min="-2" pref="70" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="pass_senhaConfirm" alignment="0" pref="150" max="32767" attributes="0"/>
+                          <Component id="pass_senha" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btn_cadastrar" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="combo_cargo" alignment="0" min="-2" pref="70" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="0" pref="21" max="32767" attributes="0"/>
+                  </Group>
+                  <Component id="txtfd_nomeUsuario" max="32767" attributes="0"/>
+                  <Component id="txtfd_nome" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace pref="31" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="lbl_nome" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtfd_nome" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lbl_nomeUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtfd_nomeUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -74,7 +86,7 @@
                   <Component id="btn_cadastrar" min="-2" max="-2" attributes="0"/>
                   <Component id="btn_cancelar" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="14" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -96,7 +108,7 @@
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JLabel" name="lbl_nome">
+    <Component class="javax.swing.JLabel" name="lbl_nomeUsuario">
       <Properties>
         <Property name="text" type="java.lang.String" value="Nome de usu&#xe1;rio:"/>
       </Properties>
@@ -131,6 +143,13 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_cancelarActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lbl_nome">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Nome:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtfd_nomeUsuario">
     </Component>
   </SubComponents>
 </Form>

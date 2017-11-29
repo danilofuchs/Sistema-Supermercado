@@ -49,18 +49,20 @@ public class CadastroUsuarioGUI extends javax.swing.JFrame {
         pass_senha = new javax.swing.JPasswordField();
         pass_senhaConfirm = new javax.swing.JPasswordField();
         combo_cargo = new javax.swing.JComboBox<>();
-        lbl_nome = new javax.swing.JLabel();
+        lbl_nomeUsuario = new javax.swing.JLabel();
         lbl_senha = new javax.swing.JLabel();
         lbl_senhaConfirm = new javax.swing.JLabel();
         lbl_cargo = new javax.swing.JLabel();
         btn_cadastrar = new javax.swing.JButton();
         btn_cancelar = new javax.swing.JButton();
+        lbl_nome = new javax.swing.JLabel();
+        txtfd_nomeUsuario = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastrar novo usuário");
         setResizable(false);
 
-        lbl_nome.setText("Nome de usuário:");
+        lbl_nomeUsuario.setText("Nome de usuário:");
 
         lbl_senha.setText("Senha:");
 
@@ -82,6 +84,8 @@ public class CadastroUsuarioGUI extends javax.swing.JFrame {
             }
         });
 
+        lbl_nome.setText("Nome:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -89,27 +93,36 @@ public class CadastroUsuarioGUI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbl_nome)
+                    .addComponent(lbl_nomeUsuario)
                     .addComponent(lbl_cargo)
                     .addComponent(lbl_senha)
                     .addComponent(lbl_senhaConfirm)
-                    .addComponent(btn_cancelar))
+                    .addComponent(btn_cancelar)
+                    .addComponent(lbl_nome))
                 .addGap(32, 32, 32)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(pass_senhaConfirm, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                    .addComponent(txtfd_nome)
-                    .addComponent(pass_senha)
-                    .addComponent(btn_cadastrar, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(combo_cargo, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(pass_senhaConfirm, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                            .addComponent(pass_senha)
+                            .addComponent(btn_cadastrar, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(combo_cargo, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 21, Short.MAX_VALUE))
+                    .addComponent(txtfd_nomeUsuario)
+                    .addComponent(txtfd_nome))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
+                .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_nome)
                     .addComponent(txtfd_nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_nomeUsuario)
+                    .addComponent(txtfd_nomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(combo_cargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -126,7 +139,7 @@ public class CadastroUsuarioGUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btn_cadastrar)
                     .addComponent(btn_cancelar))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -134,13 +147,14 @@ public class CadastroUsuarioGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_cadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cadastrarActionPerformed
-        String nomeUsuario = txtfd_nome.getText();
+        String nomeUsuario = txtfd_nomeUsuario.getText();
+        String nome = txtfd_nome.getText();
         String senha = String.valueOf(pass_senha.getPassword());
         String senhaConfirm = String.valueOf(pass_senhaConfirm.getPassword());
         String cargo = cargosLista.getCargos().get(combo_cargo.getSelectedIndex()).getNome();
         
         try {
-            usuariosLista.addUsuario(nomeUsuario, senha, cargo);
+            usuariosLista.addUsuario(nome, nomeUsuario, senha, cargo);
         } catch (NameNotUniqueException e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Usuário não é único", JOptionPane.WARNING_MESSAGE);
         }
@@ -161,10 +175,12 @@ public class CadastroUsuarioGUI extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> combo_cargo;
     private javax.swing.JLabel lbl_cargo;
     private javax.swing.JLabel lbl_nome;
+    private javax.swing.JLabel lbl_nomeUsuario;
     private javax.swing.JLabel lbl_senha;
     private javax.swing.JLabel lbl_senhaConfirm;
     private javax.swing.JPasswordField pass_senha;
     private javax.swing.JPasswordField pass_senhaConfirm;
     private javax.swing.JTextField txtfd_nome;
+    private javax.swing.JTextField txtfd_nomeUsuario;
     // End of variables declaration//GEN-END:variables
 }
