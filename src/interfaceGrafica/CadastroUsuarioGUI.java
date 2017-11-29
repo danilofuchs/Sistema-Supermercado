@@ -7,7 +7,11 @@ package interfaceGrafica;
 
 import classes.*;
 import exceptions.NameNotUniqueException;
+import java.awt.Event;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -63,12 +67,22 @@ public class CadastroUsuarioGUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastrar novo usuário");
         setResizable(false);
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+        });
 
         txtfd_nome.setNextFocusableComponent(txtfd_nomeUsuario);
 
         pass_senha.setNextFocusableComponent(pass_senhaConfirm);
 
         pass_senhaConfirm.setNextFocusableComponent(btn_cadastrar);
+        pass_senhaConfirm.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                pass_senhaConfirmKeyPressed(evt);
+            }
+        });
 
         combo_cargo.setNextFocusableComponent(pass_senha);
 
@@ -171,7 +185,16 @@ public class CadastroUsuarioGUI extends javax.swing.JFrame {
             try {
                 usuariosLista.addUsuario(nome, nomeUsuario, senha, cargo);
                 JOptionPane.showMessageDialog(null, "Usuário adicionado com sucesso!");
-                this.dispose();
+                boolean success = true;
+                try {
+                    usuariosLista.gravarUsuariosArquivo();
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Não foi possível gravar os usuários no arquivo, tente novamente", JOptionPane.ERROR_MESSAGE);
+                    success = false;
+                }
+                if (success) {
+                    this.dispose();
+                }
             } catch (NameNotUniqueException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage(), "Usuário não é único", JOptionPane.WARNING_MESSAGE);
             }
@@ -184,6 +207,16 @@ public class CadastroUsuarioGUI extends javax.swing.JFrame {
     private void btn_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelarActionPerformed
         this.dispose();
     }//GEN-LAST:event_btn_cancelarActionPerformed
+
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+
+    }//GEN-LAST:event_formKeyPressed
+
+    private void pass_senhaConfirmKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pass_senhaConfirmKeyPressed
+        if (evt.getKeyCode() == Event.ENTER) {
+            btn_cadastrar.doClick();
+        }
+    }//GEN-LAST:event_pass_senhaConfirmKeyPressed
 
     /**
      * @param args the command line arguments
