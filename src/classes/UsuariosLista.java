@@ -118,8 +118,12 @@ public class UsuariosLista {
             usuariosString.add(String.format("%s ; %s ; %s ; %s", u.getNome(), u.getNomeUsuario(), u.getSenha(), u.getCargo()));
         }
         
-        Files.write(Paths.get(filePath), usuariosString, StandardCharsets.UTF_8, StandardOpenOption.TRUNCATE_EXISTING);
-        
+        try {
+            Files.write(Paths.get(filePath), usuariosString, StandardCharsets.UTF_8, StandardOpenOption.TRUNCATE_EXISTING);
+        } catch (IOException e) {
+            inicializarArquivo();
+            Files.write(Paths.get(filePath), usuariosString, StandardCharsets.UTF_8, StandardOpenOption.TRUNCATE_EXISTING);
+        }
         /*
         FileWriter file = new FileWriter(filePath);
         PrintWriter writeFile = new PrintWriter(file);
