@@ -4,6 +4,10 @@ import interfaceGrafica.VendaGUI;
 import exceptions.NegativeStockException;
 import exceptions.NameNotUniqueException;
 import interfaceGrafica.CadastroUsuarioGUI;
+import java.awt.Frame;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,9 +22,9 @@ public class SistemaSupermercadoMain {
             
         }
         
-	//Venda venda = new Venda();
-	//VendaGUI vendaWindow = new VendaGUI(venda);
-        //vendaWindow.setVisible(true);
+	Venda venda = new Venda();
+	VendaGUI vendaWindow = new VendaGUI(venda);
+        vendaWindow.setVisible(true);
         
         CargosLista cargosLista = new CargosLista();
         try {
@@ -36,20 +40,8 @@ public class SistemaSupermercadoMain {
         
         CadastroUsuarioGUI cadastroWindow = new CadastroUsuarioGUI(usuariosLista, cargosLista);
         cadastroWindow.setVisible(true);
-        while (cadastroWindow.isActive()) {
-            
-        }
-        try {
-            System.err.println(usuariosLista.getUsuario("danilo12345").getNome());
-        } catch (NameNotFoundException ex) {
-            
-        }
-        try {
-            usuariosLista.gravarUsuariosArquivo();
-        } catch (IOException ex) {
-            Logger.getLogger(SistemaSupermercadoMain.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        //usuariosLista.close();
+        
+        usuariosLista.close();
     }
     
 
