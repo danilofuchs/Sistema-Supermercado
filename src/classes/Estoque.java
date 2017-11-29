@@ -3,7 +3,6 @@ package classes;
 import exceptions.ProductNotUniqueException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import org.json.simple.JSONObject;
 
 public class Estoque {
     private ArrayList<ItemEstoque> itens;
@@ -50,11 +49,6 @@ public class Estoque {
         }
         
         return item;
-    }
-    
-    //Inicializador:
-    public void getEstoqueArquivo(){
-        JSONObject obj = new JSONObject();
     }
     
 }
