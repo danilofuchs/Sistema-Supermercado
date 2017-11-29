@@ -16,15 +16,16 @@ import javax.swing.JOptionPane;
  */
 public class CadastroUsuarioGUI extends javax.swing.JFrame {
 
-    UsuariosLista usuariosLista;
-    CargosLista cargosLista;
+    private UsuariosLista usuariosLista;
+    private CargosLista cargosLista;
+
     /**
      * Creates new form CadastroUsuarioGUI
      */
     public CadastroUsuarioGUI(UsuariosLista ul, CargosLista cl) {
-        usuariosLista = ul;
-        cargosLista = cl;
-        
+        this.usuariosLista = ul;
+        this.cargosLista = cl;
+
         initComponents();
         myInitComponents();
     }
@@ -41,6 +42,7 @@ public class CadastroUsuarioGUI extends javax.swing.JFrame {
             combo_cargo.addItem(c.getNome());
         }
     }
+
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -62,6 +64,14 @@ public class CadastroUsuarioGUI extends javax.swing.JFrame {
         setTitle("Cadastrar novo usuário");
         setResizable(false);
 
+        txtfd_nome.setNextFocusableComponent(txtfd_nomeUsuario);
+
+        pass_senha.setNextFocusableComponent(pass_senhaConfirm);
+
+        pass_senhaConfirm.setNextFocusableComponent(btn_cadastrar);
+
+        combo_cargo.setNextFocusableComponent(pass_senha);
+
         lbl_nomeUsuario.setText("Nome de usuário:");
 
         lbl_senha.setText("Senha:");
@@ -71,6 +81,7 @@ public class CadastroUsuarioGUI extends javax.swing.JFrame {
         lbl_cargo.setText("Cargo:");
 
         btn_cadastrar.setText("Cadastrar");
+        btn_cadastrar.setNextFocusableComponent(btn_cancelar);
         btn_cadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_cadastrarActionPerformed(evt);
@@ -78,6 +89,7 @@ public class CadastroUsuarioGUI extends javax.swing.JFrame {
         });
 
         btn_cancelar.setText("Cancelar");
+        btn_cancelar.setNextFocusableComponent(txtfd_nome);
         btn_cancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_cancelarActionPerformed(evt);
@@ -85,6 +97,8 @@ public class CadastroUsuarioGUI extends javax.swing.JFrame {
         });
 
         lbl_nome.setText("Nome:");
+
+        txtfd_nomeUsuario.setNextFocusableComponent(combo_cargo);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -152,13 +166,19 @@ public class CadastroUsuarioGUI extends javax.swing.JFrame {
         String senha = String.valueOf(pass_senha.getPassword());
         String senhaConfirm = String.valueOf(pass_senhaConfirm.getPassword());
         String cargo = cargosLista.getCargos().get(combo_cargo.getSelectedIndex()).getNome();
-        
-        try {
-            usuariosLista.addUsuario(nome, nomeUsuario, senha, cargo);
-        } catch (NameNotUniqueException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Usuário não é único", JOptionPane.WARNING_MESSAGE);
+
+        if (senha.equals(senhaConfirm)) {
+            try {
+                usuariosLista.addUsuario(nome, nomeUsuario, senha, cargo);
+                JOptionPane.showMessageDialog(null, "Usuário adicionado com sucesso!");
+                this.dispose();
+            } catch (NameNotUniqueException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Usuário não é único", JOptionPane.WARNING_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Redigite a senha", "Senhas não são iguais", JOptionPane.WARNING_MESSAGE);
         }
-        
+
     }//GEN-LAST:event_btn_cadastrarActionPerformed
 
     private void btn_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelarActionPerformed
