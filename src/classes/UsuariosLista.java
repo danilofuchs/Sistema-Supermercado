@@ -143,4 +143,19 @@ public class UsuariosLista {
         writeFile.close();
         */
     }
+    
+    public Usuario getUsuario(String nomeUsuario) throws NameNotFoundException {
+        boolean found = false;
+        Usuario usuario = new Usuario("","","","");
+        for (Usuario u : usuarios) {
+            if (u.getNomeUsuario().equals(nomeUsuario)) {
+                usuario = u;
+            }
+        }
+        if (found) {
+            return usuario;
+        } else {
+            throw new NameNotFoundException("Usuário não cadastrado");
+        }
+    }
 }
