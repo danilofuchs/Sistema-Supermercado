@@ -7,12 +7,13 @@ package classes;
 
 import exceptions.*;
 
-import java.io.BufferedReader;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
+
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.OpenOption;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,7 +24,7 @@ import java.util.logging.Logger;
  */
 public class UsuariosLista {
 
-    String filename = "Users.txt";
+    String filePath = "Users.txt";
     ArrayList<Usuario> usuarios = new ArrayList();
 
     public UsuariosLista() {
@@ -47,26 +48,26 @@ public class UsuariosLista {
         }
     }
 
-    public void addUsuario(String nome, String senha, String cargo) throws NameNotUniqueException {
+    public void addUsuario(String nome, String nomeUsuario, String senha, String cargo) throws NameNotUniqueException {
         boolean unique = true;
         if (usuarios.size() >= 1) {
             for (Usuario u : usuarios) {
-                if (nome.equals(u.getNome())) {
+                if (nomeUsuario.equals(u.getNomeUsuario())) {
                     unique = false;
                     throw new NameNotUniqueException("Nome de usuário já existente, por favor selecione outro");
                 }
             }
         }
         if (unique) {
-            usuarios.add(new Usuario(nome, senha, cargo));
+            usuarios.add(new Usuario(nome, nomeUsuario, senha, cargo));
         }
     }
 
-    public void removeUsuario(String nome, String senha) throws PasswordInvalidException, NameNotFoundException {
+    public void removeUsuario(String nomeUsuario, String senha) throws PasswordInvalidException, NameNotFoundException {
         boolean found = false;
         if (usuarios.size() >= 1) {
             for (Usuario u : usuarios) {
-                if (nome.equals(nome)) {
+                if (nomeUsuario.equals(u.getNomeUsuario())) {
                     found = true;
                     if (u.checkPassword(senha) == true) {
                         usuarios.remove(u);
@@ -85,9 +86,16 @@ public class UsuariosLista {
     }
 
     private void getUsuariosArquivo() throws FileNotFoundException, IOException {
-        FileReader file = new FileReader(filename);
-        BufferedReader readFile = new BufferedReader(file);
-
+       
+        ArrayList<String> usuariosArquivo = (ArrayList)Files.readAllLines(Paths.get(filePath));
+        
+        for (String s : usuariosArquivo) {
+            String[] usuario = s.split(" ; "); //gera 3 strings que estavam separadas por ;
+                if (usuario.length == 4) { //numero de parametros separados por ;
+                    usuarios.add(new Usuario(usuario[0], usuario[1], usuario[2], usuario[3]));
+                }
+        }
+/*
         String input = "";
         String[] usuario;
         while (input != null) {
@@ -99,25 +107,37 @@ public class UsuariosLista {
                 }
             }
         }
-        readFile.close();
+        readFile.close();*/
 
     }
 
     public void gravarUsuariosArquivo() throws IOException {
-        FileWriter file = new FileWriter(filename);
+        ArrayList<String> usuariosString = new ArrayList<String>();
+        for (Usuario u : usuarios) {
+            usuariosString.add(String.format("%s ; %s ; %s ; %s", u.getNome(), u.getNomeUsuario(), u.getSenha(), u.getCargo()));
+        }
+        
+        Files.write(Paths.get(filePath), usuariosString, StandardCharsets.UTF_8,(OpenOption)null);
+        
+        /*
+        FileWriter file = new FileWriter(filePath);
         PrintWriter writeFile = new PrintWriter(file);
 
         for (Usuario u : usuarios) {
             writeFile.println(String.format("%s ; %s ; %s", u.getNome(), u.getSenha(), u.getCargo()));
         }
         writeFile.close();
+        */
     }
 
     public void inicializarArquivo() throws IOException {
-        FileWriter file = new FileWriter(filename);
+        Files.write(Paths.get(filePath), new ArrayList(), StandardCharsets.UTF_8,(OpenOption)null);
+        /*
+        FileWriter file = new FileWriter(filePath);
         PrintWriter writeFile = new PrintWriter(file);
 
         writeFile.write("");
         writeFile.close();
+        */
     }
 }

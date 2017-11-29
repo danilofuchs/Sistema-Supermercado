@@ -11,7 +11,7 @@ public class SistemaSupermercadoMain {
     public static void main(String[] args) {
         UsuariosLista usuariosLista = new UsuariosLista();
         try {
-            usuariosLista.addUsuario("Danilo", "1234", "Admin");
+            usuariosLista.addUsuario("Danilo", "danilo123", "1234", "Admin");
         } catch (NameNotUniqueException ex) {
             
         }

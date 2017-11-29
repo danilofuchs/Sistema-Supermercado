@@ -11,13 +11,15 @@ import java.util.logging.Logger;
 public class Usuario {
 
     private String nome;
+    private String nomeUsuario;
     private byte[] senha;
     private String cargo;
     
     private MessageDigest md;
 
-    public Usuario(String nome, String senha, String cargo) {
+    public Usuario(String nome, String nomeUsuario, String senha, String cargo) {
 	this.nome = nome;
+        this.nomeUsuario = nomeUsuario;
 	this.cargo = cargo;
 	try {
 	    md = MessageDigest.getInstance("SHA-256");
@@ -68,6 +70,14 @@ public class Usuario {
     
     public String getNome() {
 	return nome;
+    }
+    
+    public void setNomeUsuario(String nomeUsuario) {
+	this.nomeUsuario = nomeUsuario;
+    }
+    
+    public String getNomeUsuario() {
+	return nomeUsuario;
     }
 
     public String getCargo() {
