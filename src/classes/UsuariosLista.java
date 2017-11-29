@@ -14,6 +14,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.OpenOption;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -117,7 +118,7 @@ public class UsuariosLista {
             usuariosString.add(String.format("%s ; %s ; %s ; %s", u.getNome(), u.getNomeUsuario(), u.getSenha(), u.getCargo()));
         }
         
-        Files.write(Paths.get(filePath), usuariosString, StandardCharsets.UTF_8,(OpenOption)null);
+        Files.write(Paths.get(filePath), usuariosString, StandardCharsets.UTF_8, StandardOpenOption.TRUNCATE_EXISTING);
         
         /*
         FileWriter file = new FileWriter(filePath);
@@ -131,7 +132,9 @@ public class UsuariosLista {
     }
 
     public void inicializarArquivo() throws IOException {
-        Files.write(Paths.get(filePath), new ArrayList(), StandardCharsets.UTF_8,(OpenOption)null);
+        ArrayList<String> vazio = new ArrayList();
+        vazio.add("");
+        Files.write(Paths.get(filePath), vazio , StandardCharsets.UTF_8, StandardOpenOption.CREATE_NEW);
         /*
         FileWriter file = new FileWriter(filePath);
         PrintWriter writeFile = new PrintWriter(file);
