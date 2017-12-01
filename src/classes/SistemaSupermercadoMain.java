@@ -1,9 +1,8 @@
 package classes;
 import exceptions.NameNotFoundException;
-import interfaceGrafica.VendaGUI;
+import interfaceGrafica.*;
 import exceptions.NegativeStockException;
 import exceptions.NameNotUniqueException;
-import interfaceGrafica.CadastroUsuarioGUI;
 import java.awt.Frame;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -15,13 +14,14 @@ import java.util.logging.Logger;
 public class SistemaSupermercadoMain {
 
     public static void main(String[] args) {
+
         UsuariosLista usuariosLista = new UsuariosLista();
         try {
             usuariosLista.addUsuario("Danilo", "danilo123", "1234", "Admin");
         } catch (NameNotUniqueException ex) {
             
         }
-        
+        /*
 	Venda venda = new Venda();
 	VendaGUI vendaWindow = new VendaGUI(venda);
         vendaWindow.setVisible(true);
@@ -39,8 +39,11 @@ public class SistemaSupermercadoMain {
         }
         
         CadastroUsuarioGUI cadastroWindow = new CadastroUsuarioGUI(usuariosLista, cargosLista);
-        cadastroWindow.setVisible(true);
+        cadastroWindow.setVisible(true);*/
         
+        Usuario usuario = new Usuario("","","","");
+        LoginGUI log = new LoginGUI(usuariosLista, usuario);
+        log.setVisible(true);
         usuariosLista.close();
     }
     
