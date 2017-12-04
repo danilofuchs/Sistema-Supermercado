@@ -5,8 +5,7 @@
  */
 package interfaceGrafica;
 import classes.*;
-import exceptions.NameNotFoundException;
-import exceptions.NameNotUniqueException;
+import exceptions.*;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.util.logging.Level;
@@ -28,6 +27,7 @@ public class LoginGUI extends javax.swing.JFrame {
      * Creates new form LoginGUI
      */
     public LoginGUI(UsuariosLista usuariosLista, Usuario usuario) {
+	//this.usuariosLista = new UsuariosLista();
         this.usuariosLista = usuariosLista;
         this.usuario = usuario;
         initComponents();
@@ -131,7 +131,7 @@ public class LoginGUI extends javax.swing.JFrame {
     private void btn_entrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_entrarActionPerformed
         String nomeUsuario = txtfd_nomeUsuario.getText();
         String senha = String.valueOf(pass_senha.getPassword());
-        Usuario user = new Usuario("","","","");
+        Usuario user = new Usuario("","","");
         boolean error = false;
         try {
             user = usuariosLista.getUsuario(nomeUsuario);
