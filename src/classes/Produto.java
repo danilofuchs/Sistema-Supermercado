@@ -11,7 +11,7 @@ public class Produto {
     private String codigoDeBarras;
 
     //Construtor:
-    public Produto(String nome, BigDecimal preco, String unidade, BigDecimal quantidadeEstoque, String codigoDeBarras) {
+    public Produto(String nome, BigDecimal preco, String unidade, String codigoDeBarras) {
         this.preco = preco;
 	this.unidade = unidade;
         this.codigoDeBarras = codigoDeBarras;
