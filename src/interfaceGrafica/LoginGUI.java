@@ -7,7 +7,9 @@ package interfaceGrafica;
 import classes.*;
 import exceptions.*;
 import java.awt.BorderLayout;
+import java.awt.Event;
 import java.awt.FlowLayout;
+import java.awt.KeyboardFocusManager;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -54,6 +56,7 @@ public class LoginGUI extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(800, 600));
 
         btn_entrar.setText("Entrar");
+        btn_entrar.setNextFocusableComponent(btn_sair);
         btn_entrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_entrarActionPerformed(evt);
@@ -64,13 +67,27 @@ public class LoginGUI extends javax.swing.JFrame {
 
         lbl_senha.setText("Senha:");
 
+        txtfd_nomeUsuario.setNextFocusableComponent(pass_senha);
+        txtfd_nomeUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtfd_nomeUsuarioKeyPressed(evt);
+            }
+        });
+
+        pass_senha.setNextFocusableComponent(btn_entrar);
         pass_senha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pass_senhaActionPerformed(evt);
             }
         });
+        pass_senha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                pass_senhaKeyPressed(evt);
+            }
+        });
 
         btn_sair.setText("Sair");
+        btn_sair.setNextFocusableComponent(txtfd_nomeUsuario);
         btn_sair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_sairActionPerformed(evt);
@@ -153,6 +170,19 @@ public class LoginGUI extends javax.swing.JFrame {
         usuario = user;
         this.dispose();
     }//GEN-LAST:event_btn_entrarActionPerformed
+
+    private void pass_senhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pass_senhaKeyPressed
+        if (evt.getKeyCode() == Event.ENTER) {
+            btn_entrar.doClick();
+        }
+    }//GEN-LAST:event_pass_senhaKeyPressed
+
+    private void txtfd_nomeUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfd_nomeUsuarioKeyPressed
+        if (evt.getKeyCode() == Event.ENTER) {
+            KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
+	    manager.focusNextComponent();
+        }
+    }//GEN-LAST:event_txtfd_nomeUsuarioKeyPressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_entrar;
