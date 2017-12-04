@@ -25,13 +25,17 @@ public class SistemaSupermercadoMain {
 	Venda venda = new Venda();
 	VendaGUI vendaWindow = new VendaGUI(venda);
         vendaWindow.setVisible(true);
-        */
-
         
+
         Usuario usuario = new Usuario("","","");
         LoginGUI log = new LoginGUI(usuariosLista, usuario);
         log.setVisible(true);
-        usuariosLista.close();
+        
+	if (!log.isActive()) {*/
+	    MenuPrincipalGUI menu = new MenuPrincipalGUI();
+	    menu.setVisible(true);
+	//}
+	
 	
 	CargosLista cargosLista = new CargosLista();
         try {
@@ -44,9 +48,12 @@ public class SistemaSupermercadoMain {
         } catch (NameNotUniqueException ex) {
             
         }
-        
+        /*
         CadastroUsuarioGUI cadastroWindow = new CadastroUsuarioGUI(usuariosLista, cargosLista);
         cadastroWindow.setVisible(true);
+	*/
+	
+	usuariosLista.close();
     }
     
 
