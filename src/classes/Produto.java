@@ -14,7 +14,6 @@ public class Produto {
     public Produto(String nome, BigDecimal preco, String unidade, BigDecimal quantidadeEstoque, String codigoDeBarras) {
         this.preco = preco;
 	this.unidade = unidade;
-        this.quantidadeEstoque = quantidadeEstoque;
         this.codigoDeBarras = codigoDeBarras;
         this.nome = nome;
     }
@@ -44,14 +43,6 @@ public class Produto {
 	this.unidade = unidade;
     }
 
-    public BigDecimal getQuantidadeEstoque() {
-        return quantidadeEstoque;
-    }
-
-    public void setQuantidadeEstoque(BigDecimal quantidadeEstoque) {
-        this.quantidadeEstoque = quantidadeEstoque;
-    }
-
     public String getCodigoDeBarras() {
         return codigoDeBarras;
     }
@@ -62,14 +53,5 @@ public class Produto {
     
     public void setCodigoDeBarrasInt(int codigoDeBarras) {
         this.codigoDeBarras = Integer.toString(codigoDeBarras);
-    }
-    
-    public void retiraQtdEstoque(BigDecimal qtd) throws NegativeStockException {
-        if (quantidadeEstoque.add(qtd.negate()).max(new BigDecimal("0")) != new BigDecimal("0")) {
-            this.quantidadeEstoque.add(qtd.negate());
-        } else {
-            throw new NegativeStockException("Estoque ficaria negativo (" + (quantidadeEstoque.add(qtd.negate())) + ")");
-        }
-    }
-    
+    }  
 }
