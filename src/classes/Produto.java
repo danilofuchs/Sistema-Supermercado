@@ -8,8 +8,6 @@ public class Produto {
     private String nome;
     private BigDecimal preco;
     private String unidade;
-    
-    private BigDecimal quantidadeEstoque;
     private String codigoDeBarras;
 
     //Construtor:
