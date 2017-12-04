@@ -154,6 +154,7 @@ public class UsuariosLista {
         for (Usuario u : usuarios) {
             if (u.getNomeUsuario().equals(nomeUsuario)) {
                 usuario = u;
+		found = true;
             }
         }
         if (found) {
