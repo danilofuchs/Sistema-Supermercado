@@ -298,7 +298,7 @@ public class VendaGUI extends javax.swing.JFrame {
 	//Produto p = findProduto(fmtfd_codProduto.getText().replaceAll("\\s",""));
 	
 		
-	Produto p = new Produto("Feijão", new BigDecimal("1"), "KG", new BigDecimal("10"), "1234");
+	Produto p = new Produto("Feijão", new BigDecimal("1"), "KG", "1234");
 	ItemVenda item = new ItemVenda(p, new BigDecimal("1.5"));
 
 	DefaultTableModel table = (DefaultTableModel) table_produtos.getModel();
