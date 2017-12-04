@@ -1,8 +1,12 @@
 package classes;
 
 import exceptions.ProductNotUniqueException;
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import org.json.JSONObject;
 
 public class Estoque {
     private ArrayList<ItemEstoque> itens;
@@ -49,6 +53,20 @@ public class Estoque {
         }
         
         return item;
+    }
+    
+    public void inicializarEstoque() throws IOException, ProductNotUniqueException{
+        ArrayList<String> estoqueArquivo = (ArrayList)Files.readAllLines(Paths.get("EstoqueJSON.txt"));
+        
+        for(String s: estoqueArquivo){
+            JSONObject obj = new JSONObject(s);
+            
+            addItem(new ItemEstoque(new Produto(obj.getString("nome"), 
+            new BigDecimal(obj.getString("preco")), obj.getString("UN"),
+            obj.getString("codigo de barras")),
+            new BigDecimal(obj.getString("quantidade"))));
+        }
+        
     }
     
 }
