@@ -34,15 +34,12 @@ public class Usuario {
 	byte[] hash;
 	boolean result = false;
 
-	//try {
 	hash = md.digest(senha.getBytes(StandardCharsets.UTF_8));
-	if (Arrays.equals(hash, this.senha)) {
+	String hashString = new String(hash, StandardCharsets.UTF_8);
+
+	if (hashString.equals(getSenha())) {
 	    result = true;
 	}
-	/*}
-	 catch (UnsupportedEncodingException ex) {
-	 Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
-	 }*/
 
 	return result;
     }
@@ -58,7 +55,8 @@ public class Usuario {
     }
 
     public String getSenha() {
-	String encoded = Base64.getEncoder().encodeToString(senha);
+	//String encoded = Base64.getEncoder().encodeToString(senha);
+	String encoded = new String(senha, StandardCharsets.UTF_8);
 	return encoded;
 
     }
