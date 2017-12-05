@@ -316,9 +316,11 @@ public class VendaGUI extends javax.swing.JFrame {
 
     private void btn_removeProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_removeProdutoActionPerformed
         DefaultTableModel table = (DefaultTableModel) table_produtos.getModel();
-	venda.removeItem(table.getRowCount()-1);
-	table.removeRow(table.getRowCount()-1);
-	txtfd_total.setText(String.format("R$%4.2f", venda.getTotal()));
+	if (venda.getNumItens() > 0) {
+	    venda.removeItem(venda.getNumItens()-1);
+	    table.removeRow(venda.getNumItens()-1);
+	    txtfd_total.setText(String.format("R$%4.2f", venda.getTotal()));
+	}
     }//GEN-LAST:event_btn_removeProdutoActionPerformed
 
     /**
