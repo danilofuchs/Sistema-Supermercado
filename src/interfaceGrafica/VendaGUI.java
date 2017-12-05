@@ -299,7 +299,7 @@ public class VendaGUI extends javax.swing.JFrame {
 	
 		
 	Produto p = new Produto("Feijão", new BigDecimal("1"), "KG", "1234");
-	ItemVenda item = new ItemVenda(p, new BigDecimal("1.5"));
+	ItemVenda item = new ItemVenda(p, new BigDecimal("1.5"), venda.getNumItens());
 
 	DefaultTableModel table = (DefaultTableModel) table_produtos.getModel();
 

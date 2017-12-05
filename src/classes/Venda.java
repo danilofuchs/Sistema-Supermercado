@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class Venda {
     private ArrayList<ItemVenda> itens;
+    private int numItens = 0;
     private BigDecimal totalVenda;
     
     public Venda() {
@@ -16,21 +17,31 @@ public class Venda {
     public void addItem(ItemVenda item) {
 	itens.add(item);
 	totalVenda = totalVenda.add(item.getPrecoTotalItem());
+	numItens++;
     }
     
     public void removeItem(ItemVenda item) {
-	itens.remove(item);
-	totalVenda = totalVenda.add(item.getPrecoTotalItem().negate());
+	if (itens.contains(item)) {
+	    itens.remove(item);
+	    totalVenda = totalVenda.add(item.getPrecoTotalItem().negate());
+	    numItens--;
+	}
     }
     
     public void removeItem(int index) {
-	ItemVenda item = itens.get(index);
-	totalVenda = totalVenda.add(item.getPrecoTotalItem().negate());
-	itens.remove(item);
+	if (itens.size() > index && index > 0) {
+	    ItemVenda item = itens.get(index);
+	    totalVenda = totalVenda.add(item.getPrecoTotalItem().negate());
+	    itens.remove(item);
+	    numItens--;
+	}
     }
     
     public BigDecimal getTotal() {
 	return totalVenda;
     }
-    
+
+    public int getNumItens() {
+	return numItens;
+    }
 }

@@ -7,14 +7,16 @@ public class ItemVenda {
     private Produto produto;
     private BigDecimal qtd;
     private BigDecimal precoTotalItem;
+    private int sequencial;
 
     public ItemVenda() {
     }
 
-    public ItemVenda(Produto produto, BigDecimal qtd) {
+    public ItemVenda(Produto produto, BigDecimal qtd, int sequencial) {
 	this.produto = produto;
 	this.qtd = qtd;
 	this.precoTotalItem = produto.getPreco().multiply(qtd);
+	this.sequencial = sequencial;
     }
 
     public BigDecimal getPrecoTotalItem() {
@@ -38,6 +40,12 @@ public class ItemVenda {
 	this.qtd = qtd;
 	precoTotalItem = produto.getPreco().multiply(qtd);
     }
-    
-    
+
+    public void setSequencial(int sequencial) {
+	this.sequencial = sequencial;
+    }
+
+    public int getSequencial() {
+	return sequencial;
+    }
 }

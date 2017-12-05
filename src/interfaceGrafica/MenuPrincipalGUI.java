@@ -121,6 +121,11 @@ public class MenuPrincipalGUI extends javax.swing.JFrame {
         btn_novaVenda.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btn_novaVenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfaceGrafica/cart.png"))); // NOI18N
         btn_novaVenda.setText("Nova venda");
+        btn_novaVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_novaVendaActionPerformed(evt);
+            }
+        });
 
         btn_sair.setText("Sair");
 
@@ -191,6 +196,12 @@ public class MenuPrincipalGUI extends javax.swing.JFrame {
 	    this.dispose();
 	}
     }//GEN-LAST:event_btn_loginActionPerformed
+
+    private void btn_novaVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_novaVendaActionPerformed
+        Venda venda = new Venda();
+	VendaGUI vendaGUI = new VendaGUI(venda);
+	vendaGUI.setVisible(true);
+    }//GEN-LAST:event_btn_novaVendaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
