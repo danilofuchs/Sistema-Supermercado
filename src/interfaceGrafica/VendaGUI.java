@@ -6,6 +6,8 @@
 package interfaceGrafica;
 
 import classes.*;
+import exceptions.NameNotFoundException;
+import java.awt.KeyboardFocusManager;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;
@@ -38,8 +40,7 @@ public class VendaGUI extends javax.swing.JFrame {
 	myInitComponents();
 	this.venda = venda;
 	this.estoque = new Estoque();
-	//estoque.inicializarEstoque();
-	
+	estoque.inicializarEstoque();
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -108,11 +109,15 @@ public class VendaGUI extends javax.swing.JFrame {
         txtfd_nomeProduto.setEditable(false);
         txtfd_nomeProduto.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
-        fmtfd_codProduto.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-                fmtfd_codProdutoCaretPositionChanged(evt);
+        fmtfd_codProduto.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                fmtfd_codProdutoCaretUpdate(evt);
             }
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+        });
+
+        fmtfd_qtdProduto.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                fmtfd_qtdProdutoFocusGained(evt);
             }
         });
 
@@ -277,16 +282,29 @@ public class VendaGUI extends javax.swing.JFrame {
 	}
     }//GEN-LAST:event_btn_removeProdutoActionPerformed
 
-    private void fmtfd_codProdutoCaretPositionChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_fmtfd_codProdutoCaretPositionChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fmtfd_codProdutoCaretPositionChanged
-    /*
-    private Produto findProduto(String codBarras) {
-	codBarras.replaceAll("\\s","");
-	//Produto p = findProduto(fmtfd_codProduto.getText());
-	return new Produto("",,"","");
+    private void fmtfd_codProdutoCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_fmtfd_codProdutoCaretUpdate
+        if (fmtfd_codProduto.getCaret().getMark() == 15) {
+            KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
+            manager.focusNextComponent();
+	}
+    }//GEN-LAST:event_fmtfd_codProdutoCaretUpdate
+
+    private void fmtfd_qtdProdutoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fmtfd_qtdProdutoFocusGained
+        try {
+	    Produto produto = findProduto(fmtfd_codProduto.getText());
+	    txtfd_nomeProduto.setText(produto.getNome());
+	} catch (NameNotFoundException ex) {
+	    System.err.println("Não encontrado " + fmtfd_codProduto.getText().replaceAll("\\s",""));
+	    txtfd_nomeProduto.setText("");
+	}
 	
-    }*/
+    }//GEN-LAST:event_fmtfd_qtdProdutoFocusGained
+    
+    private Produto findProduto(String codBarras) throws NameNotFoundException {
+	codBarras.replaceAll("\\s","");
+	ItemEstoque item = estoque.findItem(codBarras);
+	return item.getProduto();	
+    }
     
     public static void main(String args[]) {
 	java.awt.EventQueue.invokeLater(new Runnable() {

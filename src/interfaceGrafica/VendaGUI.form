@@ -141,10 +141,13 @@
     </Component>
     <Component class="javax.swing.JFormattedTextField" name="fmtfd_codProduto">
       <Events>
-        <EventHandler event="caretPositionChanged" listener="java.awt.event.InputMethodListener" parameters="java.awt.event.InputMethodEvent" handler="fmtfd_codProdutoCaretPositionChanged"/>
+        <EventHandler event="caretUpdate" listener="javax.swing.event.CaretListener" parameters="javax.swing.event.CaretEvent" handler="fmtfd_codProdutoCaretUpdate"/>
       </Events>
     </Component>
     <Component class="javax.swing.JFormattedTextField" name="fmtfd_qtdProduto">
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="fmtfd_qtdProdutoFocusGained"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lbl_nome">
       <Properties>
