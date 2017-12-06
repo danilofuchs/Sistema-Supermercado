@@ -109,6 +109,7 @@ public class VendaGUI extends javax.swing.JFrame {
         txtfd_nomeProduto.setEditable(false);
         txtfd_nomeProduto.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
+        fmtfd_codProduto.setAutoscrolls(false);
         fmtfd_codProduto.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
                 fmtfd_codProdutoCaretUpdate(evt);
@@ -291,8 +292,9 @@ public class VendaGUI extends javax.swing.JFrame {
 
     private void fmtfd_qtdProdutoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fmtfd_qtdProdutoFocusGained
         try {
-	    Produto produto = findProduto(fmtfd_codProduto.getText());
+	    Produto produto = findProduto(fmtfd_codProduto.getText().replaceAll("\\s",""));
 	    txtfd_nomeProduto.setText(produto.getNome());
+	    txtfd_nomeProduto.setCaretPosition(0);
 	} catch (NameNotFoundException ex) {
 	    System.err.println("Não encontrado " + fmtfd_codProduto.getText().replaceAll("\\s",""));
 	    txtfd_nomeProduto.setText("");
@@ -302,6 +304,7 @@ public class VendaGUI extends javax.swing.JFrame {
     
     private Produto findProduto(String codBarras) throws NameNotFoundException {
 	codBarras.replaceAll("\\s","");
+	codBarras.replaceAll("\\n","");
 	ItemEstoque item = estoque.findItem(codBarras);
 	return item.getProduto();	
     }

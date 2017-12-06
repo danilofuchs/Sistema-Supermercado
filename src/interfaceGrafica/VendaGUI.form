@@ -140,6 +140,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JFormattedTextField" name="fmtfd_codProduto">
+      <Properties>
+        <Property name="autoscrolls" type="boolean" value="false"/>
+      </Properties>
       <Events>
         <EventHandler event="caretUpdate" listener="javax.swing.event.CaretListener" parameters="javax.swing.event.CaretEvent" handler="fmtfd_codProdutoCaretUpdate"/>
       </Events>
