@@ -23,6 +23,7 @@ import javax.swing.text.NumberFormatter;
 
 public class VendaGUI extends javax.swing.JFrame {
     private Venda venda;
+    private Estoque estoque;
     MaskFormatter maskFormatterCod = new MaskFormatter();
     MaskFormatter maskFormatterQtd = new MaskFormatter();
     /**
@@ -36,6 +37,8 @@ public class VendaGUI extends javax.swing.JFrame {
 	initComponents();
 	myInitComponents();
 	this.venda = venda;
+	this.estoque = new Estoque();
+	//estoque.inicializarEstoque();
 	
     }
     /**
@@ -104,6 +107,14 @@ public class VendaGUI extends javax.swing.JFrame {
 
         txtfd_nomeProduto.setEditable(false);
         txtfd_nomeProduto.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        fmtfd_codProduto.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+                fmtfd_codProdutoCaretPositionChanged(evt);
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+            }
+        });
 
         lbl_nome.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lbl_nome.setText("Nome do Produto");
@@ -235,10 +246,13 @@ public class VendaGUI extends javax.swing.JFrame {
     }*/
 
     private void btn_addProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addProdutoActionPerformed
+	addProdutoLista();
 
-	//Produto p = findProduto(fmtfd_codProduto.getText().replaceAll("\\s",""));
-	
-		
+    }//GEN-LAST:event_btn_addProdutoActionPerformed
+
+    private void addProdutoLista() {
+		//Produto p = findProduto(fmtfd_codProduto.getText().replaceAll("\\s",""));
+
 	Produto p = new Produto("Feijão", new BigDecimal("1"), "KG", "1234");
 	ItemVenda item = new ItemVenda(p, new BigDecimal("1.5"), venda.getNumItens());
 
@@ -253,8 +267,7 @@ public class VendaGUI extends javax.swing.JFrame {
 	);
 	venda.addItem(item);
 	txtfd_total.setText(String.format("R$%4.2f", venda.getTotal()));
-    }//GEN-LAST:event_btn_addProdutoActionPerformed
-
+    }
     private void btn_removeProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_removeProdutoActionPerformed
         DefaultTableModel table = (DefaultTableModel) table_produtos.getModel();
 	if (venda.getNumItens() > 0) {
@@ -263,6 +276,18 @@ public class VendaGUI extends javax.swing.JFrame {
 	    txtfd_total.setText(String.format("R$%4.2f", venda.getTotal()));
 	}
     }//GEN-LAST:event_btn_removeProdutoActionPerformed
+
+    private void fmtfd_codProdutoCaretPositionChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_fmtfd_codProdutoCaretPositionChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fmtfd_codProdutoCaretPositionChanged
+    /*
+    private Produto findProduto(String codBarras) {
+	codBarras.replaceAll("\\s","");
+	//Produto p = findProduto(fmtfd_codProduto.getText());
+	return new Produto("",,"","");
+	
+    }*/
+    
     public static void main(String args[]) {
 	java.awt.EventQueue.invokeLater(new Runnable() {
 		public void run() {
