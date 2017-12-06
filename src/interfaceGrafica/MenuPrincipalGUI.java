@@ -128,6 +128,11 @@ public class MenuPrincipalGUI extends javax.swing.JFrame {
         });
 
         btn_sair.setText("Sair");
+        btn_sair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_sairActionPerformed(evt);
+            }
+        });
 
         lbl_bemVindo.setText("Bem-vindo");
 
@@ -202,6 +207,10 @@ public class MenuPrincipalGUI extends javax.swing.JFrame {
 	VendaGUI vendaGUI = new VendaGUI(venda);
 	vendaGUI.setVisible(true);
     }//GEN-LAST:event_btn_novaVendaActionPerformed
+
+    private void btn_sairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_sairActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btn_sairActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
