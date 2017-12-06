@@ -20,10 +20,16 @@ public class Estoque {
     }
 
     public void addItem(ItemEstoque item) throws ProductNotUniqueException {
+	boolean foundEqual = false;
 	for (ItemEstoque i : itens) {
-	    if (i == item) {
-		throw new ProductNotUniqueException("Código de barras já cadastrado.");
+	    if (i.getProduto().getCodigoDeBarras().equals(item.getProduto().getCodigoDeBarras())) {
+		foundEqual = true;
 	    }
+	}
+	if (foundEqual) {
+	    throw new ProductNotUniqueException("Código de barras já cadastrado.");
+	} else {
+	    itens.add(item);
 	}
     }
 
@@ -58,7 +64,6 @@ public class Estoque {
 	    }
 	}
 	if (found) {
-
 	    return item;
 	} else {
 	    throw new NameNotFoundException("Nenhum produto com este código de barras");
@@ -75,21 +80,22 @@ public class Estoque {
 		JSONObject obj = new JSONObject(s);
 		try {
 		    addItem(new ItemEstoque(new Produto(
-			    obj.getString("nome"),
-			    new BigDecimal(obj.getString("preco")), obj.getString("UN"),
-			    obj.getString("codigo de barras")),
-			    new BigDecimal(obj.getString("quantidade")
-			    )));
+					    obj.getString("nome"),
+					    new BigDecimal(obj.getString("preco")),
+					    obj.getString("UN"),
+					    obj.getString("codigo de barras").replaceAll("\\n", "")),
+			    new BigDecimal(obj.getString("quantidade"))
+			    ));
 		}
 		catch (ProductNotUniqueException ex) {
 		    //não fazer nada (não adiciona)
 		}
+		
 	    }
 	}
 	catch (IOException ex) {
 	    Logger.getLogger(Estoque.class.getName()).log(Level.SEVERE, null, ex);
 	}
-
     }
 
 }
