@@ -26,8 +26,10 @@ import javax.swing.text.NumberFormatter;
 public class VendaGUI extends javax.swing.JFrame {
     private Venda venda;
     private Estoque estoque;
-    MaskFormatter maskFormatterCod = new MaskFormatter();
-    MaskFormatter maskFormatterQtd = new MaskFormatter();
+    private Produto prodTemp;
+    private boolean prodTempValido = false;
+    private MaskFormatter maskFormatterCod = new MaskFormatter();
+    private MaskFormatter maskFormatterQtd = new MaskFormatter();
     /**
      * Creates new form VendaGUI
      */
@@ -100,6 +102,7 @@ public class VendaGUI extends javax.swing.JFrame {
 
         btn_addProduto.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btn_addProduto.setText("Adicionar Produto");
+        btn_addProduto.setNextFocusableComponent(fmtfd_codProduto);
         btn_addProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_addProdutoActionPerformed(evt);
@@ -110,12 +113,14 @@ public class VendaGUI extends javax.swing.JFrame {
         txtfd_nomeProduto.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         fmtfd_codProduto.setAutoscrolls(false);
+        fmtfd_codProduto.setNextFocusableComponent(fmtfd_qtdProduto);
         fmtfd_codProduto.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
                 fmtfd_codProdutoCaretUpdate(evt);
             }
         });
 
+        fmtfd_qtdProduto.setNextFocusableComponent(btn_addProduto);
         fmtfd_qtdProduto.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 fmtfd_qtdProdutoFocusGained(evt);
@@ -257,22 +262,25 @@ public class VendaGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_addProdutoActionPerformed
 
     private void addProdutoLista() {
-		//Produto p = findProduto(fmtfd_codProduto.getText().replaceAll("\\s",""));
 
-	Produto p = new Produto("Feijão", new BigDecimal("1"), "KG", "1234");
-	ItemVenda item = new ItemVenda(p, new BigDecimal("1.5"), venda.getNumItens());
+	if (prodTempValido) {
+	    ItemVenda item = new ItemVenda(prodTemp, new BigDecimal(fmtfd_qtdProduto.getText().replaceAll(",", ".")), venda.getNumItens());
 
-	DefaultTableModel table = (DefaultTableModel) table_produtos.getModel();
+	    DefaultTableModel table = (DefaultTableModel) table_produtos.getModel();
 
-	table.addRow(new Object[]{
-	    item.getProduto().getNome(),
-	    String.format("%4.3f %s", item.getQtd(), item.getProduto().getUnidade()),
-	    String.format("R$%04.2f", item.getProduto().getPreco()),
-	    String.format("R$%04.2f", item.getPrecoTotalItem())
+	    table.addRow(new Object[]{
+		item.getProduto().getNome(),
+		String.format("%4.3f %s", item.getQtd(), item.getProduto().getUnidade()),
+		String.format("R$%04.2f", item.getProduto().getPreco()),
+		String.format("R$%04.2f", item.getPrecoTotalItem())
+	    }
+	    );
+	    venda.addItem(item);
+	    txtfd_total.setText(String.format("R$%4.2f", venda.getTotal()));
+	} else {
+	    
 	}
-	);
-	venda.addItem(item);
-	txtfd_total.setText(String.format("R$%4.2f", venda.getTotal()));
+	resetTextFields();
     }
     private void btn_removeProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_removeProdutoActionPerformed
         DefaultTableModel table = (DefaultTableModel) table_produtos.getModel();
@@ -291,17 +299,31 @@ public class VendaGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_fmtfd_codProdutoCaretUpdate
 
     private void fmtfd_qtdProdutoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fmtfd_qtdProdutoFocusGained
-        try {
-	    Produto produto = findProduto(fmtfd_codProduto.getText().replaceAll("\\s",""));
-	    txtfd_nomeProduto.setText(produto.getNome());
-	    txtfd_nomeProduto.setCaretPosition(0);
-	} catch (NameNotFoundException ex) {
-	    System.err.println("Não encontrado " + fmtfd_codProduto.getText().replaceAll("\\s",""));
-	    txtfd_nomeProduto.setText("");
-	}
-	
+	updateWindowProduto();
     }//GEN-LAST:event_fmtfd_qtdProdutoFocusGained
     
+    private void updateWindowProduto() {
+	try {
+	    prodTemp = findProduto(fmtfd_codProduto.getText().replaceAll("\\s",""));
+	    prodTempValido = true;
+	} catch (NameNotFoundException ex) {
+	    prodTemp = new Produto("",new BigDecimal("0"),"","");
+	    prodTempValido = false;
+	    System.err.println("Não encontrado " + fmtfd_codProduto.getText().replaceAll("\\s",""));
+	}
+	
+	txtfd_nomeProduto.setText(prodTemp.getNome());
+	txtfd_nomeProduto.setCaretPosition(0);
+    }
+    
+    private void resetTextFields() {
+
+	txtfd_nomeProduto.setText("");
+	fmtfd_codProduto.setText("");
+	fmtfd_qtdProduto.setText("");
+	prodTemp = new Produto("",new BigDecimal("0"),"","");
+	prodTempValido = false;
+    }
     private Produto findProduto(String codBarras) throws NameNotFoundException {
 	codBarras.replaceAll("\\s","");
 	codBarras.replaceAll("\\n","");
