@@ -53,7 +53,7 @@ public class VendaGUI extends javax.swing.JFrame {
 	    maskFormatterCod.setPlaceholderCharacter(' ');
 	    maskFormatterCod.setValueContainsLiteralCharacters(false);
 	    
-	    maskFormatterQtd = new MaskFormatter("*,***");
+	    maskFormatterQtd = new MaskFormatter("****,***");
 	    maskFormatterQtd.setValidCharacters("1234567890 ");
 	    maskFormatterQtd.setPlaceholderCharacter('0');
 	    maskFormatterQtd.setValueContainsLiteralCharacters(true);
@@ -263,7 +263,15 @@ public class VendaGUI extends javax.swing.JFrame {
 	    txtfd_total.setText(String.format("R$%4.2f", venda.getTotal()));
 	}
     }//GEN-LAST:event_btn_removeProdutoActionPerformed
+    public static void main(String args[]) {
+	java.awt.EventQueue.invokeLater(new Runnable() {
+		public void run() {
+		    VendaGUI dialog = new VendaGUI(new Venda());
 
+		    dialog.setVisible(true);
+		}
+	    });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_addProduto;
