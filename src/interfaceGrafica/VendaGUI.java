@@ -7,6 +7,7 @@ package interfaceGrafica;
 
 import classes.*;
 import exceptions.NameNotFoundException;
+import java.awt.Event;
 import java.awt.KeyboardFocusManager;
 
 import java.math.BigDecimal;
@@ -111,6 +112,11 @@ public class VendaGUI extends javax.swing.JFrame {
                 btn_addProdutoActionPerformed(evt);
             }
         });
+        btn_addProduto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btn_addProdutoKeyPressed(evt);
+            }
+        });
 
         txtfd_nomeProduto.setEditable(false);
         txtfd_nomeProduto.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -129,6 +135,11 @@ public class VendaGUI extends javax.swing.JFrame {
                 fmtfd_qtdProdutoFocusGained(evt);
             }
         });
+        fmtfd_qtdProduto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                fmtfd_qtdProdutoKeyPressed(evt);
+            }
+        });
 
         lbl_nome.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lbl_nome.setText("Nome do Produto");
@@ -139,7 +150,7 @@ public class VendaGUI extends javax.swing.JFrame {
         lbl_qtd.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lbl_qtd.setText("Quantidade");
 
-        table_produtos.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        table_produtos.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
         table_produtos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -163,7 +174,8 @@ public class VendaGUI extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        table_produtos.setRowHeight(20);
+        table_produtos.setRowHeight(30);
+        table_produtos.setRowMargin(10);
         table_produtos.setShowVerticalLines(false);
         table_produtos.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(table_produtos);
@@ -173,9 +185,9 @@ public class VendaGUI extends javax.swing.JFrame {
             table_produtos.getColumnModel().getColumn(1).setResizable(false);
             table_produtos.getColumnModel().getColumn(1).setPreferredWidth(120);
             table_produtos.getColumnModel().getColumn(2).setResizable(false);
-            table_produtos.getColumnModel().getColumn(2).setPreferredWidth(100);
+            table_produtos.getColumnModel().getColumn(2).setPreferredWidth(120);
             table_produtos.getColumnModel().getColumn(3).setResizable(false);
-            table_produtos.getColumnModel().getColumn(3).setPreferredWidth(100);
+            table_produtos.getColumnModel().getColumn(3).setPreferredWidth(150);
         }
 
         lbl_total.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -307,6 +319,23 @@ public class VendaGUI extends javax.swing.JFrame {
     private void fmtfd_qtdProdutoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fmtfd_qtdProdutoFocusGained
 	updateWindowProduto();
     }//GEN-LAST:event_fmtfd_qtdProdutoFocusGained
+
+    private void fmtfd_qtdProdutoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fmtfd_qtdProdutoKeyPressed
+        if (evt.getKeyCode() == Event.ENTER) {
+            KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
+            manager.focusNextComponent();
+	    btn_addProduto.doClick();
+	    manager.focusNextComponent();
+        }
+    }//GEN-LAST:event_fmtfd_qtdProdutoKeyPressed
+
+    private void btn_addProdutoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btn_addProdutoKeyPressed
+        if (evt.getKeyCode() == Event.ENTER) {
+            btn_addProduto.doClick();
+	    KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
+            manager.focusNextComponent();
+        }
+    }//GEN-LAST:event_btn_addProdutoKeyPressed
     
     private void updateWindowProduto() {
 	try {

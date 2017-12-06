@@ -141,6 +141,7 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_addProdutoActionPerformed"/>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="btn_addProdutoKeyPressed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtfd_nomeProduto">
@@ -170,6 +171,7 @@
       </Properties>
       <Events>
         <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="fmtfd_qtdProdutoFocusGained"/>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="fmtfd_qtdProdutoKeyPressed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lbl_nome">
@@ -206,7 +208,7 @@
         <Component class="javax.swing.JTable" name="table_produtos">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="18" style="0"/>
+              <Font name="Tahoma" size="22" style="0"/>
             </Property>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="4" rowCount="0">
@@ -228,19 +230,20 @@
                   <Editor/>
                   <Renderer/>
                 </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="100" resizable="false">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="120" resizable="false">
                   <Title/>
                   <Editor/>
                   <Renderer/>
                 </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="100" resizable="false">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="150" resizable="false">
                   <Title/>
                   <Editor/>
                   <Renderer/>
                 </Column>
               </TableColumnModel>
             </Property>
-            <Property name="rowHeight" type="int" value="20"/>
+            <Property name="rowHeight" type="int" value="30"/>
+            <Property name="rowMargin" type="int" value="10"/>
             <Property name="showVerticalLines" type="boolean" value="false"/>
             <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
               <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
