@@ -1,0 +1,117 @@
+{"preco":"5.0","codigo de barras":"7892840800239","UN":"UN","nome":"REFRIGERANTE PEPSI COLA PET 600 ML","quantidade":"66"}
+{"preco":"17.01","codigo de barras":"7896132108591","UN":"UN","nome":"GLOSS MARCHETTI TOQUE DE NATUREZA 14","quantidade":"94"}
+{"preco":"15.12","codigo de barras":"7898182801088","UN":"UN","nome":"PAPEL ALUMINIO BLU FORTE 30CM X 5M","quantidade":"58"}
+{"preco":"3.88","codigo de barras":"7891172145124","UN":"UN","nome":"GUARDANAPO SCOTT COQUETEL BRANCO COM 50 UNIDA","quantidade":"37"}
+{"preco":"12.82","codigo de barras":"7896058504217","UN":"UN","nome":"PIRULITO BOLETE TUTTI FRUTTI DORI 400G","quantidade":"85"}
+{"preco":"6.05","codigo de barras":"7898188001017","UN":"UN","nome":"FUBA TALITA 1KG.","quantidade":"51"}
+{"preco":"17.27","codigo de barras":"7896223705272","UN":"UN","nome":"RACAO CANITOS JUNIOR 1KG","quantidade":"87"}
+{"preco":"6.54","codigo de barras":"7896223705197","UN":"UN","nome":"RACAO POP DOG NATURAL 2,7 KG N","quantidade":"79"}
+{"preco":"7.31","codigo de barras":"7896223705180","UN":"UN","nome":"RACAO POP DOG NATURAL 2,7 KG N","quantidade":"55"}
+{"preco":"10.28","codigo de barras":"7896223706033","UN":"UN","nome":"RACAO CANITOS ADULTO 8KG","quantidade":"47"}
+{"preco":"2.75","codigo de barras":"7896104998953","UN":"UN","nome":"PAPEL HIGIENICO MILI  C/4 60M","quantidade":"90"}
+{"preco":"17.93","codigo de barras":"7893694029319","UN":"UN","nome":"GEL FIX KANECHOMN S/ALCOOL ROSA 230GR","quantidade":"82"}
+{"preco":"16.62","codigo de barras":"7891035128103","UN":"UN","nome":"HARPIC LIQ POWER PLUS 500ML","quantidade":"35"}
+{"preco":"15.19","codigo de barras":"6926168008846","UN":"UN","nome":"GUARDA CHUVA BOB ESPONJA","quantidade":"57"}
+{"preco":"2.26","codigo de barras":"4005808309535","UN":"UN","nome":"LOC NIVEA BODY HAPPY TIME HID PERF 200M","quantidade":"32"}
+{"preco":"7.91","codigo de barras":"4005808323401","UN":"UN","nome":"LOC NIVEA BODY AVEIA 200ML","quantidade":"65"}
+{"preco":"11.96","codigo de barras":"4005808310999","UN":"UN","nome":"NIVEA BODY LOTION P NORM 200M","quantidade":"92"}
+{"preco":"10.43","codigo de barras":"4005808309436","UN":"UN","nome":"LOC NIVEA BODY MILK P. EXT 200","quantidade":"71"}
+{"preco":"16.11","codigo de barras":"7891528038643","UN":"UN","nome":"G.D. SORRISO FR.MENTA/ACAI LV100 PG90G","quantidade":"42"}
+{"preco":"2.82","codigo de barras":"7896104997635","UN":"UN","nome":"LENCOS UMIDECIDOS MILI 70UN 20X12CM","quantidade":"99"}
+{"preco":"2.0","codigo de barras":"7896094924611","UN":"UN","nome":"LEITE COLONIA 100ML","quantidade":"76"}
+{"preco":"4.7","codigo de barras":"7893000024205","UN":"UN","nome":"QUEIJO SADIA PRATO VITA LIGHT FAT 144G","quantidade":"72"}
+{"preco":"3.0","codigo de barras":"7891700201704","UN":"UN","nome":"REF FRISCO MORANGO ARISCO 35G","quantidade":"40"}
+{"preco":"11.64","codigo de barras":"7891025103233","UN":"UN","nome":"IOG ACTIVIA AMEIXA DANONE 400G","quantidade":"34"}
+{"preco":"15.95","codigo de barras":"7896213113186","UN":"UN","nome":"HAIR SPRAY STILER 3 500ML","quantidade":"44"}
+{"preco":"13.93","codigo de barras":"7891025126409","UN":"UN","nome":"IOG CORPUS FRESH PESSEGO 200G","quantidade":"59"}
+{"preco":"12.46","codigo de barras":"7891025111122","UN":"UN","nome":"IOG DANUP MOR 200G","quantidade":"84"}
+{"preco":"2.18","codigo de barras":"7891108030272","UN":"UN","nome":"GAR TERM ATX CONTINENTAL ALADDIN 1L","quantidade":"48"}
+{"preco":"3.68","codigo de barras":"7891175016193","UN":"UN","nome":"GARFO PLAST REGINA VD","quantidade":"83"}
+{"preco":"14.76","codigo de barras":"7891175012454","UN":"UN","nome":"GARFO PLAST REGINA BR","quantidade":"30"}
+{"preco":"5.28","codigo de barras":"7896020900603","UN":"UN","nome":"NHOQUE DE BATATA ROMANHA 400G","quantidade":"73"}
+{"preco":"17.44","codigo de barras":"7891035502231","UN":"UN","nome":"LUSTRA MOVEIS POLIFLOR LAVANDA 200ML L3 P2","quantidade":"77"}
+{"preco":"16.15","codigo de barras":"7896079563989","UN":"UN","nome":"IOGURTE ELEGE YOGE FRUTAS TROPICAIS 180G","quantidade":"52"}
+{"preco":"11.45","codigo de barras":"7896256601169","UN":"UN","nome":"IOGURTE TIROL AMEIXA 900G","quantidade":"93"}
+{"preco":"5.81","codigo de barras":"7891206012149","UN":"UN","nome":"LAMPADA OSRAM 200W X 220V","quantidade":"56"}
+{"preco":"10.18","codigo de barras":"7896102506051","UN":"UN","nome":"GOIABADA QUERO 500 G","quantidade":"41"}
+{"preco":"2.00","codigo de barras":"7896423975123","UN":"UN","nome":"OREGANO CAROL 8G.","quantidade":"70"}
+{"preco":"9.21","codigo de barras":"7891300926052","UN":"UN","nome":"POLPA DE TOMATE ETTI 520G.","quantidade":"60"}
+{"preco":"7.95","codigo de barras":"7891095150120","UN":"UN","nome":"MOLHO INGLES KITANO 150ML.","quantidade":"67"}
+{"preco":"17.46","codigo de barras":"7896009730207","UN":"UN","nome":"PILHAS RAYOVAC ALCALINA PLUS PEQUENA C/2","quantidade":"98"}
+{"preco":"19.39","codigo de barras":"7896348841657","UN":"C12","nome":"LEITE INTEGRAL PIA 1L","quantidade":"80"}
+{"preco":"3.59","codigo de barras":"7896348841480","UN":"UN","nome":"LEITE INTEGRAL PIA 1L","quantidade":"53"}
+{"preco":"4.42","codigo de barras":"4891138834140","UN":"UN","nome":"LANTERNA CORPO EM BORRACHA CODIGO R 252 EVERE","quantidade":"89"}
+{"preco":"9.42","codigo de barras":"4891138833822","UN":"UN","nome":"LANTERNA EVEREADY FC 250","quantidade":"31"}
+{"preco":"11.20","codigo de barras":"7891962005911","UN":"UN","nome":"MINI WAFER CHOCOLATE BAUDUCCO 40G","quantidade":"39"}
+{"preco":"12.51","codigo de barras":"7891962005966","UN":"UN","nome":"MINI WAFER CHOCOLATE BAUDUCCO 40G","quantidade":"75"}
+{"preco":"10.36","codigo de barras":"7896522023756","UN":"UN","nome":"LEITE DEFRISANTE VITA COLOR CAPICILIN 150ML","quantidade":"78"}
+{"preco":"0.29","codigo de barras":"7896522023619","UN":"UN","nome":"MASCARA PARA PENTEAR VITA COLOR TINGIDOS CAPI","quantidade":"91"}
+{"preco":"8.45","codigo de barras":"7898168290028","UN":"UN","nome":"PEPINO EM CONSERVA REAL ESPECIAL PARA LANCHES","quantidade":"69"}
+{"preco":"5.54","codigo de barras":"7891792212008","UN":"UN","nome":"LIXA NORTON ACQUA FLEX 120","quantidade":"64"}
+{"preco":"8.17","codigo de barras":"7891515944247","UN":"UN","nome":"PATE DEFUMADO DE PRESUNTO 120G","quantidade":"49"}
+{"preco":"10.99","codigo de barras":"7891224726578","UN":"UN","nome":"HAVAIANAS TOP ROYAL 35/36","quantidade":"63"}
+{"preco":"4.38","codigo de barras":"7891360473176","UN":"UN","nome":"LAPIS GRAFITE MARMORI FABER CASTELL C/4UN","quantidade":"50"}
+{"preco":"14.99","codigo de barras":"7891172422133","UN":"UN","nome":"PAPEL HIGIENICO NEVE ELEGANCE SALMON PERFUMAD","quantidade":"95"}
+{"preco":"2.44","codigo de barras":"7891691086410","UN":"UN","nome":"GARRAFA TERMIC NOV EUREK RF8641 INVICTA 750ML","quantidade":"62"}
+{"preco":"13.78","codigo de barras":"7896359010172","UN":"UN","nome":"JARRA PLASTICA SANREMO REF 791","quantidade":"100"}
+{"preco":"5.44","codigo de barras":"7891515939243","UN":"UN","nome":"NATURIS SOJA LIQ MOR BATAVO 180G","quantidade":"61"}
+{"preco":"5.23","codigo de barras":"7896067720738","UN":"UN","nome":"ODORIZANTE GEL MONZA MGO 60G","quantidade":"88"}
+{"preco":"15.44","codigo de barras":"7896419701552","UN":"UN","nome":"PESSEGOS EM CALDA METADES LAR 400G","quantidade":"97"}
+{"preco":"13.21","codigo de barras":"7896072077070","UN":"UN","nome":"PUDIM BRETZKE COCO 85G","quantidade":"54"}
+{"preco":"1.86","codigo de barras":"7896072048117","UN":"UN","nome":"GELATINA BRETZKE LARANJA 85G","quantidade":"74"}
+{"preco":"17.28","codigo de barras":"7896096500011","UN":"UN","nome":"PAO DE LEITE NINO 400 G","quantidade":"38"}
+{"preco":"19.48","codigo de barras":"7892999933529","UN":"UN","nome":"IOG LECO LIGHT MORANGO 460G","quantidade":"68"}
+{"preco":"3.41","codigo de barras":"7896079500151","UN":"UN","nome":"LEITE ELEGE INTEGRAL 1L","quantidade":"86"}
+{"preco":"9.26","codigo de barras":"7893000018815","UN":"UN","nome":"HOT POCKET SADIA REQ/CALAB 120G","quantidade":"33"}
+{"preco":"8.47","codigo de barras":"7891035060007","UN":"UN","nome":"POLIDOR METAIS BRASSO RECKITT 200ML","quantidade":"43"}
+{"preco":"17.89","codigo de barras":"7898148645244","UN":"UN","nome":"FRALDAS LES ENFANTS EG 8UN","quantidade":"81"}
+{"preco":"7.05","codigo de barras":"7898148645503","UN":"UN","nome":"FRALDAS LES ENFANTS M 10UN","quantidade":"45"}
+{"preco":"1.19","codigo de barras":"7896007510597","UN":"UN","nome":"FRALDA T.MONICA TRIPLA PROT EG 8UN","quantidade":"46"}
+{"preco":"15.74","codigo de barras":"7501007480862","UN":"UN","nome":"FRALDA PAMPERS TOT C. M 11UN","quantidade":"36"}
+{"preco":"10.96","codigo de barras":"7590002028407","UN":"UN","nome":"FRALDA PAMPERS TOT C. M 11UN","quantidade":"96"}
+{"preco":"0.53","codigo de barras":"7896018100602","UN":"UN","nome":"MASSA SEM. RIGATONI TODESCHINI 500G","quantidade":"39"}
+{"preco":"11.80","codigo de barras":"7891024195604","UN":"UN","nome":"PINHO SOL CITRUS LIMAO COLGATE 1000ML","quantidade":"84"}
+{"preco":"17.51","codigo de barras":"7896034680522","UN":"UN","nome":"GLORIA FESTA CAJUZINHO 365G","quantidade":"44"}
+{"preco":"6.91","codigo de barras":"7891350031584","UN":"UN","nome":"GEL BOZZANO ESTILO STREET 230G","quantidade":"69"}
+{"preco":"16.57","codigo de barras":"7891350031621","UN":"UN","nome":"GEL BOZZANO ESTILO AGITO 230G","quantidade":"55"}
+{"preco":"16.51","codigo de barras":"7896256600025","UN":"UN","nome":"LEITE TIROL B 1L","quantidade":"36"}
+{"preco":"18.51","codigo de barras":"7730108002103","UN":"UN","nome":"PALITOS EMP MERLUZA FRIPUR 300G","quantidade":"32"}
+{"preco":"14.35","codigo de barras":"7896022201982","UN":"UN","nome":"MACARRAO INT VITAMINADO RENATA 500G","quantidade":"40"}
+{"preco":"6.56","codigo de barras":"7896279102070","UN":"UN","nome":"GEL FIX VITA CAPILLI MAGIC 240G","quantidade":"42"}
+{"preco":"12.81","codigo de barras":"7891035524608","UN":"UN","nome":"REFIL SANIT HARPIC MACA RECKITT 70G","quantidade":"56"}
+{"preco":"12.18","codigo de barras":"7891035523502","UN":"UN","nome":"REFIL SANIT BOM AR LAV RECKITT 70G","quantidade":"59"}
+{"preco":"17.71","codigo de barras":"7896183904760","UN":"UN","nome":"MIST BOLO ZAELI COCO 450G","quantidade":"83"}
+{"preco":"18.10","codigo de barras":"7896519210329","UN":"UN","nome":"POLPA DE ABACAXI  INTEGRAL DM 200G","quantidade":"53"}
+{"preco":"5.08","codigo de barras":"7891515020699","UN":"UN","nome":"PEITO CORDON BLEU PERDIGAO 500G","quantidade":"75"}
+{"preco":"4.41","codigo de barras":"7891164016111","UN":"UN","nome":"MORTADELA DE FRANGO AURORA 500G","quantidade":"100"}
+{"preco":"17.31","codigo de barras":"7891164005825","UN":"UN","nome":"PAIO AURORA 400G","quantidade":"95"}
+{"preco":"0.86","codigo de barras":"7893333354307","UN":"UN","nome":"GELATINA ROYAL LIMAO 45G","quantidade":"31"}
+{"preco":"18.92","codigo de barras":"7891691097683","UN":"UN","nome":"JARRA TERMICA PS DECORRADA REF 9768 INVICTA 1","quantidade":"68"}
+{"preco":"8.79","codigo de barras":"7891691097188","UN":"UN","nome":"GARRAFA TERMICA DE MESA AIR POT REF 9718 INVI","quantidade":"70"}
+{"preco":"18.29","codigo de barras":"7896007200368","UN":"UN","nome":"PRESERVATIVO BLOWTEX AROMATIZADO TUTTI FRUTTI","quantidade":"43"}
+{"preco":"19.54","codigo de barras":"7891035502699","UN":"UN","nome":"LUSTRA MOVEIS POL C.ABELHA RECKITT 200ML","quantidade":"80"}
+{"preco":"15.51","codigo de barras":"7896048953513","UN":"UN","nome":"RACAO FARO ADULTO MIX 1KG","quantidade":"57"}
+{"preco":"4.11","codigo de barras":"7896048953346","UN":"UN","nome":"RACAO FARO FILHOTES MACIO 900G","quantidade":"60"}
+{"preco":"5.91","codigo de barras":"7896048953407","UN":"UN","nome":"RACAO FARO CREK 500G","quantidade":"46"}
+{"preco":"8.61","codigo de barras":"7896048929068","UN":"UN","nome":"RACAO SABOR E VIDA ADULTO FRANGO 1KG","quantidade":"48"}
+{"preco":"5.95","codigo de barras":"7896048929020","UN":"UN","nome":"RACAO SABOR E VIDA AD CARNE/FIGADO 1KG","quantidade":"54"}
+{"preco":"3.68","codigo de barras":"7896261002661","UN":"UN","nome":"PAMELOR 75MG COMPRIMIDO PSCO","quantidade":"34"}
+{"preco":"12.07","codigo de barras":"7896261002685","UN":"UN","nome":"PARLODEL COMPR","quantidade":"47"}
+{"preco":"15.80","codigo de barras":"7896261002692","UN":"UN","nome":"PARLODEL SRO. 2.5MG","quantidade":"94"}
+{"preco":"9.20","codigo de barras":"7896261002715","UN":"UN","nome":"PARLODEL 5MG SRO","quantidade":"98"}
+{"preco":"11.53","codigo de barras":"7894321615363","UN":"UN","nome":"QUAKER + SABOR COCO/BAUNILHA 200 G","quantidade":"78"}
+{"preco":"4.59","codigo de barras":"7891177804293","UN":"UN","nome":"LOCAO SOLAR PROT NIVEA SUN FPS 15 125ML","quantidade":"99"}
+{"preco":"8.90","codigo de barras":"7896016601194","UN":"UN","nome":"PUDIM DUCOCO EM PO MORANGO 85G","quantidade":"71"}
+{"preco":"0.28","codigo de barras":"17891095100559","UN":"CX","nome":"LENTILHA YOKI 500G","quantidade":"63"}
+{"preco":"17.53","codigo de barras":"7896020900207","UN":"UN","nome":"MASSA PARA LASANHA ROMANHA 500G","quantidade":"85"}
+{"preco":"4.38","codigo de barras":"3605530314053","UN":"UN","nome":"NUTRIX ROYAL BODY 200ML","quantidade":"41"}
+{"preco":"2.39","codigo de barras":"7896007800896","UN":"UN","nome":"MOLHO YAKISSOBA SAKURA 500ML","quantidade":"64"}
+{"preco":"2.54","codigo de barras":"7891048046654","UN":"UN","nome":"GELATINA DIET MORANGO OETKER 12G","quantidade":"93"}
+{"preco":"2.33","codigo de barras":"7896183900847","UN":"UN","nome":"LENTILHA ZAELI 500G","quantidade":"82"}
+{"preco":"2.09","codigo de barras":"7891048046548","UN":"UN","nome":"GELATINA DIET MORANGO OETKER 12G","quantidade":"72"}
+{"preco":"3.23","codigo de barras":"7891048046616","UN":"UN","nome":"GELATINA DIET ABACAXI OETKER 12G","quantidade":"81"}
+{"preco":"2.54","codigo de barras":"7891089063429","UN":"UN","nome":"NOZES COM CASCA LA VIOLETERA 200G","quantidade":"74"}
+{"preco":"3.13","codigo de barras":"7622300242572","UN":"UN","nome":"GELATINA ROYAL ABACAXI 35G","quantidade":"96"}
+{"preco":"2.97","codigo de barras":"7893333321613","UN":"UN","nome":"GELATINA ROYAL ZERO MORANGO 12G","quantidade":"65"}
+{"preco":"2.82","codigo de barras":"7891048046555","UN":"UN","nome":"GELATINA DIET ABACAXI OETKER 12G","quantidade":"67"}
+{"preco":"2.84","codigo de barras":"7622300243449","UN":"UN","nome":"GELATINA ROYAL LIMAO 35G","quantidade":"62"}
