@@ -6,6 +6,8 @@
 package interfaceGrafica;
 
 import classes.*;
+import exceptions.NameNotFoundException;
+import java.awt.KeyboardFocusManager;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;
@@ -23,79 +25,22 @@ import javax.swing.text.NumberFormatter;
 
 public class VendaGUI extends javax.swing.JFrame {
     private Venda venda;
+    private Estoque estoque;
     MaskFormatter maskFormatterCod = new MaskFormatter();
     MaskFormatter maskFormatterQtd = new MaskFormatter();
     /**
      * Creates new form VendaGUI
      */
     public VendaGUI() {
-	/* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-	 * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-	 */
-	
-	try {
-	    for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-		if ("Nimbus".equals(info.getName())) {
-		    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-		    break;
-		}
-	    }
-	}
-	catch (ClassNotFoundException ex) {
-	    java.util.logging.Logger.getLogger(VendaGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-	}
-	catch (InstantiationException ex) {
-	    java.util.logging.Logger.getLogger(VendaGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-	}
-	catch (IllegalAccessException ex) {
-	    java.util.logging.Logger.getLogger(VendaGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-	}
-	catch (javax.swing.UnsupportedLookAndFeelException ex) {
-	    java.util.logging.Logger.getLogger(VendaGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-	}
-	
-	//</editor-fold>
 	initComponents();
     }
     
     public VendaGUI(Venda venda) {
-	
-	/* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-	 * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-	 */
-	
-	try {
-	    for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-		if ("Nimbus".equals(info.getName())) {
-		    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-		    break;
-		}
-	    }
-	}
-	catch (ClassNotFoundException ex) {
-	    java.util.logging.Logger.getLogger(VendaGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-	}
-	catch (InstantiationException ex) {
-	    java.util.logging.Logger.getLogger(VendaGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-	}
-	catch (IllegalAccessException ex) {
-	    java.util.logging.Logger.getLogger(VendaGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-	}
-	catch (javax.swing.UnsupportedLookAndFeelException ex) {
-	    java.util.logging.Logger.getLogger(VendaGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-	}
-	
-	//</editor-fold>
 	initComponents();
-	
 	myInitComponents();
-	
 	this.venda = venda;
-	
+	this.estoque = new Estoque();
+	estoque.inicializarEstoque();
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -112,7 +57,7 @@ public class VendaGUI extends javax.swing.JFrame {
 	    maskFormatterCod.setPlaceholderCharacter(' ');
 	    maskFormatterCod.setValueContainsLiteralCharacters(false);
 	    
-	    maskFormatterQtd = new MaskFormatter("*,***");
+	    maskFormatterQtd = new MaskFormatter("****,***");
 	    maskFormatterQtd.setValidCharacters("1234567890 ");
 	    maskFormatterQtd.setPlaceholderCharacter('0');
 	    maskFormatterQtd.setValueContainsLiteralCharacters(true);
@@ -163,6 +108,19 @@ public class VendaGUI extends javax.swing.JFrame {
 
         txtfd_nomeProduto.setEditable(false);
         txtfd_nomeProduto.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        fmtfd_codProduto.setAutoscrolls(false);
+        fmtfd_codProduto.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                fmtfd_codProdutoCaretUpdate(evt);
+            }
+        });
+
+        fmtfd_qtdProduto.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                fmtfd_qtdProdutoFocusGained(evt);
+            }
+        });
 
         lbl_nome.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lbl_nome.setText("Nome do Produto");
@@ -294,10 +252,13 @@ public class VendaGUI extends javax.swing.JFrame {
     }*/
 
     private void btn_addProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addProdutoActionPerformed
+	addProdutoLista();
 
-	//Produto p = findProduto(fmtfd_codProduto.getText().replaceAll("\\s",""));
-	
-		
+    }//GEN-LAST:event_btn_addProdutoActionPerformed
+
+    private void addProdutoLista() {
+		//Produto p = findProduto(fmtfd_codProduto.getText().replaceAll("\\s",""));
+
 	Produto p = new Produto("Feijão", new BigDecimal("1"), "KG", "1234");
 	ItemVenda item = new ItemVenda(p, new BigDecimal("1.5"), venda.getNumItens());
 
@@ -312,8 +273,7 @@ public class VendaGUI extends javax.swing.JFrame {
 	);
 	venda.addItem(item);
 	txtfd_total.setText(String.format("R$%4.2f", venda.getTotal()));
-    }//GEN-LAST:event_btn_addProdutoActionPerformed
-
+    }
     private void btn_removeProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_removeProdutoActionPerformed
         DefaultTableModel table = (DefaultTableModel) table_produtos.getModel();
 	if (venda.getNumItens() > 0) {
@@ -323,10 +283,41 @@ public class VendaGUI extends javax.swing.JFrame {
 	}
     }//GEN-LAST:event_btn_removeProdutoActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void fmtfd_codProdutoCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_fmtfd_codProdutoCaretUpdate
+        if (fmtfd_codProduto.getCaret().getMark() == 15) {
+            KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
+            manager.focusNextComponent();
+	}
+    }//GEN-LAST:event_fmtfd_codProdutoCaretUpdate
 
+    private void fmtfd_qtdProdutoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fmtfd_qtdProdutoFocusGained
+        try {
+	    Produto produto = findProduto(fmtfd_codProduto.getText().replaceAll("\\s",""));
+	    txtfd_nomeProduto.setText(produto.getNome());
+	    txtfd_nomeProduto.setCaretPosition(0);
+	} catch (NameNotFoundException ex) {
+	    System.err.println("Não encontrado " + fmtfd_codProduto.getText().replaceAll("\\s",""));
+	    txtfd_nomeProduto.setText("");
+	}
+	
+    }//GEN-LAST:event_fmtfd_qtdProdutoFocusGained
+    
+    private Produto findProduto(String codBarras) throws NameNotFoundException {
+	codBarras.replaceAll("\\s","");
+	codBarras.replaceAll("\\n","");
+	ItemEstoque item = estoque.findItem(codBarras);
+	return item.getProduto();	
+    }
+    
+    public static void main(String args[]) {
+	java.awt.EventQueue.invokeLater(new Runnable() {
+		public void run() {
+		    VendaGUI dialog = new VendaGUI(new Venda());
+
+		    dialog.setVisible(true);
+		}
+	    });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_addProduto;

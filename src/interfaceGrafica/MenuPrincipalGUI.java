@@ -90,6 +90,7 @@ public class MenuPrincipalGUI extends javax.swing.JFrame {
 	btn_novaVenda.setIcon(icon);
 	btn_novaVenda.setVerticalTextPosition(SwingConstants.BOTTOM);
 	btn_novaVenda.setHorizontalTextPosition(SwingConstants.CENTER);
+	btn_novaVenda.requestFocus();
 
 	JFrame frame = new JFrame("");
 	LoginDialogGUI loginDlg = new LoginDialogGUI(frame, true);
@@ -114,13 +115,14 @@ public class MenuPrincipalGUI extends javax.swing.JFrame {
         btn_novaVenda = new javax.swing.JButton();
         btn_sair = new javax.swing.JButton();
         lbl_bemVindo = new javax.swing.JLabel();
-        btn_login = new javax.swing.JButton();
+        btn_logout = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         btn_novaVenda.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btn_novaVenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfaceGrafica/cart.png"))); // NOI18N
         btn_novaVenda.setText("Nova venda");
+        btn_novaVenda.setNextFocusableComponent(btn_sair);
         btn_novaVenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_novaVendaActionPerformed(evt);
@@ -128,13 +130,20 @@ public class MenuPrincipalGUI extends javax.swing.JFrame {
         });
 
         btn_sair.setText("Sair");
+        btn_sair.setNextFocusableComponent(btn_logout);
+        btn_sair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_sairActionPerformed(evt);
+            }
+        });
 
         lbl_bemVindo.setText("Bem-vindo");
 
-        btn_login.setText("Login");
-        btn_login.addActionListener(new java.awt.event.ActionListener() {
+        btn_logout.setText("Logout");
+        btn_logout.setNextFocusableComponent(btn_novaVenda);
+        btn_logout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_loginActionPerformed(evt);
+                btn_logoutActionPerformed(evt);
             }
         });
 
@@ -146,14 +155,14 @@ public class MenuPrincipalGUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(btn_sair)
+                        .addComponent(lbl_bemVindo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btn_login))
+                        .addComponent(btn_logout))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(lbl_bemVindo))
+                                .addComponent(btn_sair))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(83, 83, 83)
                                 .addComponent(btn_novaVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -164,13 +173,13 @@ public class MenuPrincipalGUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lbl_bemVindo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbl_bemVindo)
+                    .addComponent(btn_logout))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                 .addComponent(btn_novaVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(59, 59, 59)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_sair)
-                    .addComponent(btn_login))
+                .addComponent(btn_sair)
                 .addContainerGap())
         );
 
@@ -178,7 +187,7 @@ public class MenuPrincipalGUI extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_loginActionPerformed
+    private void btn_logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_logoutActionPerformed
 	JFrame frame = new JFrame("");
 	LoginDialogGUI loginDlg = new LoginDialogGUI(frame, true);
 	loginDlg.setVisible(true);
@@ -195,7 +204,7 @@ public class MenuPrincipalGUI extends javax.swing.JFrame {
 	} else if (statusLogin == LoginDialogGUI.ERROU_LOGIN) {
 	    this.dispose();
 	}
-    }//GEN-LAST:event_btn_loginActionPerformed
+    }//GEN-LAST:event_btn_logoutActionPerformed
 
     private void btn_novaVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_novaVendaActionPerformed
         Venda venda = new Venda();
@@ -203,9 +212,13 @@ public class MenuPrincipalGUI extends javax.swing.JFrame {
 	vendaGUI.setVisible(true);
     }//GEN-LAST:event_btn_novaVendaActionPerformed
 
+    private void btn_sairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_sairActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btn_sairActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_login;
+    private javax.swing.JButton btn_logout;
     private javax.swing.JButton btn_novaVenda;
     private javax.swing.JButton btn_sair;
     private javax.swing.JLabel lbl_bemVindo;

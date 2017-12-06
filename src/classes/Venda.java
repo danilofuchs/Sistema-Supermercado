@@ -44,4 +44,5 @@ public class Venda {
     public int getNumItens() {
 	return numItens;
     }
+
 }
