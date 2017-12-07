@@ -51,7 +51,7 @@ public class CargosLista {
         int resultIndex = -1;
         boolean found = false;
         for (int i = 0; i < cargos.size(); i++) {
-            if (cargos.get(i).getNome() == nomeCargo) {
+            if (cargos.get(i).getNome().equals(nomeCargo)) {
                 resultIndex = i;
                 found = true;
                 break;
