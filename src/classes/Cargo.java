@@ -42,7 +42,7 @@ public class Cargo {
     }
     
     public boolean podeCancelarVenda() {
-        return podeCriarVenda;
+        return podeCancelarVenda;
     }
 
     public boolean podeRemoverProdutoVenda() {
