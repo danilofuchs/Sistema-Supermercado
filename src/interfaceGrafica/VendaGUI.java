@@ -8,6 +8,7 @@ package interfaceGrafica;
 import classes.*;
 import exceptions.NameNotFoundException;
 import java.awt.Event;
+import java.awt.Frame;
 import java.awt.KeyboardFocusManager;
 
 import java.math.BigDecimal;
@@ -352,13 +353,38 @@ public class VendaGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_addProdutoKeyPressed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        int confirmCancel = JOptionPane.showConfirmDialog(rootPane, "Deseja cancelar a venda?", "Cancelamento de venda", JOptionPane.YES_NO_OPTION);
+	try {
+	    if (cargosLista.getCargo(usuario.getCargo()).podeCancelarVenda()) {
+		System.err.println("Tem permissao");
+	    } else {
+		System.err.println("Não tem permissao");
+	    }
+	}
+	catch (NameNotFoundException ex) {
+	    Logger.getLogger(VendaGUI.class.getName()).log(Level.SEVERE, null, ex);
+	}
+	int confirmCancel = JOptionPane.showConfirmDialog(rootPane, "Deseja cancelar a venda?", "Cancelamento de venda", JOptionPane.YES_NO_OPTION);
+	
 	if (confirmCancel == JOptionPane.OK_OPTION) {
 	    try {
+		int confirmNeedsLogin = JOptionPane.NO_OPTION;
 		if (cargosLista.getCargo(usuario.getCargo()).podeCancelarVenda()) {
 		    this.dispose();
 		} else {
-		    int confirmNeedsLogin = JOptionPane.showConfirmDialog(rootPane, "Você não tem permissão necessária, acessar outra conta?", "Cancelamento de venda", JOptionPane.YES_NO_OPTION);
+		    confirmNeedsLogin = JOptionPane.showConfirmDialog(rootPane, "Você não tem permissão necessária, acessar outra conta?", "Cancelamento de venda", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+		}
+		if (confirmNeedsLogin == JOptionPane.YES_OPTION) {
+		    Frame frame = new Frame("");
+		    LoginDialogGUI login = new LoginDialogGUI(frame, true);
+		    login.setVisible(true);
+		    int statusLogin = login.getStatus();
+		    if (statusLogin == LoginDialogGUI.ACERTOU_LOGIN) {
+			Usuario usuarioAdmin = login.getUsuario();
+			if (cargosLista.getCargo(usuarioAdmin.getCargo()).podeCancelarVenda()) {
+			    JOptionPane.showMessageDialog(rootPane, "Venda cancelada com sucesso!", "Venda Cancelada", JOptionPane.INFORMATION_MESSAGE);
+			    this.dispose();
+			}
+		    }
 		}
 	    }
 	    catch (NameNotFoundException ex) {
