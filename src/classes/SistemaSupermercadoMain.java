@@ -40,30 +40,7 @@ public class SistemaSupermercadoMain {
 	catch (javax.swing.UnsupportedLookAndFeelException ex) {
 	    java.util.logging.Logger.getLogger(LoginDialogGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 	}
-        //</editor-fold>
-
-        //UsuariosLista usuariosLista = new UsuariosLista();
-	/*
-        try {
-            usuariosLista.addUsuario("Danilo", "danilo123", "1234", "Admin");
-        } catch (NameNotUniqueException ex) {
-            
-        }*/
-        /*
-	Venda venda = new Venda();
-	VendaGUI vendaWindow = new VendaGUI(venda);
-        vendaWindow.setVisible(true);
-        
-
-        Usuario usuario = new Usuario("","","");
-        LoginGUI log = new LoginGUI(usuariosLista, usuario);
-        log.setVisible(true);
-        
-	if (!log.isActive()) {*/
-	MenuPrincipalGUI menu = new MenuPrincipalGUI();
-	menu.setVisible(true);
-	//}
-	
+        //</editor-fold>	
 	
 	CargosLista cargosLista = new CargosLista();
         try {
@@ -90,12 +67,14 @@ public class SistemaSupermercadoMain {
         } catch (NameNotUniqueException ex) {
             
         }
+	
+	MenuPrincipalGUI menu = new MenuPrincipalGUI(cargosLista);
+	menu.setVisible(true);
         /*
         CadastroUsuarioGUI cadastroWindow = new CadastroUsuarioGUI(usuariosLista, cargosLista);
         cadastroWindow.setVisible(true);
 	*/
-	
-	//usuariosLista.close();
+
     }
     
 

@@ -24,53 +24,14 @@ public class MenuPrincipalGUI extends javax.swing.JFrame {
 
     private static Usuario usuario;
     private static UsuariosLista usuariosLista;
+    private static CargosLista cargosLista;
     private static boolean logado = false;
-
-    public static void main(String args[]) {
-	/* Set the Nimbus look and feel */
-	//<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-	 * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-	 */
-	try {
-	    for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-		if ("Nimbus".equals(info.getName())) {
-		    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-		    break;
-		}
-	    }
-	}
-	catch (ClassNotFoundException ex) {
-	    java.util.logging.Logger.getLogger(MenuPrincipalGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-	}
-	catch (InstantiationException ex) {
-	    java.util.logging.Logger.getLogger(MenuPrincipalGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-	}
-	catch (IllegalAccessException ex) {
-	    java.util.logging.Logger.getLogger(MenuPrincipalGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-	}
-	catch (javax.swing.UnsupportedLookAndFeelException ex) {
-	    java.util.logging.Logger.getLogger(MenuPrincipalGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-	}
-	//</editor-fold>
-
-	/* Create and display the form */
-	java.awt.EventQueue.invokeLater(new Runnable() {
-	    public void run() {
-		//usuariosLista = new UsuariosLista();
-		//usuario = new Usuario("","","");
-		MenuPrincipalGUI menu = new MenuPrincipalGUI();
-		menu.setVisible(true);
-	    }
-
-	});
-    }
 
     /**
      * Creates new form MenuPrincipalGUI
      */
-    public MenuPrincipalGUI() {
-
+    public MenuPrincipalGUI(CargosLista cargosLista) {
+	this.cargosLista = cargosLista;
 	initComponents();
 	myInitComponents();
     }
@@ -208,7 +169,7 @@ public class MenuPrincipalGUI extends javax.swing.JFrame {
 
     private void btn_novaVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_novaVendaActionPerformed
         Venda venda = new Venda();
-	VendaGUI vendaGUI = new VendaGUI(venda);
+	VendaGUI vendaGUI = new VendaGUI(venda, usuario, cargosLista);
 	vendaGUI.setVisible(true);
     }//GEN-LAST:event_btn_novaVendaActionPerformed
 

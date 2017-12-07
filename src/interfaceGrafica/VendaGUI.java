@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFormattedTextField;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import javax.swing.table.TableModel;
@@ -27,23 +28,26 @@ import javax.swing.text.NumberFormatter;
 public class VendaGUI extends javax.swing.JFrame {
     private Venda venda;
     private Estoque estoque;
+    private Usuario usuario;
+    private CargosLista cargosLista;
+    
     private Produto prodTemp;
     private boolean prodTempValido = false;
+    
     private MaskFormatter maskFormatterCod = new MaskFormatter();
     private MaskFormatter maskFormatterQtd = new MaskFormatter();
     /**
      * Creates new form VendaGUI
      */
-    public VendaGUI() {
-	initComponents();
-    }
     
-    public VendaGUI(Venda venda) {
+    public VendaGUI(Venda venda, Usuario usuario, CargosLista cargosLista) {
 	initComponents();
 	myInitComponents();
 	this.venda = venda;
 	this.estoque = new Estoque();
 	estoque.inicializarEstoque();
+	this.usuario = usuario;
+	this.cargosLista = cargosLista;
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -90,12 +94,17 @@ public class VendaGUI extends javax.swing.JFrame {
         lbl_total = new javax.swing.JLabel();
         txtfd_total = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Nova Venda");
         setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         setMinimumSize(new java.awt.Dimension(1280, 720));
         setPreferredSize(new java.awt.Dimension(1280, 720));
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         btn_removeProduto.setText("Remover");
         btn_removeProduto.addActionListener(new java.awt.event.ActionListener() {
@@ -276,7 +285,6 @@ public class VendaGUI extends javax.swing.JFrame {
 
     private void btn_addProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addProdutoActionPerformed
 	addProdutoLista();
-
     }//GEN-LAST:event_btn_addProdutoActionPerformed
 
     private void addProdutoLista() {
@@ -336,6 +344,20 @@ public class VendaGUI extends javax.swing.JFrame {
             manager.focusNextComponent();
         }
     }//GEN-LAST:event_btn_addProdutoKeyPressed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        int confirmOption = JOptionPane.showConfirmDialog(rootPane, "Deseja cancelar a venda?");
+	if (confirmOption == JOptionPane.OK_OPTION) {
+	    try {
+		if (cargosLista.getCargo(usuario.getCargo()).podeCancelarVenda()) {
+		    
+		}
+	    }
+	    catch (NameNotFoundException ex) {
+		Logger.getLogger(VendaGUI.class.getName()).log(Level.SEVERE, null, ex);
+	    }
+	}
+    }//GEN-LAST:event_formWindowClosing
     
     private void updateWindowProduto() {
 	try {
@@ -369,7 +391,9 @@ public class VendaGUI extends javax.swing.JFrame {
     public static void main(String args[]) {
 	java.awt.EventQueue.invokeLater(new Runnable() {
 		public void run() {
-		    VendaGUI dialog = new VendaGUI(new Venda());
+		    CargosLista cargosLista = new CargosLista();
+		    
+		    VendaGUI dialog = new VendaGUI(new Venda(), new Usuario("","",""), cargosLista);
 
 		    dialog.setVisible(true);
 		}
