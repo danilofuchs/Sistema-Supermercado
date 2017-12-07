@@ -102,7 +102,7 @@
 {"preco":"11.53","codigo de barras":"7894321615363","UN":"UN","nome":"QUAKER + SABOR COCO/BAUNILHA 200 G","quantidade":"78"}
 {"preco":"4.59","codigo de barras":"7891177804293","UN":"UN","nome":"LOCAO SOLAR PROT NIVEA SUN FPS 15 125ML","quantidade":"99"}
 {"preco":"8.90","codigo de barras":"7896016601194","UN":"UN","nome":"PUDIM DUCOCO EM PO MORANGO 85G","quantidade":"71"}
-{"preco":"0.28","codigo de barras":"17891095100559","UN":"CX","nome":"LENTILHA YOKI 500G","quantidade":"63"}
+{"preco":"0.28","codigo de barras":"7891095100559","UN":"CX","nome":"LENTILHA YOKI 500G","quantidade":"63"}
 {"preco":"17.53","codigo de barras":"7896020900207","UN":"UN","nome":"MASSA PARA LASANHA ROMANHA 500G","quantidade":"85"}
 {"preco":"4.38","codigo de barras":"3605530314053","UN":"UN","nome":"NUTRIX ROYAL BODY 200ML","quantidade":"41"}
 {"preco":"2.39","codigo de barras":"7896007800896","UN":"UN","nome":"MOLHO YAKISSOBA SAKURA 500ML","quantidade":"64"}
