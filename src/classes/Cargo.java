@@ -5,8 +5,8 @@ public class Cargo {
     private String nome;
     private boolean podeRemoverProdutoVenda = false;
     private boolean podeCriarVenda = false;
-    private boolean podeVerEstoque = false;
-    private boolean podeEditarEstoque = false;
+    private boolean podeCancelarVenda = false;
+    private boolean podeAdicionarUsuario = false;
     
     public Cargo(String nome) {
        this.nome = nome;
@@ -24,33 +24,35 @@ public class Cargo {
         this.podeCriarVenda = podeCriarVenda;
     }
 
-    public void setPodeEditarEstoque(boolean podeEditarEstoque) {
-        this.podeEditarEstoque = podeEditarEstoque;
+    public void setPodeCancelarVenda(boolean podeCancelarVenda) {
+	this.podeCancelarVenda = podeCancelarVenda;
     }
 
     public void setPodeRemoverProdutoVenda(boolean podeRemoverProdutoVenda) {
         this.podeRemoverProdutoVenda = podeRemoverProdutoVenda;
     }
 
-    public void setPodeVerEstoque(boolean podeVerEstoque) {
-        this.podeVerEstoque = podeVerEstoque;
+    public void setPodeAdicionarUsuario(boolean podeAdicionarUsuario) {
+	this.podeAdicionarUsuario = podeAdicionarUsuario;
     }
+    
 
     public boolean podeCriarVenda() {
         return podeCriarVenda;
     }
-
-    public boolean podeEditarEstoque() {
-        return podeEditarEstoque;
+    
+    public boolean podeCancelarVenda() {
+        return podeCriarVenda;
     }
 
     public boolean podeRemoverProdutoVenda() {
         return podeRemoverProdutoVenda;
     }
 
-    public boolean podeVerEstoque() {
-        return podeVerEstoque;
+    public boolean podeAdicionarUsuario() {
+	return podeAdicionarUsuario;
     }
+
     
     
 

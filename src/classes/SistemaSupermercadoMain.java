@@ -69,10 +69,24 @@ public class SistemaSupermercadoMain {
         try {
             Cargo admin = new Cargo("Admin");
             admin.setPodeCriarVenda(true);
-            admin.setPodeEditarEstoque(true);
+	    admin.setPodeCancelarVenda(true);
             admin.setPodeRemoverProdutoVenda(true);
-            admin.setPodeVerEstoque(true);
+	    admin.setPodeAdicionarUsuario(true);
             cargosLista.addCargo(admin);
+	    
+	    Cargo gerente = new Cargo("Gerente");
+            gerente.setPodeCriarVenda(true);
+	    gerente.setPodeCancelarVenda(true);
+            gerente.setPodeRemoverProdutoVenda(true);
+	    gerente.setPodeAdicionarUsuario(false);
+            cargosLista.addCargo(gerente);
+	    
+	    Cargo caixa = new Cargo("Caixa");
+	    caixa.setPodeCriarVenda(true);
+	    caixa.setPodeAdicionarUsuario(false);
+	    caixa.setPodeCancelarVenda(false);
+            caixa.setPodeRemoverProdutoVenda(false);
+            cargosLista.addCargo(caixa);
         } catch (NameNotUniqueException ex) {
             
         }
