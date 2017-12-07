@@ -353,16 +353,7 @@ public class VendaGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_addProdutoKeyPressed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-	try {
-	    if (cargosLista.getCargo(usuario.getCargo()).podeCancelarVenda()) {
-		System.err.println("Tem permissao");
-	    } else {
-		System.err.println("Não tem permissao");
-	    }
-	}
-	catch (NameNotFoundException ex) {
-	    Logger.getLogger(VendaGUI.class.getName()).log(Level.SEVERE, null, ex);
-	}
+
 	int confirmCancel = JOptionPane.showConfirmDialog(rootPane, "Deseja cancelar a venda?", "Cancelamento de venda", JOptionPane.YES_NO_OPTION);
 	
 	if (confirmCancel == JOptionPane.OK_OPTION) {
