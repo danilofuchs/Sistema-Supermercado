@@ -59,7 +59,7 @@
                           <Component id="txtfd_nomeProduto" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="lbl_cod" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace pref="109" max="32767" attributes="0"/>
                               <Component id="fmtfd_codProduto" min="-2" pref="232" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
@@ -75,8 +75,9 @@
                                   </Group>
                               </Group>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="btn_addProduto" max="32767" attributes="0"/>
                                   <Component id="fmtfd_qtdProduto" pref="232" max="32767" attributes="0"/>
+                                  <Component id="btn_addProduto" max="32767" attributes="0"/>
+                                  <Component id="jButton1" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -104,21 +105,22 @@
                   <Component id="fmtfd_qtdProduto" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btn_addProduto" alignment="3" min="-2" pref="73" max="-2" attributes="0"/>
-                  <Component id="btn_removeProduto" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="btn_removeProduto" min="-2" max="-2" attributes="0"/>
+                  <Component id="btn_addProduto" min="-2" pref="67" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="178" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace min="37" max="32767" attributes="0"/>
               <Component id="jScrollPane2" min="-2" pref="591" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="lbl_total" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtfd_total" alignment="3" min="-2" pref="43" max="-2" attributes="0"/>
+                  <Component id="jButton1" alignment="3" min="-2" pref="67" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -270,6 +272,14 @@
           <Font name="Tahoma" size="18" style="1"/>
         </Property>
         <Property name="text" type="java.lang.String" value="R$ 0,00"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButton1">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Dialog" size="18" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Finalizar Venda"/>
       </Properties>
     </Component>
   </SubComponents>

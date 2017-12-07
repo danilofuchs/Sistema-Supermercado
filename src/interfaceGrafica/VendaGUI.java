@@ -93,6 +93,7 @@ public class VendaGUI extends javax.swing.JFrame {
         table_produtos = new javax.swing.JTable();
         lbl_total = new javax.swing.JLabel();
         txtfd_total = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Nova Venda");
@@ -206,6 +207,9 @@ public class VendaGUI extends javax.swing.JFrame {
         txtfd_total.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         txtfd_total.setText("R$ 0,00");
 
+        jButton1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jButton1.setText("Finalizar Venda");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -229,7 +233,7 @@ public class VendaGUI extends javax.swing.JFrame {
                             .addComponent(txtfd_nomeProduto, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(lbl_cod)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
                                 .addComponent(fmtfd_codProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -241,8 +245,9 @@ public class VendaGUI extends javax.swing.JFrame {
                                         .addComponent(btn_removeProduto)
                                         .addGap(177, 177, 177)))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(fmtfd_qtdProduto, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
                                     .addComponent(btn_addProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(fmtfd_qtdProduto, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE))))
+                                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addGap(24, 24, 24))))
         );
         layout.setVerticalGroup(
@@ -261,18 +266,19 @@ public class VendaGUI extends javax.swing.JFrame {
                     .addComponent(lbl_qtd)
                     .addComponent(fmtfd_qtdProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_addProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_removeProduto))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btn_removeProduto)
+                    .addComponent(btn_addProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 591, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
+                .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_total)
-                    .addComponent(txtfd_total, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20))
+                    .addComponent(txtfd_total, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(8, 8, 8))
         );
 
         pack();
@@ -346,16 +352,20 @@ public class VendaGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_addProdutoKeyPressed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        int confirmOption = JOptionPane.showConfirmDialog(rootPane, "Deseja cancelar a venda?");
-	if (confirmOption == JOptionPane.OK_OPTION) {
+        int confirmCancel = JOptionPane.showConfirmDialog(rootPane, "Deseja cancelar a venda?", "Cancelamento de venda", JOptionPane.YES_NO_OPTION);
+	if (confirmCancel == JOptionPane.OK_OPTION) {
 	    try {
 		if (cargosLista.getCargo(usuario.getCargo()).podeCancelarVenda()) {
-		    
+		    this.dispose();
+		} else {
+		    int confirmNeedsLogin = JOptionPane.showConfirmDialog(rootPane, "Você não tem permissão necessária, acessar outra conta?", "Cancelamento de venda", JOptionPane.YES_NO_OPTION);
 		}
 	    }
 	    catch (NameNotFoundException ex) {
 		Logger.getLogger(VendaGUI.class.getName()).log(Level.SEVERE, null, ex);
 	    }
+	} else if (confirmCancel == JOptionPane.NO_OPTION) {
+	    
 	}
     }//GEN-LAST:event_formWindowClosing
     
@@ -405,6 +415,7 @@ public class VendaGUI extends javax.swing.JFrame {
     private javax.swing.JButton btn_removeProduto;
     private javax.swing.JFormattedTextField fmtfd_codProduto;
     private javax.swing.JFormattedTextField fmtfd_qtdProduto;
+    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lbl_cod;
     private javax.swing.JLabel lbl_nome;
