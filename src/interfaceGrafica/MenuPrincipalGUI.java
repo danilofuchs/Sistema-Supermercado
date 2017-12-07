@@ -6,10 +6,14 @@
 package interfaceGrafica;
 
 import classes.*;
+import exceptions.NameNotFoundException;
 import java.awt.Component;
+import java.awt.Frame;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -24,7 +28,7 @@ public class MenuPrincipalGUI extends javax.swing.JFrame {
 
     private static Usuario usuario;
     private static UsuariosLista usuariosLista;
-    private static CargosLista cargosLista;
+    private CargosLista cargosLista;
     private static boolean logado = false;
 
     /**
@@ -69,6 +73,14 @@ public class MenuPrincipalGUI extends javax.swing.JFrame {
 	} else if (statusLogin == LoginDialogGUI.ERROU_LOGIN) {
 	    this.dispose();
 	}
+	try {
+	    if (cargosLista.getCargo(usuario.getCargo()).podeAdicionarUsuario()) {
+		btn_addUsuario.setEnabled(true);
+	    }
+	}
+	catch (NameNotFoundException ex) {
+	    
+	}
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -77,8 +89,11 @@ public class MenuPrincipalGUI extends javax.swing.JFrame {
         btn_sair = new javax.swing.JButton();
         lbl_bemVindo = new javax.swing.JLabel();
         btn_logout = new javax.swing.JButton();
+        btn_addUsuario = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(350, 350));
+        setResizable(false);
 
         btn_novaVenda.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btn_novaVenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfaceGrafica/cart.png"))); // NOI18N
@@ -108,39 +123,49 @@ public class MenuPrincipalGUI extends javax.swing.JFrame {
             }
         });
 
+        btn_addUsuario.setText("Adicionar usuário");
+        btn_addUsuario.setEnabled(false);
+        btn_addUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_addUsuarioActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lbl_bemVindo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btn_logout))
+                        .addComponent(btn_sair)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn_addUsuario)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn_logout)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(btn_sair))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(83, 83, 83)
-                                .addComponent(btn_novaVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 68, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(lbl_bemVindo)
+                        .addGap(284, 284, 284))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(83, 83, 83)
+                .addComponent(btn_novaVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbl_bemVindo)
-                    .addComponent(btn_logout))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addComponent(lbl_bemVindo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
                 .addComponent(btn_novaVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(59, 59, 59)
-                .addComponent(btn_sair)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_sair)
+                    .addComponent(btn_logout)
+                    .addComponent(btn_addUsuario))
                 .addContainerGap())
         );
 
@@ -165,6 +190,14 @@ public class MenuPrincipalGUI extends javax.swing.JFrame {
 	} else if (statusLogin == LoginDialogGUI.ERROU_LOGIN) {
 	    this.dispose();
 	}
+	try {
+	    if (cargosLista.getCargo(usuario.getCargo()).podeAdicionarUsuario()) {
+		btn_addUsuario.setEnabled(true);
+	    }
+	}
+	catch (NameNotFoundException ex) {
+	    
+	}
     }//GEN-LAST:event_btn_logoutActionPerformed
 
     private void btn_novaVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_novaVendaActionPerformed
@@ -177,8 +210,15 @@ public class MenuPrincipalGUI extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btn_sairActionPerformed
 
+    private void btn_addUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addUsuarioActionPerformed
+        Frame frame = new Frame("");
+	CadastroUsuarioDialogGUI cad = new CadastroUsuarioDialogGUI(frame, false, cargosLista);
+	cad.setVisible(true);
+    }//GEN-LAST:event_btn_addUsuarioActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_addUsuario;
     private javax.swing.JButton btn_logout;
     private javax.swing.JButton btn_novaVenda;
     private javax.swing.JButton btn_sair;

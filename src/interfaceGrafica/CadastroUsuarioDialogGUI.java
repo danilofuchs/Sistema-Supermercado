@@ -6,32 +6,31 @@
 package interfaceGrafica;
 
 import classes.*;
-import exceptions.NameNotUniqueException;
+import exceptions.*;
 import java.awt.Event;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-
 /**
  *
- * @author DAELN
+ * @author danil
  */
-public class CadastroUsuarioGUI extends javax.swing.JFrame {
+public class CadastroUsuarioDialogGUI extends javax.swing.JDialog {
 
+    private Usuario usuario;
     private UsuariosLista usuariosLista;
     private CargosLista cargosLista;
 
+    public CadastroUsuarioDialogGUI() {
+    }
     /**
-     * Creates new form CadastroUsuarioGUI
+     * Creates new form CadastroUsuarioDialogGUI
      */
-    public CadastroUsuarioGUI(UsuariosLista ul, CargosLista cl) {
-        this.usuariosLista = ul;
-        this.cargosLista = cl;
-
-        initComponents();
-        myInitComponents();
+    public CadastroUsuarioDialogGUI(java.awt.Frame parent, boolean modal, CargosLista cargosLista) {
+	super(parent, modal);
+	usuariosLista = new UsuariosLista();
+	this.cargosLista = cargosLista;
+	initComponents();
+	myInitComponents();
     }
 
     /**
@@ -51,68 +50,50 @@ public class CadastroUsuarioGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txtfd_nome = new javax.swing.JTextField();
-        pass_senha = new javax.swing.JPasswordField();
-        pass_senhaConfirm = new javax.swing.JPasswordField();
-        combo_cargo = new javax.swing.JComboBox<>();
-        lbl_nomeUsuario = new javax.swing.JLabel();
-        lbl_senha = new javax.swing.JLabel();
-        lbl_senhaConfirm = new javax.swing.JLabel();
-        lbl_cargo = new javax.swing.JLabel();
-        btn_cadastrar = new javax.swing.JButton();
-        btn_cancelar = new javax.swing.JButton();
         lbl_nome = new javax.swing.JLabel();
+        txtfd_nome = new javax.swing.JTextField();
+        lbl_nomeUsuario = new javax.swing.JLabel();
         txtfd_nomeUsuario = new javax.swing.JTextField();
+        lbl_cargo = new javax.swing.JLabel();
+        combo_cargo = new javax.swing.JComboBox<String>();
+        lbl_senha = new javax.swing.JLabel();
+        pass_senha = new javax.swing.JPasswordField();
+        lbl_senhaConfirm = new javax.swing.JLabel();
+        pass_senhaConfirm = new javax.swing.JPasswordField();
+        btn_cancelar = new javax.swing.JButton();
+        btn_cadastrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Cadastrar novo usuário");
-        setResizable(false);
-        addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                formKeyPressed(evt);
-            }
-        });
 
-        txtfd_nome.setNextFocusableComponent(txtfd_nomeUsuario);
+        lbl_nome.setText("Nome:");
 
-        pass_senha.setNextFocusableComponent(pass_senhaConfirm);
+        lbl_nomeUsuario.setText("Nome de usuário:");
 
-        pass_senhaConfirm.setNextFocusableComponent(btn_cadastrar);
+        lbl_cargo.setText("Cargo:");
+
+        lbl_senha.setText("Senha:");
+
+        lbl_senhaConfirm.setText("Confirmar senha:");
+
         pass_senhaConfirm.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 pass_senhaConfirmKeyPressed(evt);
             }
         });
 
-        combo_cargo.setNextFocusableComponent(pass_senha);
-
-        lbl_nomeUsuario.setText("Nome de usuário:");
-
-        lbl_senha.setText("Senha:");
-
-        lbl_senhaConfirm.setText("Confirmar senha:");
-
-        lbl_cargo.setText("Cargo:");
-
-        btn_cadastrar.setText("Cadastrar");
-        btn_cadastrar.setNextFocusableComponent(btn_cancelar);
-        btn_cadastrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_cadastrarActionPerformed(evt);
-            }
-        });
-
         btn_cancelar.setText("Cancelar");
-        btn_cancelar.setNextFocusableComponent(txtfd_nome);
         btn_cancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_cancelarActionPerformed(evt);
             }
         });
 
-        lbl_nome.setText("Nome:");
-
-        txtfd_nomeUsuario.setNextFocusableComponent(combo_cargo);
+        btn_cadastrar.setText("Cadastrar");
+        btn_cadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cadastrarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -135,7 +116,7 @@ public class CadastroUsuarioGUI extends javax.swing.JFrame {
                             .addComponent(pass_senha)
                             .addComponent(btn_cadastrar, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(combo_cargo, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 21, Short.MAX_VALUE))
+                        .addGap(0, 30, Short.MAX_VALUE))
                     .addComponent(txtfd_nomeUsuario)
                     .addComponent(txtfd_nome))
                 .addContainerGap())
@@ -171,8 +152,17 @@ public class CadastroUsuarioGUI extends javax.swing.JFrame {
         );
 
         pack();
-        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void pass_senhaConfirmKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pass_senhaConfirmKeyPressed
+        if (evt.getKeyCode() == Event.ENTER) {
+            btn_cadastrar.doClick();
+        }
+    }//GEN-LAST:event_pass_senhaConfirmKeyPressed
+
+    private void btn_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btn_cancelarActionPerformed
 
     private void btn_cadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cadastrarActionPerformed
         String nomeUsuario = txtfd_nomeUsuario.getText();
@@ -201,26 +191,54 @@ public class CadastroUsuarioGUI extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Redigite a senha", "Senhas não são iguais", JOptionPane.WARNING_MESSAGE);
         }
-
+	usuariosLista.close();
     }//GEN-LAST:event_btn_cadastrarActionPerformed
-
-    private void btn_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelarActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_btn_cancelarActionPerformed
-
-    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
-
-    }//GEN-LAST:event_formKeyPressed
-
-    private void pass_senhaConfirmKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pass_senhaConfirmKeyPressed
-        if (evt.getKeyCode() == Event.ENTER) {
-            btn_cadastrar.doClick();
-        }
-    }//GEN-LAST:event_pass_senhaConfirmKeyPressed
 
     /**
      * @param args the command line arguments
      */
+    public static void main(String args[]) {
+	/* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+	 * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+	 */
+	try {
+	    for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+		if ("Nimbus".equals(info.getName())) {
+		    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+		    break;
+		}
+	    }
+	}
+	catch (ClassNotFoundException ex) {
+	    java.util.logging.Logger.getLogger(CadastroUsuarioDialogGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	}
+	catch (InstantiationException ex) {
+	    java.util.logging.Logger.getLogger(CadastroUsuarioDialogGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	}
+	catch (IllegalAccessException ex) {
+	    java.util.logging.Logger.getLogger(CadastroUsuarioDialogGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	}
+	catch (javax.swing.UnsupportedLookAndFeelException ex) {
+	    java.util.logging.Logger.getLogger(CadastroUsuarioDialogGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	}
+        //</editor-fold>
+
+	/* Create and display the dialog */
+	java.awt.EventQueue.invokeLater(new Runnable() {
+	    public void run() {
+		CadastroUsuarioDialogGUI dialog = new CadastroUsuarioDialogGUI(new javax.swing.JFrame(), true, new CargosLista());
+		dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+		    @Override
+		    public void windowClosing(java.awt.event.WindowEvent e) {
+			System.exit(0);
+		    }
+		});
+		dialog.setVisible(true);
+	    }
+	});
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_cadastrar;
