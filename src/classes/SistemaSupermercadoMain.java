@@ -40,48 +40,41 @@ public class SistemaSupermercadoMain {
 	catch (javax.swing.UnsupportedLookAndFeelException ex) {
 	    java.util.logging.Logger.getLogger(LoginDialogGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 	}
-        //</editor-fold>
-
-        //UsuariosLista usuariosLista = new UsuariosLista();
-	/*
-        try {
-            usuariosLista.addUsuario("Danilo", "danilo123", "1234", "Admin");
-        } catch (NameNotUniqueException ex) {
-            
-        }*/
-        /*
-	Venda venda = new Venda();
-	VendaGUI vendaWindow = new VendaGUI(venda);
-        vendaWindow.setVisible(true);
-        
-
-        Usuario usuario = new Usuario("","","");
-        LoginGUI log = new LoginGUI(usuariosLista, usuario);
-        log.setVisible(true);
-        
-	if (!log.isActive()) {*/
-	MenuPrincipalGUI menu = new MenuPrincipalGUI();
-	menu.setVisible(true);
-	//}
-	
+        //</editor-fold>	
 	
 	CargosLista cargosLista = new CargosLista();
         try {
             Cargo admin = new Cargo("Admin");
             admin.setPodeCriarVenda(true);
-            admin.setPodeEditarEstoque(true);
+	    admin.setPodeCancelarVenda(true);
             admin.setPodeRemoverProdutoVenda(true);
-            admin.setPodeVerEstoque(true);
+	    admin.setPodeAdicionarUsuario(true);
             cargosLista.addCargo(admin);
+	    
+	    Cargo gerente = new Cargo("Gerente");
+            gerente.setPodeCriarVenda(true);
+	    gerente.setPodeCancelarVenda(true);
+            gerente.setPodeRemoverProdutoVenda(true);
+	    gerente.setPodeAdicionarUsuario(false);
+            cargosLista.addCargo(gerente);
+	    
+	    Cargo caixa = new Cargo("Caixa");
+	    caixa.setPodeCriarVenda(true);
+	    caixa.setPodeAdicionarUsuario(false);
+	    caixa.setPodeCancelarVenda(false);
+            caixa.setPodeRemoverProdutoVenda(false);
+            cargosLista.addCargo(caixa);
         } catch (NameNotUniqueException ex) {
             
         }
+	
+	MenuPrincipalGUI menu = new MenuPrincipalGUI(cargosLista);
+	menu.setVisible(true);
         /*
         CadastroUsuarioGUI cadastroWindow = new CadastroUsuarioGUI(usuariosLista, cargosLista);
         cadastroWindow.setVisible(true);
 	*/
-	
-	//usuariosLista.close();
+
     }
     
 
