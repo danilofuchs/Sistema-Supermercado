@@ -16,7 +16,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
@@ -77,6 +79,9 @@ public class MenuPrincipalGUI extends javax.swing.JFrame {
 	    if (cargosLista.getCargo(usuario.getCargo()).podeAdicionarUsuario()) {
 		btn_addUsuario.setEnabled(true);
 	    }
+	    if (cargosLista.getCargo(usuario.getCargo()).podeCriarVenda()) {
+		btn_novaVenda.setEnabled(true);
+	    }
 	}
 	catch (NameNotFoundException ex) {
 	    
@@ -92,12 +97,12 @@ public class MenuPrincipalGUI extends javax.swing.JFrame {
         btn_addUsuario = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(350, 350));
         setResizable(false);
 
         btn_novaVenda.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btn_novaVenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfaceGrafica/cart.png"))); // NOI18N
         btn_novaVenda.setText("Nova venda");
+        btn_novaVenda.setEnabled(false);
         btn_novaVenda.setNextFocusableComponent(btn_sair);
         btn_novaVenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -201,9 +206,18 @@ public class MenuPrincipalGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_logoutActionPerformed
 
     private void btn_novaVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_novaVendaActionPerformed
-        Venda venda = new Venda();
-	VendaGUI vendaGUI = new VendaGUI(venda, usuario, cargosLista);
-	vendaGUI.setVisible(true);
+	try {
+	    if (cargosLista.getCargo(usuario.getCargo()).podeCriarVenda()) {
+		Venda venda = new Venda();
+		VendaGUI vendaGUI = new VendaGUI(venda, usuario, cargosLista);
+		vendaGUI.setVisible(true);
+	    } else {
+		JOptionPane.showMessageDialog(rootPane, "Você não tem permissões suficientes para fazer esta ação", "Permissão insuficiente", JOptionPane.WARNING_MESSAGE);
+	    }
+	}
+	catch (NameNotFoundException ex) {
+	    Logger.getLogger(MenuPrincipalGUI.class.getName()).log(Level.SEVERE, null, ex);
+	}
     }//GEN-LAST:event_btn_novaVendaActionPerformed
 
     private void btn_sairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_sairActionPerformed
