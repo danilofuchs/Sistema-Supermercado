@@ -16,8 +16,10 @@ import java.awt.Robot;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,6 +39,8 @@ public class VendaGUI extends javax.swing.JFrame {
     private Usuario usuario;
     private CargosLista cargosLista;
 
+    private BigDecimal qtdProduto;
+    
     private Produto prodTemp;
     private boolean prodTempValido = false;
 
@@ -53,6 +57,7 @@ public class VendaGUI extends javax.swing.JFrame {
 	estoque.inicializarEstoque();
 	this.usuario = usuario;
 	this.cargosLista = cargosLista;
+	qtdProduto = new BigDecimal("0.000");
 	myInitComponents();
 
     }
@@ -70,31 +75,22 @@ public class VendaGUI extends javax.swing.JFrame {
 	    maskFormatterCod.setValidCharacters("1234567890 ");
 	    maskFormatterCod.setPlaceholderCharacter(' ');
 	    maskFormatterCod.setValueContainsLiteralCharacters(false);
-
-	    maskFormatterQtd = new MaskFormatter("****,***");
-	    maskFormatterQtd.setValidCharacters("1234567890 ");
-	    maskFormatterQtd.setPlaceholderCharacter('0');
-	    maskFormatterQtd.setValueContainsLiteralCharacters(true);
 	}
 	catch (ParseException ex) {
 	    Logger.getLogger(VendaGUI.class.getName()).log(Level.SEVERE, null, ex);
 	}
 
 	fmtfd_codProduto.setFormatterFactory(new DefaultFormatterFactory(maskFormatterCod));
-	fmtfd_qtdProduto.setFormatterFactory(new DefaultFormatterFactory(maskFormatterQtd));
 	lbl_vendedor.setText("Vendedor: " + usuario.getNome());
-	fmtfd_qtdProduto.setText("0001,000");
     }
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btn_removeProduto = new javax.swing.JButton();
         btn_addProduto = new javax.swing.JButton();
         txtfd_nomeProduto = new javax.swing.JTextField();
         fmtfd_codProduto = new javax.swing.JFormattedTextField();
-        fmtfd_qtdProduto = new javax.swing.JFormattedTextField();
         lbl_nome = new javax.swing.JLabel();
         lbl_cod = new javax.swing.JLabel();
         lbl_qtd = new javax.swing.JLabel();
@@ -104,6 +100,7 @@ public class VendaGUI extends javax.swing.JFrame {
         txtfd_total = new javax.swing.JTextField();
         btn_finalizarVenda = new javax.swing.JButton();
         lbl_vendedor = new javax.swing.JLabel();
+        txtfd_qtdProduto = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Nova Venda");
@@ -114,13 +111,6 @@ public class VendaGUI extends javax.swing.JFrame {
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
-            }
-        });
-
-        btn_removeProduto.setText("Remover");
-        btn_removeProduto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_removeProdutoActionPerformed(evt);
             }
         });
 
@@ -142,22 +132,10 @@ public class VendaGUI extends javax.swing.JFrame {
         txtfd_nomeProduto.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         fmtfd_codProduto.setAutoscrolls(false);
-        fmtfd_codProduto.setNextFocusableComponent(fmtfd_qtdProduto);
+        fmtfd_codProduto.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         fmtfd_codProduto.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
                 fmtfd_codProdutoCaretUpdate(evt);
-            }
-        });
-
-        fmtfd_qtdProduto.setNextFocusableComponent(btn_addProduto);
-        fmtfd_qtdProduto.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                fmtfd_qtdProdutoFocusGained(evt);
-            }
-        });
-        fmtfd_qtdProduto.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                fmtfd_qtdProdutoKeyPressed(evt);
             }
         });
 
@@ -233,6 +211,18 @@ public class VendaGUI extends javax.swing.JFrame {
         lbl_vendedor.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         lbl_vendedor.setText("Vendedor:");
 
+        txtfd_qtdProduto.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        txtfd_qtdProduto.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtfd_qtdProdutoFocusGained(evt);
+            }
+        });
+        txtfd_qtdProduto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtfd_qtdProdutoKeyReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -255,24 +245,22 @@ public class VendaGUI extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtfd_nomeProduto, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(lbl_cod)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
-                                .addComponent(fmtfd_codProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtfd_nomeProduto)
                             .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lbl_cod)
+                                    .addComponent(lbl_qtd))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(lbl_qtd)
-                                        .addGap(168, 168, 168))
+                                        .addGap(92, 92, 92)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(btn_addProduto, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
+                                            .addComponent(btn_finalizarVenda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btn_removeProduto)
-                                        .addGap(177, 177, 177)))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(fmtfd_qtdProduto, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
-                                    .addComponent(btn_addProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btn_finalizarVenda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(txtfd_qtdProduto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE)
+                                            .addComponent(fmtfd_codProduto, javax.swing.GroupLayout.Alignment.TRAILING))))))
                         .addGap(24, 24, 24))))
         );
         layout.setVerticalGroup(
@@ -288,12 +276,10 @@ public class VendaGUI extends javax.swing.JFrame {
                     .addComponent(fmtfd_codProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_qtd)
-                    .addComponent(fmtfd_qtdProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btn_removeProduto)
-                    .addComponent(btn_addProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtfd_qtdProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_qtd))
+                .addGap(26, 26, 26)
+                .addComponent(btn_addProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btn_finalizarVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(17, 17, 17))
@@ -312,9 +298,16 @@ public class VendaGUI extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    /*private Produto findProduto(String codigo) {
-	
-     }*/
+    private void addQtdProduto(char key) {
+	if (key >= '0' && key <= '9') {
+	    qtdProduto = qtdProduto.multiply(new BigDecimal("10"));
+	    qtdProduto = qtdProduto.add(new BigDecimal(String.valueOf(key)).scaleByPowerOfTen(-3));
+	} else if (key == KeyEvent.VK_BACK_SPACE) {
+	    qtdProduto = qtdProduto.setScale(1,RoundingMode.DOWN).divide(new BigDecimal("10")).setScale(3);
+	}
+	txtfd_qtdProduto.setText(qtdProduto.toPlainString());
+    }
+
 
     private void btn_addProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addProdutoActionPerformed
 	addProdutoLista();
@@ -323,7 +316,7 @@ public class VendaGUI extends javax.swing.JFrame {
     private void addProdutoLista() {
 
 	if (prodTempValido) {
-	    ItemVenda item = new ItemVenda(prodTemp, new BigDecimal(fmtfd_qtdProduto.getText().replaceAll(",", ".")), venda.getNumItens() + 1);
+	    ItemVenda item = new ItemVenda(prodTemp, qtdProduto, venda.getNumItens() + 1);
 
 	    DefaultTableModel table = (DefaultTableModel) table_produtos.getModel();
 
@@ -341,34 +334,12 @@ public class VendaGUI extends javax.swing.JFrame {
 	}
 	resetTextFields();
     }
-    private void btn_removeProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_removeProdutoActionPerformed
-	DefaultTableModel table = (DefaultTableModel) table_produtos.getModel();
-	if (venda.getNumItens() > 0) {
-	    venda.removeItem(venda.getNumItens() - 1);
-	    table.removeRow(venda.getNumItens() - 1);
-	    txtfd_total.setText(String.format("R$%4.2f", venda.getTotal()));
-	}
-    }//GEN-LAST:event_btn_removeProdutoActionPerformed
-
     private void fmtfd_codProdutoCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_fmtfd_codProdutoCaretUpdate
 	if (fmtfd_codProduto.getCaret().getMark() == 15) {
 	    KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
 	    manager.focusNextComponent();
 	}
     }//GEN-LAST:event_fmtfd_codProdutoCaretUpdate
-
-    private void fmtfd_qtdProdutoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fmtfd_qtdProdutoFocusGained
-	updateWindowProduto();
-    }//GEN-LAST:event_fmtfd_qtdProdutoFocusGained
-
-    private void fmtfd_qtdProdutoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fmtfd_qtdProdutoKeyPressed
-	if (evt.getKeyCode() == Event.ENTER) {
-	    KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
-	    manager.focusNextComponent();
-	    btn_addProduto.doClick();
-	    manager.focusNextComponent();
-	}
-    }//GEN-LAST:event_fmtfd_qtdProdutoKeyPressed
 
     private void btn_addProdutoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btn_addProdutoKeyPressed
 	if (evt.getKeyCode() == Event.ENTER) {
@@ -472,6 +443,14 @@ public class VendaGUI extends javax.swing.JFrame {
 	checkout.setVisible(true);
     }//GEN-LAST:event_btn_finalizarVendaActionPerformed
 
+    private void txtfd_qtdProdutoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtfd_qtdProdutoFocusGained
+        updateWindowProduto();
+    }//GEN-LAST:event_txtfd_qtdProdutoFocusGained
+
+    private void txtfd_qtdProdutoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfd_qtdProdutoKeyReleased
+        addQtdProduto(evt.getKeyChar());
+    }//GEN-LAST:event_txtfd_qtdProdutoKeyReleased
+
     private void removeProdutoLista(int row) {
 
 	DefaultTableModel table = (DefaultTableModel) table_produtos.getModel();
@@ -502,7 +481,8 @@ public class VendaGUI extends javax.swing.JFrame {
 
 	txtfd_nomeProduto.setText("");
 	fmtfd_codProduto.setText("");
-	fmtfd_qtdProduto.setText("");
+	txtfd_qtdProduto.setText("");
+	qtdProduto = new BigDecimal("0.00");
 	prodTemp = new Produto("", new BigDecimal("0"), "", "");
 	prodTempValido = false;
     }
@@ -517,9 +497,7 @@ public class VendaGUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_addProduto;
     private javax.swing.JButton btn_finalizarVenda;
-    private javax.swing.JButton btn_removeProduto;
     private javax.swing.JFormattedTextField fmtfd_codProduto;
-    private javax.swing.JFormattedTextField fmtfd_qtdProduto;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lbl_cod;
     private javax.swing.JLabel lbl_nome;
@@ -528,6 +506,7 @@ public class VendaGUI extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_vendedor;
     private javax.swing.JTable table_produtos;
     private javax.swing.JTextField txtfd_nomeProduto;
+    private javax.swing.JTextField txtfd_qtdProduto;
     private javax.swing.JTextField txtfd_total;
     // End of variables declaration//GEN-END:variables
 }
