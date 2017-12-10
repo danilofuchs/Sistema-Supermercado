@@ -79,7 +79,7 @@ public class VendaGUI extends javax.swing.JFrame {
 	catch (ParseException ex) {
 	    Logger.getLogger(VendaGUI.class.getName()).log(Level.SEVERE, null, ex);
 	}
-
+	txtfd_qtdProduto.setText("0.000");
 	fmtfd_codProduto.setFormatterFactory(new DefaultFormatterFactory(maskFormatterCod));
 	lbl_vendedor.setText("Vendedor: " + usuario.getNome());
     }
@@ -133,6 +133,7 @@ public class VendaGUI extends javax.swing.JFrame {
 
         fmtfd_codProduto.setAutoscrolls(false);
         fmtfd_codProduto.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        fmtfd_codProduto.setNextFocusableComponent(txtfd_qtdProduto);
         fmtfd_codProduto.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
                 fmtfd_codProdutoCaretUpdate(evt);
@@ -218,6 +219,9 @@ public class VendaGUI extends javax.swing.JFrame {
             }
         });
         txtfd_qtdProduto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtfd_qtdProdutoKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtfd_qtdProdutoKeyReleased(evt);
             }
@@ -450,6 +454,13 @@ public class VendaGUI extends javax.swing.JFrame {
     private void txtfd_qtdProdutoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfd_qtdProdutoKeyReleased
         addQtdProduto(evt.getKeyChar());
     }//GEN-LAST:event_txtfd_qtdProdutoKeyReleased
+
+    private void txtfd_qtdProdutoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfd_qtdProdutoKeyPressed
+        if (evt.getKeyCode() == Event.ENTER) {
+            btn_addProduto.doClick();
+	    fmtfd_codProduto.requestFocus();
+        }
+    }//GEN-LAST:event_txtfd_qtdProdutoKeyPressed
 
     private void removeProdutoLista(int row) {
 
