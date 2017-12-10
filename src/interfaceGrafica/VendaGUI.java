@@ -443,7 +443,7 @@ public class VendaGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_table_produtosMouseClicked
 
     private void btn_finalizarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_finalizarVendaActionPerformed
-        CheckoutDialogGUI checkout = new CheckoutDialogGUI(this, true, venda, usuario);
+        CheckoutDialogGUI checkout = new CheckoutDialogGUI(this, true, venda, usuario, cargosLista);
 	checkout.setVisible(true);
     }//GEN-LAST:event_btn_finalizarVendaActionPerformed
 

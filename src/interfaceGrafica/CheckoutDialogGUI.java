@@ -3,12 +3,14 @@ package interfaceGrafica;
 
 import classes.*;
 import exceptions.*;
+import java.awt.Frame;
 import java.awt.event.KeyEvent;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 
@@ -16,6 +18,7 @@ public class CheckoutDialogGUI extends javax.swing.JDialog {
 
     private Venda venda;
     private Usuario usuario;
+    private CargosLista cargosLista;
     private BigDecimal pago;
     private BigDecimal troco;
     
@@ -24,10 +27,11 @@ public class CheckoutDialogGUI extends javax.swing.JDialog {
     /**
      * Creates new form CheckoutDialogGUI
      */
-    public CheckoutDialogGUI(java.awt.Frame parent, boolean modal, Venda venda, Usuario usuario) {
+    public CheckoutDialogGUI(java.awt.Frame parent, boolean modal, Venda venda, Usuario usuario, CargosLista cargosLista) {
 	super(parent, modal);
 	this.venda = venda;
 	this.usuario = usuario;
+	this.cargosLista = cargosLista;
 	pago = new BigDecimal("0");
 	troco = new BigDecimal("0");
 	initComponents();
@@ -71,9 +75,14 @@ public class CheckoutDialogGUI extends javax.swing.JDialog {
         btn_finalizarVenda = new javax.swing.JButton();
         txtfd_pago = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(530, 720));
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         txtfd_total.setEditable(false);
         txtfd_total.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -239,6 +248,17 @@ public class CheckoutDialogGUI extends javax.swing.JDialog {
         updateTroco();
     }//GEN-LAST:event_txtfd_pagoPropertyChange
 
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        
+	int confirmExit = JOptionPane.showConfirmDialog(rootPane, "Deseja editar a venda?", "Editar venda", JOptionPane.YES_NO_OPTION);
+
+	if (confirmExit == JOptionPane.OK_OPTION) {
+	    this.dispose();
+	} else if (confirmExit == JOptionPane.NO_OPTION) {
+
+	}
+    }//GEN-LAST:event_formWindowClosing
+
     private void updateTroco() {
 	troco = pago.subtract(venda.getTotal());
 	txtfd_troco.setText(String.format("%.2f", troco));
@@ -289,7 +309,7 @@ public class CheckoutDialogGUI extends javax.swing.JDialog {
 	/* Create and display the dialog */
 	java.awt.EventQueue.invokeLater(new Runnable() {
 	    public void run() {
-		CheckoutDialogGUI dialog = new CheckoutDialogGUI(new javax.swing.JFrame(), true, new Venda(), new Usuario("", "", ""));
+		CheckoutDialogGUI dialog = new CheckoutDialogGUI(new javax.swing.JFrame(), true, new Venda(), new Usuario("", "", ""), new CargosLista());
 		dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 		    @Override
 		    public void windowClosing(java.awt.event.WindowEvent e) {
