@@ -3,7 +3,9 @@ package interfaceGrafica;
 
 import classes.*;
 import exceptions.*;
+import java.awt.event.KeyEvent;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -45,7 +47,7 @@ public class CheckoutDialogGUI extends javax.swing.JDialog {
 	combo_metodos.addItem("Dinheiro");
 	combo_metodos.addItem("Cartão de crédito");
 	combo_metodos.addItem("Cartão de débito");
-	
+	/*
 	try {
 	    
 	    String mask = "";
@@ -62,7 +64,7 @@ public class CheckoutDialogGUI extends javax.swing.JDialog {
 	}
 	catch (ParseException ex) {
 	    Logger.getLogger(CheckoutDialogGUI.class.getName()).log(Level.SEVERE, null, ex);
-	}
+	}*/
 
     }
     // </editor-fold>
@@ -83,7 +85,7 @@ public class CheckoutDialogGUI extends javax.swing.JDialog {
         lbl_rs2 = new javax.swing.JLabel();
         lbl_rs3 = new javax.swing.JLabel();
         btn_finalizarVenda = new javax.swing.JButton();
-        fmtfd_pago = new javax.swing.JFormattedTextField();
+        txtfd_pago = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(530, 720));
@@ -134,15 +136,16 @@ public class CheckoutDialogGUI extends javax.swing.JDialog {
         btn_finalizarVenda.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         btn_finalizarVenda.setText("Finalizar Venda");
 
-        fmtfd_pago.setEditable(false);
-        fmtfd_pago.addCaretListener(new javax.swing.event.CaretListener() {
-            public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                fmtfd_pagoCaretUpdate(evt);
+        txtfd_pago.setEditable(false);
+        txtfd_pago.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        txtfd_pago.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                txtfd_pagoPropertyChange(evt);
             }
         });
-        fmtfd_pago.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                fmtfd_pagoPropertyChange(evt);
+        txtfd_pago.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtfd_pagoKeyReleased(evt);
             }
         });
 
@@ -168,7 +171,7 @@ public class CheckoutDialogGUI extends javax.swing.JDialog {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(lbl_pago)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(lbl_rs3)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -176,7 +179,7 @@ public class CheckoutDialogGUI extends javax.swing.JDialog {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(lbl_rs1)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(fmtfd_pago))))
+                                        .addComponent(txtfd_pago, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(lbl_metodoPagamento)
@@ -200,19 +203,19 @@ public class CheckoutDialogGUI extends javax.swing.JDialog {
                     .addComponent(lbl_rs2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(combo_metodos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(combo_metodos, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbl_metodoPagamento))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(fmtfd_pago, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbl_rs1)
-                    .addComponent(lbl_pago))
-                .addGap(9, 9, 9)
+                    .addComponent(lbl_pago)
+                    .addComponent(txtfd_pago, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(11, 11, 11)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtfd_troco, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbl_rs3)
                     .addComponent(lbl_troco))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -228,33 +231,45 @@ public class CheckoutDialogGUI extends javax.swing.JDialog {
     private void combo_metodosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_combo_metodosItemStateChanged
         String metodoPagamento = (String)combo_metodos.getSelectedItem();
 	if (metodoPagamento.equals("Dinheiro")) {
-	    fmtfd_pago.setEditable(true);
+	    txtfd_pago.setEditable(true);
 	} else if (metodoPagamento.equals("Cartão de crédito")) {
-	    fmtfd_pago.setText(txtfd_total.getText());
-	    fmtfd_pago.setEditable(false);
+	    pago = venda.getTotal();
+	    txtfd_pago.setText(venda.getTotal().setScale(2).toPlainString());
+	    txtfd_pago.setEditable(false);
 	} else if (metodoPagamento.equals("Cartão de débito")) {
-	    fmtfd_pago.setText(txtfd_total.getText());
-	    fmtfd_pago.setEditable(false);
+	    pago = venda.getTotal();
+	    txtfd_pago.setText(venda.getTotal().setScale(2).toPlainString());
+	    txtfd_pago.setEditable(false);
 	}
+	updateTroco();
     }//GEN-LAST:event_combo_metodosItemStateChanged
 
-    private void fmtfd_pagoPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_fmtfd_pagoPropertyChange
-	updateTroco();
-    }//GEN-LAST:event_fmtfd_pagoPropertyChange
+    private void txtfd_pagoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfd_pagoKeyReleased
+        if (txtfd_pago.isEditable()) {
+	    addValuePago(evt.getKeyChar());
+	}
+    }//GEN-LAST:event_txtfd_pagoKeyReleased
 
-    private void fmtfd_pagoCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_fmtfd_pagoCaretUpdate
+    private void txtfd_pagoPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_txtfd_pagoPropertyChange
         updateTroco();
-    }//GEN-LAST:event_fmtfd_pagoCaretUpdate
+    }//GEN-LAST:event_txtfd_pagoPropertyChange
 
     private void updateTroco() {
-	try {
-	    pago = new BigDecimal(fmtfd_pago.getText().replaceAll(",", ".").replaceAll(" ", ""));
-	} catch (Exception e) {
-	    
-	}
 	troco = pago.subtract(venda.getTotal());
 	txtfd_troco.setText(String.format("%.2f", troco));
     }
+    
+    private void addValuePago(char key) {
+	if (key >= '0' && key <= '9') {
+	    pago = pago.multiply(new BigDecimal("10"));
+	    pago = pago.add(new BigDecimal(String.valueOf(key)).scaleByPowerOfTen(-2));
+	} else if (key == KeyEvent.VK_BACK_SPACE) {
+	    pago = pago.setScale(1,RoundingMode.DOWN).divide(new BigDecimal("10")).setScale(2);
+	}
+	txtfd_pago.setText(pago.toPlainString());
+	updateTroco();
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -304,7 +319,6 @@ public class CheckoutDialogGUI extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_finalizarVenda;
     private javax.swing.JComboBox combo_metodos;
-    private javax.swing.JFormattedTextField fmtfd_pago;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbl_metodoPagamento;
     private javax.swing.JLabel lbl_pago;
@@ -315,6 +329,7 @@ public class CheckoutDialogGUI extends javax.swing.JDialog {
     private javax.swing.JLabel lbl_troco;
     private javax.swing.JLabel lbl_vendedor;
     private javax.swing.JTextArea txtarea_notaFiscal;
+    private javax.swing.JTextField txtfd_pago;
     private javax.swing.JTextField txtfd_total;
     private javax.swing.JTextField txtfd_troco;
     // End of variables declaration//GEN-END:variables
