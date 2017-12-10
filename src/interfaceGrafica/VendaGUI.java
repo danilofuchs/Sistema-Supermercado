@@ -46,6 +46,8 @@ public class VendaGUI extends javax.swing.JFrame {
 
     private MaskFormatter maskFormatterCod = new MaskFormatter();
     private MaskFormatter maskFormatterQtd = new MaskFormatter();
+    
+    JPopupMenu popUp;
 
     /**
      * Creates new form VendaGUI
@@ -407,14 +409,18 @@ public class VendaGUI extends javax.swing.JFrame {
 
     private void table_produtosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_produtosMouseClicked
 	if (SwingUtilities.isRightMouseButton(evt)) {
-	    JPopupMenu popUp = new JPopupMenu();
+	    popUp = new JPopupMenu();
 	    JButton btn_removeProduto = new JButton("Remover este produto");
 	    btn_removeProduto.addActionListener(new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
+		    popUp.setVisible(false);
 		    try {
 			if (cargosLista.getCargo(usuario.getCargo()).podeRemoverProdutoVenda()) {
-			    removeProdutoLista(table_produtos.getSelectedRow());
+			    int row = table_produtos.getSelectedRow();
+			    if (row >= 0) {
+				removeProdutoLista(table_produtos.getSelectedRow());
+			    }
 			} else {
 			    int confirmNeedsLogin = JOptionPane.showConfirmDialog(rootPane, "Você não tem permissão necessária, acessar outra conta?", "Remoção de produto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 			    if (confirmNeedsLogin == JOptionPane.YES_OPTION) {
