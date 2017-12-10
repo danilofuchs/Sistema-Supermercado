@@ -81,7 +81,7 @@ public class VendaGUI extends javax.swing.JFrame {
 	catch (ParseException ex) {
 	    Logger.getLogger(VendaGUI.class.getName()).log(Level.SEVERE, null, ex);
 	}
-	txtfd_qtdProduto.setText("0.000");
+	txtfd_qtdProduto.setText("0,000");
 	fmtfd_codProduto.setFormatterFactory(new DefaultFormatterFactory(maskFormatterCod));
 	lbl_vendedor.setText("Vendedor: " + usuario.getNome());
     }
@@ -309,9 +309,9 @@ public class VendaGUI extends javax.swing.JFrame {
 	    qtdProduto = qtdProduto.multiply(new BigDecimal("10"));
 	    qtdProduto = qtdProduto.add(new BigDecimal(String.valueOf(key)).scaleByPowerOfTen(-3));
 	} else if (key == KeyEvent.VK_BACK_SPACE) {
-	    qtdProduto = qtdProduto.setScale(1,RoundingMode.DOWN).divide(new BigDecimal("10")).setScale(3);
+	    qtdProduto = qtdProduto.setScale(2,RoundingMode.DOWN).divide(new BigDecimal("10")).setScale(3);
 	}
-	txtfd_qtdProduto.setText(qtdProduto.toPlainString());
+	txtfd_qtdProduto.setText(String.format("%.3f", qtdProduto));
     }
 
 
@@ -499,7 +499,7 @@ public class VendaGUI extends javax.swing.JFrame {
 	txtfd_nomeProduto.setText("");
 	fmtfd_codProduto.setText("");
 	txtfd_qtdProduto.setText("");
-	qtdProduto = new BigDecimal("0.00");
+	qtdProduto = new BigDecimal("0.000");
 	prodTemp = new Produto("", new BigDecimal("0"), "", "");
 	prodTempValido = false;
     }
