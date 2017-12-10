@@ -9,6 +9,7 @@ import classes.*;
 import exceptions.*;
 import java.awt.Event;
 import java.io.IOException;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 /**
  *
@@ -64,6 +65,7 @@ public class CadastroUsuarioDialogGUI extends javax.swing.JDialog {
         btn_cadastrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setIconImage(new ImageIcon(getClass().getResource("/interfaceGrafica/cartIcon.png")).getImage().getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH));
 
         lbl_nome.setText("Nome:");
 

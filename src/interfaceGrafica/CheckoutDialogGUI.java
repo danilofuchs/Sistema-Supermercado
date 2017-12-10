@@ -11,6 +11,7 @@ import java.math.RoundingMode;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
@@ -77,6 +78,7 @@ public class CheckoutDialogGUI extends javax.swing.JDialog {
         txtfd_pago = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setIconImage(new ImageIcon(getClass().getResource("/interfaceGrafica/cartIcon.png")).getImage().getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH));
         setPreferredSize(new java.awt.Dimension(530, 720));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {

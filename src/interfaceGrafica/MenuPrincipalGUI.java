@@ -50,11 +50,15 @@ public class MenuPrincipalGUI extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="My Init Codes">
     private void myInitComponents() {
-	ImageIcon icon = (ImageIcon) btn_novaVenda.getIcon();
-	Image img = icon.getImage();
-	Image newimg = img.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
-	icon = new ImageIcon(newimg);
-	btn_novaVenda.setIcon(icon);
+	
+	ImageIcon buttonIcon = (ImageIcon) btn_novaVenda.getIcon();
+	
+	Image buttonImg = buttonIcon.getImage();
+	
+	Image newButtonImg = buttonImg.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
+	
+	buttonIcon = new ImageIcon(newButtonImg);
+	btn_novaVenda.setIcon(buttonIcon);
 	btn_novaVenda.setVerticalTextPosition(SwingConstants.BOTTOM);
 	btn_novaVenda.setHorizontalTextPosition(SwingConstants.CENTER);
 	btn_novaVenda.requestFocus();
@@ -97,6 +101,8 @@ public class MenuPrincipalGUI extends javax.swing.JFrame {
         btn_addUsuario = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Sistema para Supermercado");
+        setIconImage(new ImageIcon(getClass().getResource("/interfaceGrafica/cartIcon.png")).getImage().getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH));
         setResizable(false);
 
         btn_novaVenda.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
