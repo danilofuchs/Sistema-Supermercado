@@ -55,5 +55,9 @@ public class Venda {
     public int getNumItens() {
 	return numItens;
     }
+    
+    public ItemVenda getItemVenda(int index) {
+	return itens.get(index);
+    }
 
 }
