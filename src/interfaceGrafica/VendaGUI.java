@@ -503,18 +503,6 @@ public class VendaGUI extends javax.swing.JFrame {
 	return item.getProduto();
     }
 
-    public static void main(String args[]) {
-	java.awt.EventQueue.invokeLater(new Runnable() {
-	    public void run() {
-		CargosLista cargosLista = new CargosLista();
-
-		VendaGUI dialog = new VendaGUI(new Venda(), new Usuario("", "", ""), cargosLista);
-
-		dialog.setVisible(true);
-	    }
-	});
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_addProduto;
     private javax.swing.JButton btn_finalizarVenda;
