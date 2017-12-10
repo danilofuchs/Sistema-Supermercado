@@ -4,8 +4,10 @@ import exceptions.NameNotFoundException;
 import exceptions.ProductNotUniqueException;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -96,6 +98,26 @@ public class Estoque {
 	catch (IOException ex) {
 	    Logger.getLogger(Estoque.class.getName()).log(Level.SEVERE, null, ex);
 	}
+    }
+    
+    public void updateEstoque() throws IOException{
+        ArrayList<JSONObject> objArray = new ArrayList();
+        ArrayList<String> estoqueString = new ArrayList();
+        
+        for(ItemEstoque i: itens){
+            JSONObject obj = new JSONObject();
+            obj.put("nome", i.getProduto().getNome());
+            obj.put("UN", i.getProduto().getUnidade());
+            obj.put("codigo de barras", i.getProduto().getCodigoDeBarras());
+            obj.put("preco", i.getProduto().getPreco());
+            obj.put("quantidade", i.getQtd());
+            objArray.add(obj);
+        }
+        
+        for(JSONObject o: objArray){
+            estoqueString.add(o.toString());
+        }
+        Files.write(Paths.get("EstoqueJSON.txt"), estoqueString, StandardCharsets.UTF_8, StandardOpenOption.TRUNCATE_EXISTING);
     }
 
 }
