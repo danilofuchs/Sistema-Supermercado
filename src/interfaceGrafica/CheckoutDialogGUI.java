@@ -6,6 +6,7 @@ import exceptions.*;
 import java.awt.Frame;
 import java.awt.event.KeyEvent;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.text.ParseException;
 import java.util.logging.Level;
@@ -32,8 +33,8 @@ public class CheckoutDialogGUI extends javax.swing.JDialog {
 	this.venda = venda;
 	this.usuario = usuario;
 	this.cargosLista = cargosLista;
-	pago = new BigDecimal("0");
-	troco = new BigDecimal("0");
+	pago = new BigDecimal("0.00");
+	troco = new BigDecimal("0.00");
 	initComponents();
 	myInitComponents();
     }
@@ -131,6 +132,11 @@ public class CheckoutDialogGUI extends javax.swing.JDialog {
         btn_finalizarVenda.setText("Finalizar Venda");
         btn_finalizarVenda.setName(""); // NOI18N
         btn_finalizarVenda.setNextFocusableComponent(combo_metodos);
+        btn_finalizarVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_finalizarVendaActionPerformed(evt);
+            }
+        });
 
         txtfd_pago.setEditable(false);
         txtfd_pago.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -225,14 +231,16 @@ public class CheckoutDialogGUI extends javax.swing.JDialog {
     private void combo_metodosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_combo_metodosItemStateChanged
         String metodoPagamento = (String)combo_metodos.getSelectedItem();
 	if (metodoPagamento.equals("Dinheiro")) {
+	    pago = new BigDecimal("0.00");
+	    txtfd_pago.setText("0,00");
 	    txtfd_pago.setEditable(true);
 	} else if (metodoPagamento.equals("Cartão de crédito")) {
 	    pago = venda.getTotal();
-	    txtfd_pago.setText(venda.getTotal().setScale(2).toPlainString());
+	    txtfd_pago.setText(String.format("%.2f", venda.getTotal().setScale(2)));
 	    txtfd_pago.setEditable(false);
 	} else if (metodoPagamento.equals("Cartão de débito")) {
 	    pago = venda.getTotal();
-	    txtfd_pago.setText(venda.getTotal().setScale(2).toPlainString());
+	    txtfd_pago.setText(String.format("%.2f", venda.getTotal().setScale(2)));
 	    txtfd_pago.setEditable(false);
 	}
 	updateTroco();
@@ -259,6 +267,16 @@ public class CheckoutDialogGUI extends javax.swing.JDialog {
 	}
     }//GEN-LAST:event_formWindowClosing
 
+    private void btn_finalizarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_finalizarVendaActionPerformed
+        Estoque estoque = new Estoque();
+	estoque.inicializarEstoque();
+	for (int i = 0; i < venda.getNumItens(); i++) {
+	    Produto prod = venda.getItemVenda(i).getProduto();
+	    estoque.removeQtdItem(prod.getCodigoDeBarras(), venda.getItemVenda(i).getQtd());
+	}
+	//estoque.gravaEstoqueArquivo();
+    }//GEN-LAST:event_btn_finalizarVendaActionPerformed
+
     private void updateTroco() {
 	troco = pago.subtract(venda.getTotal());
 	txtfd_troco.setText(String.format("%.2f", troco));
@@ -271,7 +289,7 @@ public class CheckoutDialogGUI extends javax.swing.JDialog {
 	} else if (key == KeyEvent.VK_BACK_SPACE) {
 	    pago = pago.setScale(1,RoundingMode.DOWN).divide(new BigDecimal("10")).setScale(2);
 	}
-	txtfd_pago.setText(pago.toPlainString());
+	txtfd_pago.setText(String.format("%.2f", pago));
 	updateTroco();
     }
     
