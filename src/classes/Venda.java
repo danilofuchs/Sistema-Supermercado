@@ -60,4 +60,12 @@ public class Venda {
 	return itens.get(index);
     }
 
+    public ArrayList<ItemVenda> getItens() {
+        return itens;
+    }
+
+    public BigDecimal getTotalVenda() {
+        return totalVenda;
+    }
+
 }
