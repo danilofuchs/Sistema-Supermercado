@@ -16,33 +16,48 @@ public class Venda {
     
     public void addItem(ItemVenda item) {
 	itens.add(item);
-	totalVenda = totalVenda.add(item.getPrecoTotalItem());
-	numItens++;
+	calcTotal();
+	numItens = itens.size();
     }
     
     public void removeItem(ItemVenda item) {
 	if (itens.contains(item)) {
 	    itens.remove(item);
-	    totalVenda = totalVenda.add(item.getPrecoTotalItem().negate());
-	    numItens--;
+	    calcTotal();
+	    numItens = itens.size();
 	}
     }
     
     public void removeItem(int index) {
-	if (itens.size() > index && index > 0) {
-	    ItemVenda item = itens.get(index);
-	    totalVenda = totalVenda.add(item.getPrecoTotalItem().negate());
-	    itens.remove(item);
-	    numItens--;
+	if (index >= 0 && index < itens.size()) {
+	    //ItemVenda item = itens.get(index);
+	    itens.remove(index);
+	    calcTotal();
+	    numItens = itens.size();
 	}
     }
     
+    private void calcTotal() {
+	BigDecimal total = new BigDecimal("0.0");
+	
+	for (ItemVenda i : itens) 
+	{
+	    total = total.add(i.getPrecoTotalItem());
+	}
+	totalVenda = total;
+    }
+    
     public BigDecimal getTotal() {
+	calcTotal();
 	return totalVenda;
     }
 
     public int getNumItens() {
 	return numItens;
+    }
+    
+    public ItemVenda getItemVenda(int index) {
+	return itens.get(index);
     }
 
 }
