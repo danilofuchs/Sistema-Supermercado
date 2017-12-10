@@ -278,7 +278,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="18" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="R$ 0,00"/>
+        <Property name="text" type="java.lang.String" value="R$0,00"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btn_finalizarVenda">
@@ -288,6 +288,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Finalizar Venda"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_finalizarVendaActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lbl_vendedor">
       <Properties>

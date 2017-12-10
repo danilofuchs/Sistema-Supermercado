@@ -1,3 +1,5 @@
 Danilo ; danilo123 ; �gB��\v��U�g�6#ȳ��E��x��F� ; Admin
 João ; joao ; �gB��\v��U�g�6#ȳ��E��x��F� ; Gerente
 Mário ; mario ; �gB��\v��U�g�6#ȳ��E��x��F� ; Caixa
+Danilo ; danilo ; �gB��\v��U�g�6#ȳ��E��x��F� ; Admin
+Brendow ; brendow ; �gB��\v��U�g�6#ȳ��E��x��F� ; Admin

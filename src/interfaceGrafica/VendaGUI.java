@@ -83,6 +83,7 @@ public class VendaGUI extends javax.swing.JFrame {
 	fmtfd_codProduto.setFormatterFactory(new DefaultFormatterFactory(maskFormatterCod));
 	fmtfd_qtdProduto.setFormatterFactory(new DefaultFormatterFactory(maskFormatterQtd));
 	lbl_vendedor.setText("Vendedor: " + usuario.getNome());
+	fmtfd_qtdProduto.setText("0001,000");
     }
     // </editor-fold>
 
@@ -219,10 +220,15 @@ public class VendaGUI extends javax.swing.JFrame {
 
         txtfd_total.setEditable(false);
         txtfd_total.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        txtfd_total.setText("R$ 0,00");
+        txtfd_total.setText("R$0,00");
 
         btn_finalizarVenda.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         btn_finalizarVenda.setText("Finalizar Venda");
+        btn_finalizarVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_finalizarVendaActionPerformed(evt);
+            }
+        });
 
         lbl_vendedor.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         lbl_vendedor.setText("Vendedor:");
@@ -460,6 +466,11 @@ public class VendaGUI extends javax.swing.JFrame {
 	    popUp.show(evt.getComponent(), evt.getX(), evt.getY());
 	}
     }//GEN-LAST:event_table_produtosMouseClicked
+
+    private void btn_finalizarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_finalizarVendaActionPerformed
+        CheckoutDialogGUI checkout = new CheckoutDialogGUI(this, true, venda, usuario);
+	checkout.setVisible(true);
+    }//GEN-LAST:event_btn_finalizarVendaActionPerformed
 
     private void removeProdutoLista(int row) {
 
