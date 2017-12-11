@@ -5,10 +5,7 @@
  */
 package exceptions;
 
-/**
- *
- * @author Brendow Avanzi
- */
+
 public class ProductNotUniqueException extends Exception {
     public ProductNotUniqueException() {}
     
