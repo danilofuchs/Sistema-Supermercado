@@ -36,7 +36,10 @@ public class NotaFiscal {
 	return dateFormat.format(date);
     }
     
-    public void imprimirNota(){
+    public String imprimirNota(){
+        return "";
+    }
+    public void salvaNotaArquivo(){
         
     }
 }

@@ -5,6 +5,7 @@ import classes.*;
 import exceptions.*;
 import java.awt.Frame;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
@@ -276,7 +277,16 @@ public class CheckoutDialogGUI extends javax.swing.JDialog {
 	    Produto prod = venda.getItemVenda(i).getProduto();
 	    estoque.removeQtdItem(prod.getCodigoDeBarras(), venda.getItemVenda(i).getQtd());
 	}
-	//estoque.gravaEstoqueArquivo();
+	try {
+	    estoque.updateEstoque();
+	}
+	catch (IOException ex) {
+	    Logger.getLogger(CheckoutDialogGUI.class.getName()).log(Level.SEVERE, null, ex);
+	}
+	Empresa empresa = new Empresa("Supermercado Silva", "06.990.590/0001-23");
+	NotaFiscal nota = new NotaFiscal(venda, empresa);
+	txtarea_notaFiscal.setText(nota.imprimirNota());
+	nota.salvaNotaArquivo();
     }//GEN-LAST:event_btn_finalizarVendaActionPerformed
 
     private void updateTroco() {
