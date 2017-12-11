@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package interfaceGrafica;
 
 import classes.*;
@@ -11,10 +6,7 @@ import java.awt.Event;
 import java.io.IOException;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-/**
- *
- * @author danil
- */
+
 public class CadastroUsuarioDialogGUI extends javax.swing.JDialog {
 
     private Usuario usuario;
@@ -31,7 +23,7 @@ public class CadastroUsuarioDialogGUI extends javax.swing.JDialog {
 	usuariosLista = new UsuariosLista();
 	this.cargosLista = cargosLista;
 	initComponents();
-	myInitComponents();
+	myInitComponents(); //Inicializa componentes personalizados
     }
 
     /**
@@ -43,7 +35,7 @@ public class CadastroUsuarioDialogGUI extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="My Init Codes">
     private void myInitComponents() {
         for (Cargo c : cargosLista.getCargos()) {
-            combo_cargo.addItem(c.getNome());
+            combo_cargo.addItem(c.getNome()); //adiciona cargos no combobox
         }
     }
 
@@ -171,12 +163,12 @@ public class CadastroUsuarioDialogGUI extends javax.swing.JDialog {
 
     private void pass_senhaConfirmKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pass_senhaConfirmKeyPressed
         if (evt.getKeyCode() == Event.ENTER) {
-            btn_cadastrar.doClick();
+            btn_cadastrar.doClick(); //Se for dado ENTER na senha, clica btn_cadastrar
         }
     }//GEN-LAST:event_pass_senhaConfirmKeyPressed
 
     private void btn_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelarActionPerformed
-        this.dispose();
+        this.dispose(); //sai do cadastro
     }//GEN-LAST:event_btn_cancelarActionPerformed
 
     private void btn_cadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cadastrarActionPerformed
@@ -188,25 +180,29 @@ public class CadastroUsuarioDialogGUI extends javax.swing.JDialog {
 
         if (senha.equals(senhaConfirm)) {
             try {
-                usuariosLista.addUsuario(nome, nomeUsuario, senha, cargo);
-                JOptionPane.showMessageDialog(null, "Usuário adicionado com sucesso!");
+                usuariosLista.addUsuario(nome, nomeUsuario, senha, cargo); //adiciona na lista de usuarios
+                JOptionPane.showMessageDialog(this, "Usuário adicionado com sucesso!");
                 boolean success = true;
                 try {
-                    usuariosLista.gravarUsuariosArquivo();
+                    usuariosLista.gravarUsuariosArquivo(); //grava em arquivo
                 } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Não foi possível gravar os usuários no arquivo, tente novamente", JOptionPane.ERROR_MESSAGE);
+                    //se deu problema ao gravar no arquivo
+		    JOptionPane.showMessageDialog(this, "Não foi possível gravar os usuários no arquivo, tente novamente", "", JOptionPane.ERROR_MESSAGE);
                     success = false;
                 }
                 if (success) {
+		    //se conseguiu adicionar com sucesso, sai do diálogo
                     this.dispose();
                 }
             } catch (NameNotUniqueException e) {
-                JOptionPane.showMessageDialog(null, e.getMessage(), "Usuário não é único", JOptionPane.WARNING_MESSAGE);
+                //Se dois nomes de usuario forem iguais, não pode adicionar 
+		JOptionPane.showMessageDialog(null, e.getMessage(), "Usuário não é único", JOptionPane.WARNING_MESSAGE);
             }
         } else {
+	    //Se as senhas não conferem, pede para refazer o processo
             JOptionPane.showMessageDialog(null, "Redigite a senha", "Senhas não são iguais", JOptionPane.WARNING_MESSAGE);
         }
-	usuariosLista.close();
+	usuariosLista.close(); //Garante que vai gravar no arquivo
     }//GEN-LAST:event_btn_cadastrarActionPerformed
 
     /**

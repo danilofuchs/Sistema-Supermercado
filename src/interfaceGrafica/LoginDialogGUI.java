@@ -1,28 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package interfaceGrafica;
 
 import classes.*;
 import exceptions.*;
 import java.awt.Event;
-import java.awt.Image;
 import java.awt.KeyboardFocusManager;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
 
-/**
- *
- * @author danil
- */
 public class LoginDialogGUI extends javax.swing.JDialog {
     private UsuariosLista usuariosLista;
     private Usuario usuario;
+    
     public static int ACERTOU_LOGIN = 1;
     public static int ERROU_LOGIN = 2;
     public static int FECHOU_LOGIN = 0;
@@ -33,14 +21,14 @@ public class LoginDialogGUI extends javax.swing.JDialog {
      * Creates new form LoginDialogGUI
      */
     public LoginDialogGUI(java.awt.Frame parent, boolean modal) {
-	
 	super(parent, modal);
-	status = ERROU_LOGIN;
+	status = ERROU_LOGIN; //Status padrão é o login inválido
 	usuariosLista = new UsuariosLista();
 	initComponents();
 	myInitComponents();
     }
     
+    /** ESTES GETTERS PODEM SER ACESSADOS APÓS A FINALIZAÇÃO DA JANELA **/
     public Usuario getUsuario() {
 	return usuario;
     }
@@ -159,6 +147,7 @@ public class LoginDialogGUI extends javax.swing.JDialog {
     
     private void txtfd_nomeUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfd_nomeUsuarioKeyPressed
         if (evt.getKeyCode() == Event.ENTER) {
+	    //Se recebeu um ENTER, avança uma caixa (como o TAB)
             KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
             manager.focusNextComponent();
         }
@@ -166,41 +155,47 @@ public class LoginDialogGUI extends javax.swing.JDialog {
 
     private void pass_senhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pass_senhaKeyPressed
         if (evt.getKeyCode() == Event.ENTER) {
+	    //Se recebeu um ENTER na senha, clica o botão
             btn_entrar.doClick();
         }
     }//GEN-LAST:event_pass_senhaKeyPressed
 
     private void btn_sairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_sairActionPerformed
-        status = FECHOU_LOGIN;
+        status = FECHOU_LOGIN; //Salva o Status
 	this.dispose();
     }//GEN-LAST:event_btn_sairActionPerformed
 
     private void btn_entrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_entrarActionPerformed
         String nomeUsuario = txtfd_nomeUsuario.getText();
         String senha = String.valueOf(pass_senha.getPassword());
-        Usuario user = new Usuario("","","");
+	
+        Usuario user = new Usuario("","",""); //Inicializa com valor que não será utilizado
         boolean error = false;
         try {
             user = usuariosLista.getUsuario(nomeUsuario);
             if (user.checkPassword(senha)) {
 
             } else {
+		//Se senha não confere, marca erro de login
                 error = true;
             }
         } catch (NameNotFoundException ex) {
+	    //Se nome de usuário não confere, marca erro de login
             error = true;
         }
         if (error) {
+	    //Se deu erro de login
             JOptionPane.showMessageDialog(null, "Nome de usuário ou senha incorretos", "Erro" , JOptionPane.WARNING_MESSAGE);
         } else {
+	    //Se não deu erro de login
             usuario = user;
-	    status = ACERTOU_LOGIN;
+	    status = ACERTOU_LOGIN; //marca novo status
 	    this.dispose();
         }
     }//GEN-LAST:event_btn_entrarActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        status = FECHOU_LOGIN;
+        status = FECHOU_LOGIN; //marca status caso tente sair pelo botão X
     }//GEN-LAST:event_formWindowClosing
 
     /**

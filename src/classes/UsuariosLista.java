@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package classes;
 
 import exceptions.*;
@@ -12,17 +7,12 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.OpenOption;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author DAELN
- */
 public class UsuariosLista {
 
     private static String filePath = "Users.txt";
@@ -103,20 +93,6 @@ public class UsuariosLista {
 		usuarios.add(u);
 	    }
 	}
-	/*
-	 String input = "";
-	 String[] usuario;
-	 while (input != null) {
-	 input = readFile.readLine();
-	 if (input != null) {
-	 usuario = input.split(" ; "); //gera 3 strings que estavam separadas por ;
-	 if (usuario.length == 3) { //numero de parametros separados por ;
-	 usuarios.add(new Usuario(usuario[0], usuario[1], usuario[2]));
-	 }
-	 }
-	 }
-	 readFile.close();*/
-
     }
 
     public void gravarUsuariosArquivo() throws IOException {
@@ -132,28 +108,12 @@ public class UsuariosLista {
 	    inicializarArquivo();
 	    Files.write(Paths.get(filePath), usuariosString, StandardCharsets.UTF_8, StandardOpenOption.TRUNCATE_EXISTING);
 	}
-	/*
-	 FileWriter file = new FileWriter(filePath);
-	 PrintWriter writeFile = new PrintWriter(file);
-
-	 for (Usuario u : usuarios) {
-	 writeFile.println(String.format("%s ; %s ; %s", u.getNome(), u.getSenha(), u.getCargo()));
-	 }
-	 writeFile.close();
-	 */
     }
 
     public void inicializarArquivo() throws IOException {
 	ArrayList<String> vazio = new ArrayList();
 	vazio.add("");
 	Files.write(Paths.get(filePath), vazio, StandardCharsets.UTF_8, StandardOpenOption.CREATE_NEW);
-	/*
-	 FileWriter file = new FileWriter(filePath);
-	 PrintWriter writeFile = new PrintWriter(file);
-
-	 writeFile.write("");
-	 writeFile.close();
-	 */
     }
 
     public Usuario getUsuario(String nomeUsuario) throws NameNotFoundException {

@@ -2,20 +2,15 @@
 package interfaceGrafica;
 
 import classes.*;
-import exceptions.*;
 import java.awt.Event;
-import java.awt.Frame;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.math.RoundingMode;
-import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 
 public class CheckoutDialogGUI extends javax.swing.JDialog {
@@ -276,22 +271,27 @@ public class CheckoutDialogGUI extends javax.swing.JDialog {
     }//GEN-LAST:event_formWindowClosing
 
     private void btn_finalizarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_finalizarVendaActionPerformed
-        Estoque estoque = new Estoque();
-	estoque.inicializarEstoque();
-	for (int i = 0; i < venda.getNumItens(); i++) {
-	    Produto prod = venda.getItemVenda(i).getProduto();
-	    estoque.removeQtdItem(prod.getCodigoDeBarras(), venda.getItemVenda(i).getQtd());
+        if (pago.max(venda.getTotal()).equals(pago)) {
+	    Estoque estoque = new Estoque();
+	    estoque.inicializarEstoque();
+	    for (int i = 0; i < venda.getNumItens(); i++) {
+		Produto prod = venda.getItemVenda(i).getProduto();
+		estoque.removeQtdItem(prod.getCodigoDeBarras(), venda.getItemVenda(i).getQtd());
+	    }
+	    try {
+		estoque.updateEstoque();
+	    }
+	    catch (IOException ex) {
+		Logger.getLogger(CheckoutDialogGUI.class.getName()).log(Level.SEVERE, null, ex);
+	    }
+	    Empresa empresa = new Empresa("Supermercado Silva", "06.990.590/0001-23");
+	    NotaFiscal nota = new NotaFiscal(venda, empresa);
+	    Empresa e = empresa.EmpresaDeArquivo();
+	    txtarea_notaFiscal.setText(nota.imprimirNota());
+	    nota.salvaNotaArquivo();
+	} else {
+	    JOptionPane.showMessageDialog(rootPane, "O valor pago é menor que o valor da venda","",JOptionPane.ERROR_MESSAGE);
 	}
-	try {
-	    estoque.updateEstoque();
-	}
-	catch (IOException ex) {
-	    Logger.getLogger(CheckoutDialogGUI.class.getName()).log(Level.SEVERE, null, ex);
-	}
-	Empresa empresa = new Empresa("Supermercado Silva", "06.990.590/0001-23");
-	NotaFiscal nota = new NotaFiscal(venda, empresa);
-	txtarea_notaFiscal.setText(nota.imprimirNota());
-	nota.salvaNotaArquivo();
     }//GEN-LAST:event_btn_finalizarVendaActionPerformed
 
     private void txtfd_pagoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfd_pagoKeyPressed
