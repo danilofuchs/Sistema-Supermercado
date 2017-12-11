@@ -1,6 +1,5 @@
 package exceptions;
 
-
 public class ProductNotUniqueException extends Exception {
     public ProductNotUniqueException() {}
     
