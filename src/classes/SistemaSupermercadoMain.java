@@ -1,15 +1,6 @@
 package classes;
-import exceptions.NameNotFoundException;
 import interfaceGrafica.*;
-import exceptions.NegativeStockException;
 import exceptions.NameNotUniqueException;
-import java.awt.Frame;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class SistemaSupermercadoMain {
 

@@ -8,13 +8,9 @@ package interfaceGrafica;
 import classes.*;
 import exceptions.*;
 import java.awt.Event;
-import java.awt.Image;
 import java.awt.KeyboardFocusManager;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
 
 /**
  *

@@ -1,6 +1,5 @@
 
 package classes;
-import exceptions.NegativeStockException;
 import java.math.BigDecimal;
 
 public class Produto {

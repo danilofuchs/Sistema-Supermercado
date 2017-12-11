@@ -2,20 +2,15 @@
 package interfaceGrafica;
 
 import classes.*;
-import exceptions.*;
 import java.awt.Event;
-import java.awt.Frame;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.math.RoundingMode;
-import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 
 public class CheckoutDialogGUI extends javax.swing.JDialog {
