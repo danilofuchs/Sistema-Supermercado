@@ -84,6 +84,7 @@ public class VendaGUI extends javax.swing.JFrame {
 	}
 	txtfd_qtdProduto.setText("0,000");
 	fmtfd_codProduto.setFormatterFactory(new DefaultFormatterFactory(maskFormatterCod));
+	fmtfd_codProduto.requestFocus();
 	lbl_vendedor.setText("Vendedor: " + usuario.getNome());
     }
     // </editor-fold>
@@ -120,6 +121,7 @@ public class VendaGUI extends javax.swing.JFrame {
 
         btn_addProduto.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btn_addProduto.setText("Adicionar Produto");
+        btn_addProduto.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btn_addProduto.setNextFocusableComponent(fmtfd_codProduto);
         btn_addProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -219,6 +221,7 @@ public class VendaGUI extends javax.swing.JFrame {
         lbl_vendedor.setText("Vendedor:");
 
         txtfd_qtdProduto.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        txtfd_qtdProduto.setNextFocusableComponent(btn_addProduto);
         txtfd_qtdProduto.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtfd_qtdProdutoFocusGained(evt);
@@ -346,17 +349,14 @@ public class VendaGUI extends javax.swing.JFrame {
 	resetTextFields();
     }
     private void fmtfd_codProdutoCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_fmtfd_codProdutoCaretUpdate
-	if (fmtfd_codProduto.getCaret().getMark() == 15) {
-	    KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
-	    manager.focusNextComponent();
+	if (fmtfd_codProduto.getCaret().getMark() == 15 && !fmtfd_codProduto.getText().equals("               ")) {
+	    txtfd_qtdProduto.requestFocus();
 	}
     }//GEN-LAST:event_fmtfd_codProdutoCaretUpdate
 
     private void btn_addProdutoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btn_addProdutoKeyPressed
 	if (evt.getKeyCode() == Event.ENTER) {
 	    btn_addProduto.doClick();
-	    KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
-	    manager.focusNextComponent();
 	}
     }//GEN-LAST:event_btn_addProdutoKeyPressed
 
@@ -503,10 +503,11 @@ public class VendaGUI extends javax.swing.JFrame {
 
 	txtfd_nomeProduto.setText("");
 	fmtfd_codProduto.setText("");
-	txtfd_qtdProduto.setText("");
+	txtfd_qtdProduto.setText("0,000");
 	qtdProduto = new BigDecimal("0.000");
 	prodTemp = new Produto("", new BigDecimal("0"), "", "");
 	prodTempValido = false;
+	fmtfd_codProduto.requestFocus();
     }
 
     private Produto findProduto(String codBarras) throws NameNotFoundException {
