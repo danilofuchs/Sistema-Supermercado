@@ -83,7 +83,7 @@
         <Property name="text" type="java.lang.String" value="Nova venda"/>
         <Property name="enabled" type="boolean" value="false"/>
         <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-          <ComponentRef name="btn_sair"/>
+          <ComponentRef name="btn_logout"/>
         </Property>
       </Properties>
       <Events>
@@ -94,7 +94,7 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Sair"/>
         <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-          <ComponentRef name="btn_logout"/>
+          <ComponentRef name="btn_novaVenda"/>
         </Property>
       </Properties>
       <Events>
@@ -110,7 +110,7 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Logout"/>
         <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-          <ComponentRef name="btn_novaVenda"/>
+          <ComponentRef name="btn_addUsuario"/>
         </Property>
       </Properties>
       <Events>
@@ -121,6 +121,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Adicionar usu&#xe1;rio"/>
         <Property name="enabled" type="boolean" value="false"/>
+        <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+          <ComponentRef name="btn_sair"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_addUsuarioActionPerformed"/>

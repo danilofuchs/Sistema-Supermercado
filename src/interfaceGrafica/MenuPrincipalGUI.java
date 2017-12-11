@@ -109,7 +109,7 @@ public class MenuPrincipalGUI extends javax.swing.JFrame {
         btn_novaVenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfaceGrafica/cart.png"))); // NOI18N
         btn_novaVenda.setText("Nova venda");
         btn_novaVenda.setEnabled(false);
-        btn_novaVenda.setNextFocusableComponent(btn_sair);
+        btn_novaVenda.setNextFocusableComponent(btn_logout);
         btn_novaVenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_novaVendaActionPerformed(evt);
@@ -117,7 +117,7 @@ public class MenuPrincipalGUI extends javax.swing.JFrame {
         });
 
         btn_sair.setText("Sair");
-        btn_sair.setNextFocusableComponent(btn_logout);
+        btn_sair.setNextFocusableComponent(btn_novaVenda);
         btn_sair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_sairActionPerformed(evt);
@@ -127,7 +127,7 @@ public class MenuPrincipalGUI extends javax.swing.JFrame {
         lbl_bemVindo.setText("Bem-vindo");
 
         btn_logout.setText("Logout");
-        btn_logout.setNextFocusableComponent(btn_novaVenda);
+        btn_logout.setNextFocusableComponent(btn_addUsuario);
         btn_logout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_logoutActionPerformed(evt);
@@ -136,6 +136,7 @@ public class MenuPrincipalGUI extends javax.swing.JFrame {
 
         btn_addUsuario.setText("Adicionar usuário");
         btn_addUsuario.setEnabled(false);
+        btn_addUsuario.setNextFocusableComponent(btn_sair);
         btn_addUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_addUsuarioActionPerformed(evt);
