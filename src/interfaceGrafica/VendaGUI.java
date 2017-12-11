@@ -159,14 +159,14 @@ public class VendaGUI extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Produto", "Quantidade", "Preço Unitário", "Subtotal Item"
+                "Seq", "Produto", "Quantidade", "Preço Unitário", "Subtotal Item"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -189,13 +189,15 @@ public class VendaGUI extends javax.swing.JFrame {
         jScrollPane2.setViewportView(table_produtos);
         if (table_produtos.getColumnModel().getColumnCount() > 0) {
             table_produtos.getColumnModel().getColumn(0).setResizable(false);
-            table_produtos.getColumnModel().getColumn(0).setPreferredWidth(500);
+            table_produtos.getColumnModel().getColumn(0).setPreferredWidth(50);
             table_produtos.getColumnModel().getColumn(1).setResizable(false);
-            table_produtos.getColumnModel().getColumn(1).setPreferredWidth(120);
+            table_produtos.getColumnModel().getColumn(1).setPreferredWidth(500);
             table_produtos.getColumnModel().getColumn(2).setResizable(false);
             table_produtos.getColumnModel().getColumn(2).setPreferredWidth(120);
             table_produtos.getColumnModel().getColumn(3).setResizable(false);
-            table_produtos.getColumnModel().getColumn(3).setPreferredWidth(150);
+            table_produtos.getColumnModel().getColumn(3).setPreferredWidth(120);
+            table_produtos.getColumnModel().getColumn(4).setResizable(false);
+            table_produtos.getColumnModel().getColumn(4).setPreferredWidth(150);
         }
 
         lbl_total.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -329,6 +331,7 @@ public class VendaGUI extends javax.swing.JFrame {
 	    DefaultTableModel table = (DefaultTableModel) table_produtos.getModel();
 
 	    table.addRow(new Object[]{
+		item.getSequencial(),
 		item.getProduto().getNome(),
 		String.format("%4.3f %s", item.getQtd(), item.getProduto().getUnidade()),
 		String.format("R$%04.2f", item.getProduto().getPreco()),
