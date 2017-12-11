@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package interfaceGrafica;
 
 import classes.*;
@@ -36,15 +31,14 @@ public class VendaGUI extends javax.swing.JFrame {
     private Usuario usuario;
     private CargosLista cargosLista;
 
-    private BigDecimal qtdProduto;
+    private BigDecimal qtdProduto; //Quantidade de produto indicada no txtfd_qtdProduto
     
-    private Produto prodTemp;
-    private boolean prodTempValido = false;
+    private Produto prodTemp; //Um produto temporário para validação do código de barras
+    private boolean prodTempValido = false; //Indica se o prodTemp têm valores válidos
 
-    private MaskFormatter maskFormatterCod = new MaskFormatter();
-    private MaskFormatter maskFormatterQtd = new MaskFormatter();
+    private MaskFormatter maskFormatterCod = new MaskFormatter(); //formatador para colcoar espaços automaticamente no código de barras
     
-    JPopupMenu popUp;
+    private JPopupMenu popUp; //popUp para remover produtos quando clicar na tabela
 
     /**
      * Creates new form VendaGUI
@@ -69,7 +63,9 @@ public class VendaGUI extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="My init codes">
     private void myInitComponents() {
+	//Inicializa código personalizado para os componentes da janela
 	try {
+	    //Formata código de barras para o tipo (1 234567 890123)
 	    maskFormatterCod = new MaskFormatter("* ****** ******");
 	    maskFormatterCod.setValidCharacters("1234567890 ");
 	    maskFormatterCod.setPlaceholderCharacter(' ');
@@ -78,9 +74,11 @@ public class VendaGUI extends javax.swing.JFrame {
 	catch (ParseException ex) {
 	    Logger.getLogger(VendaGUI.class.getName()).log(Level.SEVERE, null, ex);
 	}
-	txtfd_qtdProduto.setText("0,000");
+	//Atribui a formatação para o fmtfd_codProduto
 	fmtfd_codProduto.setFormatterFactory(new DefaultFormatterFactory(maskFormatterCod));
 	fmtfd_codProduto.requestFocus();
+	
+	txtfd_qtdProduto.setText("0,000");
 	lbl_vendedor.setText("Vendedor: " + usuario.getNome());
     }
     // </editor-fold>
@@ -311,13 +309,21 @@ public class VendaGUI extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void addQtdProduto(char key) {
+    private void addDigitoQtdProduto(char key) {
+	// Esse método vai adicionar o caracter ao final do BigDecimal,
+	// garantindo três casas decimais
 	if (key >= '0' && key <= '9') {
-	    qtdProduto = qtdProduto.multiply(new BigDecimal("10"));
+	    qtdProduto = qtdProduto.multiply(new BigDecimal("10")); //valor antigo * 10
+	    //adiciona digito novo 1000 vezes menor
+	    //	Exemplo:     Valor antigo = 10,00
+	    //	 Digitou 3   Valor novo	 = 100,03
 	    qtdProduto = qtdProduto.add(new BigDecimal(String.valueOf(key)).scaleByPowerOfTen(-3));
 	} else if (key == KeyEvent.VK_BACK_SPACE) {
+	    //Se quer deletar um digito, deve zerar a casa decimal 3 (setScale(2)),
+	    //dividir o valor por 10 e reabrir a possibilidade da 3 casa decimal
 	    qtdProduto = qtdProduto.setScale(2,RoundingMode.DOWN).divide(new BigDecimal("10")).setScale(3);
 	}
+	//Mostra o novo valor onde a pessoa está digitando
 	txtfd_qtdProduto.setText(String.format("%.3f", qtdProduto));
     }
 
@@ -327,61 +333,72 @@ public class VendaGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_addProdutoActionPerformed
 
     private void addProdutoLista() {
-
+	
 	if (prodTempValido) {
+	    //Se o codigo de barras retorou um produto válido
+	    //Adiciona um novo itemVenda
 	    ItemVenda item = new ItemVenda(prodTemp, qtdProduto, venda.getNumItens() + 1);
 
+	    //Adiciona nova linha na tabela com dados do item
 	    DefaultTableModel table = (DefaultTableModel) table_produtos.getModel();
-
 	    table.addRow(new Object[]{
 		item.getSequencial(),
 		item.getProduto().getNome(),
 		String.format("%4.3f %s", item.getQtd(), item.getProduto().getUnidade()),
 		String.format("R$%04.2f", item.getProduto().getPreco()),
 		String.format("R$%04.2f", item.getPrecoTotalItem())
-	    }
-	    );
+	    });
+	    //Adiciona o item em venda
 	    venda.addItem(item);
+	    //Pega o novo valor de total (já calculado em venda)
 	    txtfd_total.setText(String.format("R$%4.2f", venda.getTotal()));
 	} else {
-
+	    //Se o produto é inválido, não faz nada
 	}
+	//Reseta interface
 	resetTextFields();
     }
     private void fmtfd_codProdutoCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_fmtfd_codProdutoCaretUpdate
 	if (fmtfd_codProduto.getCaret().getMark() == 15 && !fmtfd_codProduto.getText().equals("               ")) {
+	    //Se já foram digitados 15 caracteres (código de barras) diferentes de ESPAÇO
+	    //manda o cursor para a quantidade
 	    txtfd_qtdProduto.requestFocus();
 	}
     }//GEN-LAST:event_fmtfd_codProdutoCaretUpdate
 
     private void btn_addProdutoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btn_addProdutoKeyPressed
 	if (evt.getKeyCode() == Event.ENTER) {
+	    //Quando clicado ENTER no botão, aciona ele
 	    btn_addProduto.doClick();
 	}
     }//GEN-LAST:event_btn_addProdutoKeyPressed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-
+	//Para cancelar a venda (fechar a janela) precisa de confirmação
 	int confirmCancel = JOptionPane.showConfirmDialog(rootPane, "Deseja cancelar a venda?", "Cancelamento de venda", JOptionPane.YES_NO_OPTION);
 
 	if (confirmCancel == JOptionPane.OK_OPTION) {
 	    try {
 		int confirmNeedsLogin = JOptionPane.NO_OPTION;
 		if (cargosLista.getCargo(usuario.getCargo()).podeCancelarVenda()) {
+		    //Se o usuario logado pode cancelar a venda
 		    this.dispose();
 		} else {
+		    //Pergunta para o usuario se quer chamar o gerente
 		    confirmNeedsLogin = JOptionPane.showConfirmDialog(rootPane, "Você não tem permissão necessária, acessar outra conta?", "Cancelamento de venda", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 		    if (confirmNeedsLogin == JOptionPane.YES_OPTION) {
 			Usuario usuarioAdmin;
 			try {
+			    //Chama janela de login para usuarioAdmin
 			    usuarioAdmin = fazerLoginPermissao();
 			    if (cargosLista.getCargo(usuarioAdmin.getCargo()).podeCancelarVenda()) {
+				//se o usuarioAdmin pode cancelar a venda, cancela
 				JOptionPane.showMessageDialog(rootPane, "Venda cancelada com sucesso!", "Venda Cancelada", JOptionPane.INFORMATION_MESSAGE);
 				this.dispose();
-			    }
+			    } //caso não possa, não faz nada.
 			}
 			catch (PasswordInvalidException ex) {
-			    Logger.getLogger(VendaGUI.class.getName()).log(Level.SEVERE, null, ex);
+			    
 			}
 
 		    }
@@ -392,19 +409,21 @@ public class VendaGUI extends javax.swing.JFrame {
 		Logger.getLogger(VendaGUI.class.getName()).log(Level.SEVERE, null, ex);
 	    }
 	} else if (confirmCancel == JOptionPane.NO_OPTION) {
-
+	    //Se não quer pedir acesso ao gerente, não faz nada
 	}
     }//GEN-LAST:event_formWindowClosing
 
     private Usuario fazerLoginPermissao() throws PasswordInvalidException {
+	// Abre nova janela de login e verifica se foi bem sucedido
 	Usuario usuarioAdmin = new Usuario("", "", "");
-	Frame frame = new Frame("");
-	LoginDialogGUI login = new LoginDialogGUI(frame, true);
+	LoginDialogGUI login = new LoginDialogGUI(this, true);
 	login.setVisible(true);
 	int statusLogin = login.getStatus();
 	if (statusLogin == LoginDialogGUI.ACERTOU_LOGIN) {
+	    //Se foi bem sucedido o login, pega o usuario logado
 	    usuarioAdmin = login.getUsuario();
 	} else {
+	    //Se não foi bem sucedido, retorna excessão
 	    throw new PasswordInvalidException("Erro no login");
 	}
 
@@ -414,30 +433,40 @@ public class VendaGUI extends javax.swing.JFrame {
 
     private void table_produtosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_produtosMouseClicked
 	if (SwingUtilities.isRightMouseButton(evt)) {
+	    //Se clicou com o botão direito do mouse na tabela, faz um popup
 	    popUp = new JPopupMenu();
+	    //Cria novo botão
 	    JButton btn_removeProduto = new JButton("Remover este produto");
+	    //Adiciona uma ação a este botão:::
 	    btn_removeProduto.addActionListener(new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
+		    //Abre o popUp
 		    popUp.setVisible(false);
 		    try {
 			if (cargosLista.getCargo(usuario.getCargo()).podeRemoverProdutoVenda()) {
+			    //Se o usuario pode remover o produto
 			    int row = table_produtos.getSelectedRow();
 			    if (row >= 0) {
+				//remove produto da tabela e da lista
 				removeProdutoLista(table_produtos.getSelectedRow());
 			    }
 			} else {
+			    //Se não tem permissão, pede para logar o gerente
 			    int confirmNeedsLogin = JOptionPane.showConfirmDialog(rootPane, "Você não tem permissão necessária, acessar outra conta?", "Remoção de produto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 			    if (confirmNeedsLogin == JOptionPane.YES_OPTION) {
+				//Se quer fazer login
 				Usuario usuarioAdmin;
 				try {
+				    //Faz login
 				    usuarioAdmin = fazerLoginPermissao();
 				    if (cargosLista.getCargo(usuarioAdmin.getCargo()).podeRemoverProdutoVenda()) {
+					//Testa permissões do novo usuário e remove caso possível
 					removeProdutoLista(table_produtos.getSelectedRow());
 				    }
 				}
 				catch (PasswordInvalidException ex) {
-				    Logger.getLogger(VendaGUI.class.getName()).log(Level.SEVERE, null, ex);
+				    
 				}
 
 			    }
@@ -448,37 +477,43 @@ public class VendaGUI extends javax.swing.JFrame {
 		    }
 		}
 	    });
+	    //coloca este botão no popUp e mostra ele em baixo do cursor do mouse
 	    popUp.add(btn_removeProduto);
 	    popUp.show(evt.getComponent(), evt.getX(), evt.getY());
 	}
     }//GEN-LAST:event_table_produtosMouseClicked
 
     private void btn_finalizarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_finalizarVendaActionPerformed
-        CheckoutDialogGUI checkout = new CheckoutDialogGUI(this, true, venda, usuario, cargosLista);
+        //Chama a tela de checkout para lidar com o pagamento
+	CheckoutDialogGUI checkout = new CheckoutDialogGUI(this, true, venda, usuario, cargosLista);
 	checkout.setVisible(true);
     }//GEN-LAST:event_btn_finalizarVendaActionPerformed
 
     private void txtfd_qtdProdutoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtfd_qtdProdutoFocusGained
-        updateWindowProduto();
+        //Toda vez que o cursor vai até a qtdProduto, testa o produto.
+	updateWindowProduto();
     }//GEN-LAST:event_txtfd_qtdProdutoFocusGained
 
     private void txtfd_qtdProdutoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfd_qtdProdutoKeyReleased
-        addQtdProduto(evt.getKeyChar());
+        //Roda vez que um dígito é clicado em qtdProduto, adiciona pelo método correto
+	addDigitoQtdProduto(evt.getKeyChar());
     }//GEN-LAST:event_txtfd_qtdProdutoKeyReleased
 
     private void txtfd_qtdProdutoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfd_qtdProdutoKeyPressed
-        if (evt.getKeyCode() == Event.ENTER) {
+	if (evt.getKeyCode() == Event.ENTER) {
+	    //Se clicou ENTER na qtdProduto, clica o botão e coloca o novo foco no codProduto
             btn_addProduto.doClick();
 	    fmtfd_codProduto.requestFocus();
         }
     }//GEN-LAST:event_txtfd_qtdProdutoKeyPressed
 
     private void removeProdutoLista(int row) {
-
+	//Recebe a linha a ser removida e remove da venda e da tabela.
 	DefaultTableModel table = (DefaultTableModel) table_produtos.getModel();
 	if (venda.getNumItens() > 0) {
 	    venda.removeItem(row);
 	    table.removeRow(row);
+	    //Atualiza total (Calculado em venda)
 	    txtfd_total.setText(String.format("R$%4.2f", venda.getTotal()));
 	}
 
@@ -486,21 +521,24 @@ public class VendaGUI extends javax.swing.JFrame {
 
     private void updateWindowProduto() {
 	try {
+	    //Acha o produto no estoque e atribui a prodTemp
 	    prodTemp = findProduto(fmtfd_codProduto.getText().replaceAll("\\s", ""));
+	    //Se achou, é valido
 	    prodTempValido = true;
 	}
 	catch (NameNotFoundException ex) {
+	    //Se não achou o produto pelo código de barras, não é válido
 	    prodTemp = new Produto("", new BigDecimal("0"), "", "");
 	    prodTempValido = false;
 	    System.err.println("Não encontrado " + fmtfd_codProduto.getText().replaceAll("\\s", ""));
 	}
-
+	//Atualiza janela mostrando o nome do produto
 	txtfd_nomeProduto.setText(prodTemp.getNome());
 	txtfd_nomeProduto.setCaretPosition(0);
     }
 
     private void resetTextFields() {
-
+	//Reseta Janela para vazio a cada novo produto adicionado
 	txtfd_nomeProduto.setText("");
 	fmtfd_codProduto.setText("");
 	txtfd_qtdProduto.setText("0,000");
@@ -511,6 +549,7 @@ public class VendaGUI extends javax.swing.JFrame {
     }
 
     private Produto findProduto(String codBarras) throws NameNotFoundException {
+	//Procura produto no estoque de acordo com codigo de barras
 	codBarras.replaceAll("\\s", "");
 	codBarras.replaceAll("\\n", "");
 	ItemEstoque item = estoque.findItem(codBarras);

@@ -284,11 +284,19 @@ public class CheckoutDialogGUI extends javax.swing.JDialog {
 	    catch (IOException ex) {
 		Logger.getLogger(CheckoutDialogGUI.class.getName()).log(Level.SEVERE, null, ex);
 	    }
-	    Empresa empresa = new Empresa("Supermercado Silva", "06.990.590/0001-23");
-	    NotaFiscal nota = new NotaFiscal(venda, empresa);
-	    Empresa e = empresa.EmpresaDeArquivo();
-	    txtarea_notaFiscal.setText(nota.imprimirNota());
-	    nota.salvaNotaArquivo();
+	    
+	    
+	    try {
+		Empresa empresa;
+		empresa = Empresa.empresaDeArquivo();
+		NotaFiscal nota = new NotaFiscal(venda, empresa);
+		txtarea_notaFiscal.setText(nota.imprimirNota());
+		nota.salvaNotaArquivo();
+	    }
+	    catch (IOException ex) {
+		Logger.getLogger(CheckoutDialogGUI.class.getName()).log(Level.SEVERE, null, ex);
+	    }
+
 	} else {
 	    JOptionPane.showMessageDialog(rootPane, "O valor pago é menor que o valor da venda","",JOptionPane.ERROR_MESSAGE);
 	}
