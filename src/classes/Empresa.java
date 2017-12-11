@@ -8,6 +8,10 @@ public class Empresa {
         this.nome = nome;
         this.cnpj = cnpj;
     }
+    
+    public static Empresa EmpresaDeArquivo() {
+	return new Empresa("","");
+    }
 
     public String getNome() {
         return nome;
