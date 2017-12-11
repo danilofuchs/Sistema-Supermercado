@@ -192,14 +192,18 @@ public class VendaGUI extends javax.swing.JFrame {
         if (table_produtos.getColumnModel().getColumnCount() > 0) {
             table_produtos.getColumnModel().getColumn(0).setResizable(false);
             table_produtos.getColumnModel().getColumn(0).setPreferredWidth(50);
-            table_produtos.getColumnModel().getColumn(1).setResizable(false);
+            table_produtos.getColumnModel().getColumn(1).setMinWidth(300);
             table_produtos.getColumnModel().getColumn(1).setPreferredWidth(500);
-            table_produtos.getColumnModel().getColumn(2).setResizable(false);
-            table_produtos.getColumnModel().getColumn(2).setPreferredWidth(120);
-            table_produtos.getColumnModel().getColumn(3).setResizable(false);
+            table_produtos.getColumnModel().getColumn(1).setMaxWidth(600);
+            table_produtos.getColumnModel().getColumn(2).setMinWidth(100);
+            table_produtos.getColumnModel().getColumn(2).setPreferredWidth(150);
+            table_produtos.getColumnModel().getColumn(2).setMaxWidth(250);
+            table_produtos.getColumnModel().getColumn(3).setMinWidth(100);
             table_produtos.getColumnModel().getColumn(3).setPreferredWidth(120);
-            table_produtos.getColumnModel().getColumn(4).setResizable(false);
+            table_produtos.getColumnModel().getColumn(3).setMaxWidth(250);
+            table_produtos.getColumnModel().getColumn(4).setMinWidth(100);
             table_produtos.getColumnModel().getColumn(4).setPreferredWidth(150);
+            table_produtos.getColumnModel().getColumn(4).setMaxWidth(250);
         }
 
         lbl_total.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
