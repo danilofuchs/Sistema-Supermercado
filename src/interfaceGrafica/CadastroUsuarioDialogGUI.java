@@ -65,18 +65,28 @@ public class CadastroUsuarioDialogGUI extends javax.swing.JDialog {
         btn_cadastrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cadastrar novo usuário");
         setIconImage(new ImageIcon(getClass().getResource("/interfaceGrafica/cartIcon.png")).getImage().getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH));
 
         lbl_nome.setText("Nome:");
 
+        txtfd_nome.setNextFocusableComponent(lbl_nomeUsuario);
+
         lbl_nomeUsuario.setText("Nome de usuário:");
+
+        txtfd_nomeUsuario.setNextFocusableComponent(combo_cargo);
 
         lbl_cargo.setText("Cargo:");
 
+        combo_cargo.setNextFocusableComponent(pass_senha);
+
         lbl_senha.setText("Senha:");
+
+        pass_senha.setNextFocusableComponent(pass_senhaConfirm);
 
         lbl_senhaConfirm.setText("Confirmar senha:");
 
+        pass_senhaConfirm.setNextFocusableComponent(btn_cadastrar);
         pass_senhaConfirm.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 pass_senhaConfirmKeyPressed(evt);
@@ -84,6 +94,7 @@ public class CadastroUsuarioDialogGUI extends javax.swing.JDialog {
         });
 
         btn_cancelar.setText("Cancelar");
+        btn_cancelar.setNextFocusableComponent(txtfd_nome);
         btn_cancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_cancelarActionPerformed(evt);
@@ -91,6 +102,7 @@ public class CadastroUsuarioDialogGUI extends javax.swing.JDialog {
         });
 
         btn_cadastrar.setText("Cadastrar");
+        btn_cadastrar.setNextFocusableComponent(btn_cancelar);
         btn_cadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_cadastrarActionPerformed(evt);
