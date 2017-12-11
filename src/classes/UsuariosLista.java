@@ -25,8 +25,8 @@ import java.util.logging.Logger;
  */
 public class UsuariosLista {
 
-    String filePath = "Users.txt";
-    ArrayList<Usuario> usuarios = new ArrayList();
+    private static String filePath = "Users.txt";
+    private ArrayList<Usuario> usuarios = new ArrayList();
 
     public UsuariosLista() {
 	try {
