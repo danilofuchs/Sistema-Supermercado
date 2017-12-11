@@ -80,6 +80,7 @@ public class LoginDialogGUI extends javax.swing.JDialog {
 
         lbl_nomeUsuario.setText("Nome de usuário:");
 
+        txtfd_nomeUsuario.setNextFocusableComponent(pass_senha);
         txtfd_nomeUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtfd_nomeUsuarioKeyPressed(evt);
@@ -88,6 +89,7 @@ public class LoginDialogGUI extends javax.swing.JDialog {
 
         lbl_senha.setText("Senha:");
 
+        pass_senha.setNextFocusableComponent(btn_entrar);
         pass_senha.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 pass_senhaKeyPressed(evt);
@@ -95,6 +97,7 @@ public class LoginDialogGUI extends javax.swing.JDialog {
         });
 
         btn_sair.setText("Sair");
+        btn_sair.setNextFocusableComponent(txtfd_nomeUsuario);
         btn_sair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_sairActionPerformed(evt);
@@ -102,6 +105,7 @@ public class LoginDialogGUI extends javax.swing.JDialog {
         });
 
         btn_entrar.setText("Entrar");
+        btn_entrar.setNextFocusableComponent(btn_sair);
         btn_entrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_entrarActionPerformed(evt);

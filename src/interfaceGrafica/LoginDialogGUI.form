@@ -83,6 +83,11 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtfd_nomeUsuario">
+      <Properties>
+        <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+          <ComponentRef name="pass_senha"/>
+        </Property>
+      </Properties>
       <Events>
         <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtfd_nomeUsuarioKeyPressed"/>
       </Events>
@@ -93,6 +98,11 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JPasswordField" name="pass_senha">
+      <Properties>
+        <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+          <ComponentRef name="btn_entrar"/>
+        </Property>
+      </Properties>
       <Events>
         <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="pass_senhaKeyPressed"/>
       </Events>
@@ -100,6 +110,9 @@
     <Component class="javax.swing.JButton" name="btn_sair">
       <Properties>
         <Property name="text" type="java.lang.String" value="Sair"/>
+        <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+          <ComponentRef name="txtfd_nomeUsuario"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_sairActionPerformed"/>
@@ -108,6 +121,9 @@
     <Component class="javax.swing.JButton" name="btn_entrar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Entrar"/>
+        <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+          <ComponentRef name="btn_sair"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_entrarActionPerformed"/>
