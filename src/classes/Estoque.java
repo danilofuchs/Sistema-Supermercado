@@ -109,8 +109,8 @@ public class Estoque {
             obj.put("nome", i.getProduto().getNome());
             obj.put("UN", i.getProduto().getUnidade());
             obj.put("codigo de barras", i.getProduto().getCodigoDeBarras());
-            obj.put("preco", i.getProduto().getPreco());
-            obj.put("quantidade", i.getQtd());
+            obj.put("preco", i.getProduto().getPreco().toPlainString());
+            obj.put("quantidade", i.getQtd().toPlainString());
             objArray.add(obj);
         }
         
