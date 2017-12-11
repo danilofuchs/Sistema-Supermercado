@@ -64,8 +64,4 @@ public class Venda {
         return itens;
     }
 
-    public BigDecimal getTotalVenda() {
-        return totalVenda;
-    }
-
 }
