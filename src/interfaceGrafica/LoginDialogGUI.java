@@ -181,11 +181,9 @@ public class LoginDialogGUI extends javax.swing.JDialog {
             if (user.checkPassword(senha)) {
 
             } else {
-                System.err.println("Senha");
                 error = true;
             }
         } catch (NameNotFoundException ex) {
-            System.err.println("Nome");
             error = true;
         }
         if (error) {
