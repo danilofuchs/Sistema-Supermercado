@@ -256,29 +256,50 @@ public class CheckoutDialogGUI extends javax.swing.JDialog {
 	//Recalcula o troco devido
 	updateTroco();
     }//GEN-LAST:event_combo_metodosItemStateChanged
+	
+	private void updateTroco() {
+	//Recalcula troco e grava na tela
+	troco = pago.subtract(venda.getTotal());
+	txtfd_troco.setText(String.format("%.2f", troco));
+    }
 
     private void txtfd_pagoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfd_pagoKeyReleased
         //Adiciona o valor pago pelo método específico
 	if (txtfd_pago.isEditable()) {
-	    addValuePago(evt.getKeyChar());
+	    addDigitoValorPago(evt.getKeyChar());
 	}
     }//GEN-LAST:event_txtfd_pagoKeyReleased
-
-    private void txtfd_pagoPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_txtfd_pagoPropertyChange
+	
+	private void txtfd_pagoPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_txtfd_pagoPropertyChange
         //Atualiza troco se o valor pago mudou.
 	updateTroco();
     }//GEN-LAST:event_txtfd_pagoPropertyChange
-
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        //Se o usuario tentar fechar a janela, pede confirmação
-	int confirmExit = JOptionPane.showConfirmDialog(rootPane, "Deseja editar a venda?", "Editar venda", JOptionPane.YES_NO_OPTION);
-
-	if (confirmExit == JOptionPane.OK_OPTION) {
-	    this.dispose();
-	} else if (confirmExit == JOptionPane.NO_OPTION) {
-
+	
+	private void addDigitoValorPago(char key) {
+	// Esse método vai adicionar o caracter ao final do BigDecimal,
+	// garantindo duas casas decimais
+	if (key >= '0' && key <= '9') {
+	    //adiciona digito novo 100 vezes menor
+	    //	Exemplo:     Valor antigo = 10,00
+	    //	 Digitou 3   Valor novo	 = 100,03
+	    pago = pago.multiply(new BigDecimal("10"));
+	    pago = pago.add(new BigDecimal(String.valueOf(key)).scaleByPowerOfTen(-2));
+	} else if (key == KeyEvent.VK_BACK_SPACE) {
+	    //Se quer deletar um digito, deve zerar a casa decimal 2 (setScale(1)),
+	    //dividir o valor por 10 e reabrir a possibilidade da 2a casa decimal
+	    pago = pago.setScale(1,RoundingMode.DOWN).divide(new BigDecimal("10")).setScale(2);
 	}
-    }//GEN-LAST:event_formWindowClosing
+	//Mostra o novo valor onde a pessoa está digitando e atualiza o troco
+	txtfd_pago.setText(String.format("%.2f", pago));
+	updateTroco();
+    }
+	
+	private void txtfd_pagoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfd_pagoKeyPressed
+        //Caso clique ENTER em txtfd_pago, clica o botão de finalizar venda
+	if (evt.getKeyCode() == Event.ENTER) {
+	    btn_finalizarVenda.doClick();
+	}
+    }//GEN-LAST:event_txtfd_pagoKeyPressed
 
     private void btn_finalizarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_finalizarVendaActionPerformed
 	if (pago.max(venda.getTotal()).equals(pago)) {
@@ -320,37 +341,17 @@ public class CheckoutDialogGUI extends javax.swing.JDialog {
 	}
     }//GEN-LAST:event_btn_finalizarVendaActionPerformed
 
-    private void txtfd_pagoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfd_pagoKeyPressed
-        //Caso clique ENTER em txtfd_pago, clica o botão de finalizar venda
-	if (evt.getKeyCode() == Event.ENTER) {
-	    btn_finalizarVenda.doClick();
-	}
-    }//GEN-LAST:event_txtfd_pagoKeyPressed
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        //Se o usuario tentar fechar a janela, pede confirmação
+	int confirmExit = JOptionPane.showConfirmDialog(rootPane, "Deseja editar a venda?", "Editar venda", JOptionPane.YES_NO_OPTION);
 
-    private void updateTroco() {
-	//Recalcula troco e grava na tela
-	troco = pago.subtract(venda.getTotal());
-	txtfd_troco.setText(String.format("%.2f", troco));
-    }
-    
-    private void addValuePago(char key) {
-	// Esse método vai adicionar o caracter ao final do BigDecimal,
-	// garantindo duas casas decimais
-	if (key >= '0' && key <= '9') {
-	    //adiciona digito novo 100 vezes menor
-	    //	Exemplo:     Valor antigo = 10,00
-	    //	 Digitou 3   Valor novo	 = 100,03
-	    pago = pago.multiply(new BigDecimal("10"));
-	    pago = pago.add(new BigDecimal(String.valueOf(key)).scaleByPowerOfTen(-2));
-	} else if (key == KeyEvent.VK_BACK_SPACE) {
-	    //Se quer deletar um digito, deve zerar a casa decimal 2 (setScale(1)),
-	    //dividir o valor por 10 e reabrir a possibilidade da 2a casa decimal
-	    pago = pago.setScale(1,RoundingMode.DOWN).divide(new BigDecimal("10")).setScale(2);
+	if (confirmExit == JOptionPane.OK_OPTION) {
+	    this.dispose();
+	} else if (confirmExit == JOptionPane.NO_OPTION) {
+
 	}
-	//Mostra o novo valor onde a pessoa está digitando e atualiza o troco
-	txtfd_pago.setText(String.format("%.2f", pago));
-	updateTroco();
-    }
+    }//GEN-LAST:event_formWindowClosing    
+
     
     /**
      * @param args the command line arguments

@@ -358,10 +358,10 @@ public class VendaGUI extends javax.swing.JFrame {
 	// Esse método vai adicionar o caracter ao final do BigDecimal,
 	// garantindo três casas decimais
 	if (key >= '0' && key <= '9') {
-	    qtdProduto = qtdProduto.multiply(new BigDecimal("10")); //valor antigo * 10
 	    //adiciona digito novo 1000 vezes menor
-	    //	Exemplo:     Valor antigo = 10,00
-	    //	 Digitou 3   Valor novo	 = 100,03
+	    //	Exemplo:     Valor antigo = 10,000
+	    //	 Digitou 3   Valor novo	 = 100,003
+	    qtdProduto = qtdProduto.multiply(new BigDecimal("10")); //valor antigo * 10
 	    qtdProduto = qtdProduto.add(new BigDecimal(String.valueOf(key)).scaleByPowerOfTen(-3));
 	} else if (key == KeyEvent.VK_BACK_SPACE) {
 	    //Se quer deletar um digito, deve zerar a casa decimal 3 (setScale(2)),
