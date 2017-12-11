@@ -32,12 +32,12 @@ public class VendaGUI extends javax.swing.JFrame {
     private CargosLista cargosLista;
 
     private BigDecimal qtdProduto; //Quantidade de produto indicada no txtfd_qtdProduto
-    
+
     private Produto prodTemp; //Um produto temporário para validação do código de barras
     private boolean prodTempValido = false; //Indica se o prodTemp têm valores válidos
 
     private MaskFormatter maskFormatterCod = new MaskFormatter(); //formatador para colcoar espaços automaticamente no código de barras
-    
+
     private JPopupMenu popUp; //popUp para remover produtos quando clicar na tabela
 
     /**
@@ -77,7 +77,7 @@ public class VendaGUI extends javax.swing.JFrame {
 	//Atribui a formatação para o fmtfd_codProduto
 	fmtfd_codProduto.setFormatterFactory(new DefaultFormatterFactory(maskFormatterCod));
 	fmtfd_codProduto.requestFocus();
-	
+
 	txtfd_qtdProduto.setText("0,000");
 	lbl_vendedor.setText("Vendedor: " + usuario.getNome());
     }
@@ -309,6 +309,51 @@ public class VendaGUI extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+	private void fmtfd_codProdutoCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_fmtfd_codProdutoCaretUpdate
+	    if (fmtfd_codProduto.getCaret().getMark() == 15 && !fmtfd_codProduto.getText().equals("               ")) {
+	    //Se já foram digitados 15 caracteres (código de barras) diferentes de ESPAÇO
+		//manda o cursor para a quantidade
+		txtfd_qtdProduto.requestFocus();
+	    }
+    }//GEN-LAST:event_fmtfd_codProdutoCaretUpdate
+
+	private void txtfd_qtdProdutoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtfd_qtdProdutoFocusGained
+	    //Toda vez que o cursor vai até qtdProduto, testa o codigo de barras do produto.
+	    updateWindowProduto();
+    }//GEN-LAST:event_txtfd_qtdProdutoFocusGained
+
+    private void updateWindowProduto() {
+	try {
+	    //Acha o produto no estoque e atribui a prodTemp
+	    prodTemp = findProduto(fmtfd_codProduto.getText().replaceAll("\\s", ""));
+	    //Se achou, é valido
+	    prodTempValido = true;
+	}
+	catch (NameNotFoundException ex) {
+	    //Se não achou o produto pelo código de barras, não é válido
+	    prodTemp = new Produto("", new BigDecimal("0"), "", "");
+	    prodTempValido = false;
+	    System.err.println("Não encontrado " + fmtfd_codProduto.getText().replaceAll("\\s", ""));
+	}
+	//Atualiza janela mostrando o nome do produto
+	txtfd_nomeProduto.setText(prodTemp.getNome());
+	txtfd_nomeProduto.setCaretPosition(0);
+    }
+
+    private Produto findProduto(String codBarras) throws NameNotFoundException {
+	//Procura produto no estoque de acordo com codigo de barras
+	codBarras.replaceAll("\\s", "");
+	codBarras.replaceAll("\\n", "");
+	ItemEstoque item = estoque.findItem(codBarras);
+	return item.getProduto();
+    }
+
+
+	private void txtfd_qtdProdutoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfd_qtdProdutoKeyReleased
+	    //Roda vez que um dígito é clicado em qtdProduto, adiciona pelo método correto
+	    addDigitoQtdProduto(evt.getKeyChar());
+    }//GEN-LAST:event_txtfd_qtdProdutoKeyReleased
+
     private void addDigitoQtdProduto(char key) {
 	// Esse método vai adicionar o caracter ao final do BigDecimal,
 	// garantindo três casas decimais
@@ -321,19 +366,33 @@ public class VendaGUI extends javax.swing.JFrame {
 	} else if (key == KeyEvent.VK_BACK_SPACE) {
 	    //Se quer deletar um digito, deve zerar a casa decimal 3 (setScale(2)),
 	    //dividir o valor por 10 e reabrir a possibilidade da 3 casa decimal
-	    qtdProduto = qtdProduto.setScale(2,RoundingMode.DOWN).divide(new BigDecimal("10")).setScale(3);
+	    qtdProduto = qtdProduto.setScale(2, RoundingMode.DOWN).divide(new BigDecimal("10")).setScale(3);
 	}
 	//Mostra o novo valor onde a pessoa está digitando
 	txtfd_qtdProduto.setText(String.format("%.3f", qtdProduto));
     }
 
+    private void txtfd_qtdProdutoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfd_qtdProdutoKeyPressed
+	if (evt.getKeyCode() == Event.ENTER) {
+	    //Se clicou ENTER na qtdProduto, clica o botão e coloca o novo foco no codProduto
+	    btn_addProduto.doClick();
+	    fmtfd_codProduto.requestFocus();
+	}
+    }//GEN-LAST:event_txtfd_qtdProdutoKeyPressed
+
+    private void btn_addProdutoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btn_addProdutoKeyPressed
+	if (evt.getKeyCode() == Event.ENTER) {
+	    //Quando clicado ENTER no botão, aciona ele
+	    btn_addProduto.doClick();
+	}
+    }//GEN-LAST:event_btn_addProdutoKeyPressed
 
     private void btn_addProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addProdutoActionPerformed
 	addProdutoLista();
     }//GEN-LAST:event_btn_addProdutoActionPerformed
 
     private void addProdutoLista() {
-	
+
 	if (prodTempValido) {
 	    //Se o codigo de barras retorou um produto válido
 	    //Adiciona um novo itemVenda
@@ -358,20 +417,17 @@ public class VendaGUI extends javax.swing.JFrame {
 	//Reseta interface
 	resetTextFields();
     }
-    private void fmtfd_codProdutoCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_fmtfd_codProdutoCaretUpdate
-	if (fmtfd_codProduto.getCaret().getMark() == 15 && !fmtfd_codProduto.getText().equals("               ")) {
-	    //Se já foram digitados 15 caracteres (código de barras) diferentes de ESPAÇO
-	    //manda o cursor para a quantidade
-	    txtfd_qtdProduto.requestFocus();
-	}
-    }//GEN-LAST:event_fmtfd_codProdutoCaretUpdate
 
-    private void btn_addProdutoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btn_addProdutoKeyPressed
-	if (evt.getKeyCode() == Event.ENTER) {
-	    //Quando clicado ENTER no botão, aciona ele
-	    btn_addProduto.doClick();
-	}
-    }//GEN-LAST:event_btn_addProdutoKeyPressed
+    private void resetTextFields() {
+	//Reseta Janela para vazio a cada novo produto adicionado
+	txtfd_nomeProduto.setText("");
+	fmtfd_codProduto.setText("");
+	txtfd_qtdProduto.setText("0,000");
+	qtdProduto = new BigDecimal("0.000");
+	prodTemp = new Produto("", new BigDecimal("0"), "", "");
+	prodTempValido = false;
+	fmtfd_codProduto.requestFocus();
+    }
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
 	//Para cancelar a venda (fechar a janela) precisa de confirmação
@@ -398,7 +454,7 @@ public class VendaGUI extends javax.swing.JFrame {
 			    } //caso não possa, não faz nada.
 			}
 			catch (PasswordInvalidException ex) {
-			    
+
 			}
 
 		    }
@@ -466,7 +522,7 @@ public class VendaGUI extends javax.swing.JFrame {
 				    }
 				}
 				catch (PasswordInvalidException ex) {
-				    
+
 				}
 
 			    }
@@ -483,30 +539,6 @@ public class VendaGUI extends javax.swing.JFrame {
 	}
     }//GEN-LAST:event_table_produtosMouseClicked
 
-    private void btn_finalizarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_finalizarVendaActionPerformed
-        //Chama a tela de checkout para lidar com o pagamento
-	CheckoutDialogGUI checkout = new CheckoutDialogGUI(this, true, venda, usuario, cargosLista);
-	checkout.setVisible(true);
-    }//GEN-LAST:event_btn_finalizarVendaActionPerformed
-
-    private void txtfd_qtdProdutoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtfd_qtdProdutoFocusGained
-        //Toda vez que o cursor vai até a qtdProduto, testa o produto.
-	updateWindowProduto();
-    }//GEN-LAST:event_txtfd_qtdProdutoFocusGained
-
-    private void txtfd_qtdProdutoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfd_qtdProdutoKeyReleased
-        //Roda vez que um dígito é clicado em qtdProduto, adiciona pelo método correto
-	addDigitoQtdProduto(evt.getKeyChar());
-    }//GEN-LAST:event_txtfd_qtdProdutoKeyReleased
-
-    private void txtfd_qtdProdutoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfd_qtdProdutoKeyPressed
-	if (evt.getKeyCode() == Event.ENTER) {
-	    //Se clicou ENTER na qtdProduto, clica o botão e coloca o novo foco no codProduto
-            btn_addProduto.doClick();
-	    fmtfd_codProduto.requestFocus();
-        }
-    }//GEN-LAST:event_txtfd_qtdProdutoKeyPressed
-
     private void removeProdutoLista(int row) {
 	//Recebe a linha a ser removida e remove da venda e da tabela.
 	DefaultTableModel table = (DefaultTableModel) table_produtos.getModel();
@@ -519,42 +551,12 @@ public class VendaGUI extends javax.swing.JFrame {
 
     }
 
-    private void updateWindowProduto() {
-	try {
-	    //Acha o produto no estoque e atribui a prodTemp
-	    prodTemp = findProduto(fmtfd_codProduto.getText().replaceAll("\\s", ""));
-	    //Se achou, é valido
-	    prodTempValido = true;
-	}
-	catch (NameNotFoundException ex) {
-	    //Se não achou o produto pelo código de barras, não é válido
-	    prodTemp = new Produto("", new BigDecimal("0"), "", "");
-	    prodTempValido = false;
-	    System.err.println("Não encontrado " + fmtfd_codProduto.getText().replaceAll("\\s", ""));
-	}
-	//Atualiza janela mostrando o nome do produto
-	txtfd_nomeProduto.setText(prodTemp.getNome());
-	txtfd_nomeProduto.setCaretPosition(0);
-    }
+    private void btn_finalizarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_finalizarVendaActionPerformed
+	//Chama a tela de checkout para lidar com o pagamento
+	CheckoutDialogGUI checkout = new CheckoutDialogGUI(this, true, venda, usuario, cargosLista);
+	checkout.setVisible(true);
+    }//GEN-LAST:event_btn_finalizarVendaActionPerformed
 
-    private void resetTextFields() {
-	//Reseta Janela para vazio a cada novo produto adicionado
-	txtfd_nomeProduto.setText("");
-	fmtfd_codProduto.setText("");
-	txtfd_qtdProduto.setText("0,000");
-	qtdProduto = new BigDecimal("0.000");
-	prodTemp = new Produto("", new BigDecimal("0"), "", "");
-	prodTempValido = false;
-	fmtfd_codProduto.requestFocus();
-    }
-
-    private Produto findProduto(String codBarras) throws NameNotFoundException {
-	//Procura produto no estoque de acordo com codigo de barras
-	codBarras.replaceAll("\\s", "");
-	codBarras.replaceAll("\\n", "");
-	ItemEstoque item = estoque.findItem(codBarras);
-	return item.getProduto();
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_addProduto;
