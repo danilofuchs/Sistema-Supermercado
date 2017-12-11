@@ -3,6 +3,7 @@ package interfaceGrafica;
 
 import classes.*;
 import exceptions.*;
+import java.awt.Event;
 import java.awt.Frame;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
@@ -79,6 +80,7 @@ public class CheckoutDialogGUI extends javax.swing.JDialog {
         txtfd_pago = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("Finalizar venda");
         setIconImage(new ImageIcon(getClass().getResource("/interfaceGrafica/cartIcon.png")).getImage().getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH));
         setPreferredSize(new java.awt.Dimension(530, 720));
         setResizable(false);
@@ -150,6 +152,9 @@ public class CheckoutDialogGUI extends javax.swing.JDialog {
             }
         });
         txtfd_pago.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtfd_pagoKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtfd_pagoKeyReleased(evt);
             }
@@ -288,6 +293,12 @@ public class CheckoutDialogGUI extends javax.swing.JDialog {
 	txtarea_notaFiscal.setText(nota.imprimirNota());
 	nota.salvaNotaArquivo();
     }//GEN-LAST:event_btn_finalizarVendaActionPerformed
+
+    private void txtfd_pagoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfd_pagoKeyPressed
+        if (evt.getKeyCode() == Event.ENTER) {
+	    btn_finalizarVenda.doClick();
+	}
+    }//GEN-LAST:event_txtfd_pagoKeyPressed
 
     private void updateTroco() {
 	troco = pago.subtract(venda.getTotal());
