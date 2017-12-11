@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package interfaceGrafica;
 
 import classes.*;
@@ -16,16 +11,11 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
-/**
- *
- * @author danil
- */
 public class MenuPrincipalGUI extends javax.swing.JFrame {
 
     private static Usuario usuario;
     private static UsuariosLista usuariosLista;
     private CargosLista cargosLista;
-    private static boolean logado = false;
 
     /**
      * Creates new form MenuPrincipalGUI
@@ -34,6 +24,8 @@ public class MenuPrincipalGUI extends javax.swing.JFrame {
 	this.cargosLista = cargosLista;
 	initComponents();
 	myInitComponents();
+	getNovoLogin();
+	atualizaComponentesPeloLogin();
     }
 
     /**
@@ -43,47 +35,16 @@ public class MenuPrincipalGUI extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="My Init Codes">
-    private void myInitComponents() {
-	
+    private void myInitComponents() { //Inicializa componentes personalizados
+	//Redimensiona e alinha ícone em btn_novaVenda
 	ImageIcon buttonIcon = (ImageIcon) btn_novaVenda.getIcon();
-	
 	Image buttonImg = buttonIcon.getImage();
-	
 	Image newButtonImg = buttonImg.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
-	
 	buttonIcon = new ImageIcon(newButtonImg);
 	btn_novaVenda.setIcon(buttonIcon);
 	btn_novaVenda.setVerticalTextPosition(SwingConstants.BOTTOM);
 	btn_novaVenda.setHorizontalTextPosition(SwingConstants.CENTER);
 	btn_novaVenda.requestFocus();
-
-	JFrame frame = new JFrame("");
-	LoginDialogGUI loginDlg = new LoginDialogGUI(frame, true);
-	loginDlg.setVisible(true);
-	
-	// if logon successfully
-	int statusLogin = loginDlg.getStatus();
-	if (statusLogin == LoginDialogGUI.ACERTOU_LOGIN) {
-	    usuario = loginDlg.getUsuario();
-	    lbl_bemVindo.setText("Bem-vindo " + usuario.getNome() + " (" + usuario.getCargo() + ")");
-	    loginDlg.dispose();
-	} else if (statusLogin == LoginDialogGUI.FECHOU_LOGIN) {
-	    this.dispose();
-	    System.exit(0);
-	} else if (statusLogin == LoginDialogGUI.ERROU_LOGIN) {
-	    this.dispose();
-	}
-	try {
-	    if (cargosLista.getCargo(usuario.getCargo()).podeAdicionarUsuario()) {
-		btn_addUsuario.setEnabled(true);
-	    }
-	    if (cargosLista.getCargo(usuario.getCargo()).podeCriarVenda()) {
-		btn_novaVenda.setEnabled(true);
-	    }
-	}
-	catch (NameNotFoundException ex) {
-	    
-	}
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -179,36 +140,54 @@ public class MenuPrincipalGUI extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_logoutActionPerformed
-	JFrame frame = new JFrame("");
-	LoginDialogGUI loginDlg = new LoginDialogGUI(frame, true);
+    private void getNovoLogin() {
+	//Pede login
+	//modal = true para evitar que usuario interaja com menuPrincipal durante login
+	LoginDialogGUI loginDlg = new LoginDialogGUI(this, true);
 	loginDlg.setVisible(true);
-	
-	// if logon successfully
+
+	//Analisa o que ocorreu no login (Acertou, Errou ou Fechou a tela de login)
 	int statusLogin = loginDlg.getStatus();
 	if (statusLogin == LoginDialogGUI.ACERTOU_LOGIN) {
-	    usuario = loginDlg.getUsuario();
-	    lbl_bemVindo.setText("Bem-vindo " + usuario.getNome() + " (" + usuario.getCargo() + ")");
+	    usuario = loginDlg.getUsuario(); //pega o usuario logado
 	    loginDlg.dispose();
 	} else if (statusLogin == LoginDialogGUI.FECHOU_LOGIN) {
 	    this.dispose();
-	    System.exit(0);
+	    System.exit(0); //fecha o programa
 	} else if (statusLogin == LoginDialogGUI.ERROU_LOGIN) {
 	    this.dispose();
 	}
+    }
+
+    private void atualizaComponentesPeloLogin() {
 	try {
+	    lbl_bemVindo.setText("Bem-vindo " + usuario.getNome() + " (" + usuario.getCargo() + ")");
 	    if (cargosLista.getCargo(usuario.getCargo()).podeAdicionarUsuario()) {
+		//se usuario pode adicionar novo usuario
 		btn_addUsuario.setEnabled(true);
+	    } else {
+		btn_addUsuario.setEnabled(false);
+	    }
+	    if (cargosLista.getCargo(usuario.getCargo()).podeCriarVenda()) {
+		//se usuario pode adicionar nova venda
+		btn_novaVenda.setEnabled(true);
+	    } else {
+		btn_novaVenda.setEnabled(false);
 	    }
 	}
 	catch (NameNotFoundException ex) {
-	    
+
 	}
+    }
+    private void btn_logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_logoutActionPerformed
+	getNovoLogin();
+	atualizaComponentesPeloLogin();
     }//GEN-LAST:event_btn_logoutActionPerformed
 
     private void btn_novaVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_novaVendaActionPerformed
 	try {
 	    if (cargosLista.getCargo(usuario.getCargo()).podeCriarVenda()) {
+		//Se pode criar venda, inicializa nova janela de venda
 		Venda venda = new Venda();
 		VendaGUI vendaGUI = new VendaGUI(venda, usuario, cargosLista);
 		vendaGUI.setVisible(true);
@@ -222,13 +201,14 @@ public class MenuPrincipalGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_novaVendaActionPerformed
 
     private void btn_sairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_sairActionPerformed
-        this.dispose();
+	this.dispose();
 	System.exit(0);
     }//GEN-LAST:event_btn_sairActionPerformed
 
     private void btn_addUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addUsuarioActionPerformed
-        Frame frame = new Frame("");
-	CadastroUsuarioDialogGUI cad = new CadastroUsuarioDialogGUI(frame, false, cargosLista);
+	//Caso queira adicionar novo usuario, chama o diálogo de cadastro
+	//modal = false para não travar movimento para fora do dialogo
+	CadastroUsuarioDialogGUI cad = new CadastroUsuarioDialogGUI(this, false, cargosLista);
 	cad.setVisible(true);
     }//GEN-LAST:event_btn_addUsuarioActionPerformed
 
