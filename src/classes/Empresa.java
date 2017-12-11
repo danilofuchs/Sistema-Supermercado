@@ -1,16 +1,27 @@
 package classes;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import org.json.JSONObject;
+
 public class Empresa {
     private String nome;
     private String cnpj;
+    private String endereco;
 
-    public Empresa(String nome, String cnpj) {
+    public Empresa(String nome, String cnpj, String endereco) {
         this.nome = nome;
         this.cnpj = cnpj;
+        this.endereco = endereco;
     }
     
-    public static Empresa EmpresaDeArquivo() {
-	return new Empresa("","");
+    public static Empresa empresaDeArquivo() throws IOException {
+        String empresaArquivo = Files.readAllLines(Paths.get("EmpresaJSON.txt")).get(0);
+        JSONObject obj = new JSONObject(empresaArquivo.trim());
+        
+        return new Empresa(obj.getString("nome"),obj.getString("cnpj"), obj.getString("endereco"));
     }
 
     public String getNome() {
@@ -32,4 +43,13 @@ public class Empresa {
     public void setCnpjInt(int cnpj){
         this.cnpj = Integer.toString(cnpj);
     }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+    
 }
