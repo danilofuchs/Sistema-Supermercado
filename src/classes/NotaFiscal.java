@@ -56,8 +56,10 @@ public class NotaFiscal {
     
     public ArrayList<String> imprimirNota() throws IOException{
         ArrayList<String> notaArray = new ArrayList();
-        String s = String.format("CNPJ: " + empresa.getCnpj() + " " + 
-                empresa.getNome() + "\n" + empresa.getEndereco() + "\n\n" + 
+	notaArray.add(getData() + '\n');
+	notaArray.add(empresa.getNome() + '\n');
+        String s = String.format("CNPJ: " + empresa.getCnpj() + "\n" + 
+                 empresa.getEndereco() + "\n\n" + 
                 "Item  Codigo  Descrição  Qtd  Unit  Total");
         notaArray.add(s);
         for(ItemVenda v: venda.getItens()){
