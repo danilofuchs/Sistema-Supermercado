@@ -327,9 +327,13 @@ public class CheckoutDialogGUI extends javax.swing.JDialog {
 		//Cria uma nova nota fiscal para a Empresa e esta Venda
 		NotaFiscal nota = new NotaFiscal(venda, empresa, usuario);
 		//Mostra esta nota no textArea
-		txtarea_notaFiscal.setText(nota.imprimirNota());
+		txtarea_notaFiscal.setText("");
+		for (String s : nota.imprimirNota()) {
+		    txtarea_notaFiscal.append(s+'\n');
+		}
+		
 		//Salva esta nota num arquivo
-		nota.salvaNotaArquivo();
+		nota.salvaNotaArquivo(nota.imprimirNota());
 	    }
 	    catch (IOException ex) {
 		Logger.getLogger(CheckoutDialogGUI.class.getName()).log(Level.SEVERE, null, ex);
@@ -341,7 +345,7 @@ public class CheckoutDialogGUI extends javax.swing.JDialog {
 	}
     }//GEN-LAST:event_btn_finalizarVendaActionPerformed
 
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {                                   
         //Se o usuario tentar fechar a janela, pede confirmação
 	int confirmExit = JOptionPane.showConfirmDialog(rootPane, "Deseja editar a venda?", "Editar venda", JOptionPane.YES_NO_OPTION);
 
@@ -350,7 +354,7 @@ public class CheckoutDialogGUI extends javax.swing.JDialog {
 	} else if (confirmExit == JOptionPane.NO_OPTION) {
 
 	}
-    }//GEN-LAST:event_formWindowClosing    
+    }                                      
 
     
     /**
