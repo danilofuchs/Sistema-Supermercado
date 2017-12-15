@@ -11,7 +11,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import javax.swing.text.MaskFormatter;
 
 public class CheckoutDialogGUI extends javax.swing.JDialog {
 
@@ -21,8 +20,6 @@ public class CheckoutDialogGUI extends javax.swing.JDialog {
     private BigDecimal pago;
     private BigDecimal troco;
     private boolean vendaFinalizada = false;
-    
-    private MaskFormatter maskFormatterPago = new MaskFormatter();
 
     /**
      * Creates new form CheckoutDialogGUI
