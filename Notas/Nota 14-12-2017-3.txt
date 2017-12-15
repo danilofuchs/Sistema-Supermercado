@@ -1,0 +1,12 @@
+CNPJ: 06.990.590/0001-23 Mercado do Seu Zé LTDA.
+Rua dos Bobos, 0 - Curitiba, PR
+
+Item  Codigo  Descrição  Qtd  Unit  Total
+1 7896048953407  RACAO FARO CREK 500G
+   1.000xUN5,91                            5,91
+
+-------------------------------------------------------
+Qtd. total de itens                                   1
+Valor total R$                                     5,91
+-------------------------------------------------------
+Operador: Danilo (Admin)

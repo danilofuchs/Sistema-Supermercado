@@ -1,0 +1,18 @@
+CNPJ: 06.990.590/0001-23 Mercado do Seu Zé LTDA.
+Rua dos Bobos, 0 - Curitiba, PR
+
+Item  Codigo  Descrição  Qtd  Unit  Total
+1 7896048953407  RACAO FARO CREK 500G
+   1.000xUN5,91                            5,91
+
+2 7891691097188  GARRAFA TERMICA DE MESA AIR POT REF 9718 INVI
+   4.000xUN8,79                           35,16
+
+3 7896034680522  GLORIA FESTA CAJUZINHO 365G
+   2.000xUN17,51                           35,02
+
+-------------------------------------------------------
+Qtd. total de itens                                   3
+Valor total R$                                    76,09
+-------------------------------------------------------
+Operador: Danilo (Admin)

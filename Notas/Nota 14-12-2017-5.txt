@@ -1,0 +1,12 @@
+CNPJ: 06.990.590/0001-23 Mercado do Seu Zé LTDA.
+Rua dos Bobos, 0 - Curitiba, PR
+
+Item  Codigo  Descrição  Qtd  Unit  Total
+1 7891024195604   PINHO SOL CITRUS LIMAO COLGATE 1000ML
+   1.000xUN11,80                           11,80
+
+-------------------------------------------------------
+Qtd. total de itens                                   1
+Valor total R$                                    11,80
+-------------------------------------------------------
+Operador: Danilo (Admin)
