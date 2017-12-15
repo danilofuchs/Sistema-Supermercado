@@ -555,6 +555,9 @@ public class VendaGUI extends javax.swing.JFrame {
 	//Chama a tela de checkout para lidar com o pagamento
 	CheckoutDialogGUI checkout = new CheckoutDialogGUI(this, true, venda, usuario, cargosLista);
 	checkout.setVisible(true);
+	if (checkout.vendaFinalizada()) {
+	    this.dispose();
+	}
     }//GEN-LAST:event_btn_finalizarVendaActionPerformed
 
 

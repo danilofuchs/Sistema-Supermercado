@@ -20,6 +20,7 @@ public class CheckoutDialogGUI extends javax.swing.JDialog {
     private CargosLista cargosLista;
     private BigDecimal pago;
     private BigDecimal troco;
+    private boolean vendaFinalizada = false;
     
     private MaskFormatter maskFormatterPago = new MaskFormatter();
 
@@ -45,7 +46,9 @@ public class CheckoutDialogGUI extends javax.swing.JDialog {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="My init codes">
     private void myInitComponents() {
+	
 	//Inicializa componentes personalizados
+	txtarea_notaFiscal.setEditable(false);
 	
 	//Pega valor total da venda
 	txtfd_total.setText(String.format("%.2f", venda.getTotal()));
@@ -334,6 +337,12 @@ public class CheckoutDialogGUI extends javax.swing.JDialog {
 		
 		//Salva esta nota num arquivo
 		nota.salvaNotaArquivo(nota.imprimirNota());
+		
+		JOptionPane.showMessageDialog(this, "Venda finalizada com sucesso");
+		vendaFinalizada = true;
+		combo_metodos.setEnabled(false);
+		btn_finalizarVenda.setEnabled(false);
+		txtfd_pago.setEnabled(false);
 	    }
 	    catch (IOException ex) {
 		Logger.getLogger(CheckoutDialogGUI.class.getName()).log(Level.SEVERE, null, ex);
@@ -345,14 +354,21 @@ public class CheckoutDialogGUI extends javax.swing.JDialog {
 	}
     }//GEN-LAST:event_btn_finalizarVendaActionPerformed
 
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {                                   
-        //Se o usuario tentar fechar a janela, pede confirmação
-	int confirmExit = JOptionPane.showConfirmDialog(rootPane, "Deseja editar a venda?", "Editar venda", JOptionPane.YES_NO_OPTION);
+    public boolean vendaFinalizada() {
+	return vendaFinalizada;
+    }
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {    
+	if (!vendaFinalizada()) {
+	    //Se o usuario tentar fechar a janela, pede confirmação
+	    int confirmExit = JOptionPane.showConfirmDialog(rootPane, "Deseja editar a venda?", "Editar venda", JOptionPane.YES_NO_OPTION);
 
-	if (confirmExit == JOptionPane.OK_OPTION) {
+	    if (confirmExit == JOptionPane.OK_OPTION) {
+		this.dispose();
+	    } else if (confirmExit == JOptionPane.NO_OPTION) {
+
+	    }
+	} else {
 	    this.dispose();
-	} else if (confirmExit == JOptionPane.NO_OPTION) {
-
 	}
     }                                      
 
