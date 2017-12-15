@@ -1,1 +1,1 @@
-{"nome":"Mercado do Seu Zé LTDA.","cnpj":"06.990.590/0001-23","endereco":"Rua dos Bobos, 0 - Curitiba, PR"}
+{"nome":"Mercado do Seu ZÃ© LTDA.","cnpj":"06.990.590/0001-23","endereco":"Rua dos Bobos, 0 - Curitiba, PR"}
