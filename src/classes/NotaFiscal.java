@@ -48,7 +48,7 @@ public class NotaFiscal {
         this.usuario = usuario;
     }
     
-    public String getData(){
+    private String getData(){
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 	Date date = new Date();
 	return dateFormat.format(date);
