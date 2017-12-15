@@ -1,5 +1,7 @@
 package classes;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -9,6 +11,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import jdk.nashorn.internal.codegen.CompilerConstants;
 
 public class NotaFiscal {
     private Venda venda;
@@ -52,31 +55,40 @@ public class NotaFiscal {
     }
     
     public ArrayList<String> imprimirNota() throws IOException{
-        salvaNotaArquivo();
-        ArrayList<String> notaArquivo = new ArrayList();
-        notaArquivo = (ArrayList) Files.readAllLines(Paths.get("NotaFiscal.txt"));
-        
-        return notaArquivo;
-    }
-    public void salvaNotaArquivo() throws IOException{
         ArrayList<String> notaArray = new ArrayList();
         String s = String.format("CNPJ: " + empresa.getCnpj() + " " + 
                 empresa.getNome() + "\n" + empresa.getEndereco() + "\n\n" + 
                 "Item  Codigo  Descrição  Qtd  Unit  Total");
         notaArray.add(s);
         for(ItemVenda v: venda.getItens()){
-            s = String.format(v.getSequencial() + v.getProduto().getCodigoDeBarras() + "  " + 
-                    v.getProduto().getNome() + "\n   " + v.getQtd() + "x" + v.getProduto().getUnidade() + 
-                    v.getProduto().getPreco().toString() + "  " + v.getPrecoTotalItem().toString());
+            s = v.getSequencial() + " " + v.getProduto().getCodigoDeBarras() + "  " + 
+                    String.format("%.38s", v.getProduto().getNome()) + "\n   " + v.getQtd() + "x" + v.getProduto().getUnidade() + 
+                    String.format(" %5.2f", v.getProduto().getPreco()) + String.format("%38.2f\n", v.getPrecoTotalItem());
             notaArray.add(s);
         }
-        s = String.format("-------------------------------------------------------\n" + "Qtd. total de itens" + 
-                "                                  " + venda.getNumItens() + "\n" + "Valor total R$" + 
-                "                                   " + venda.getTotal() + 
-                "-------------------------------------------------------\n" + "Operador: " + 
-                usuario.getNome() + " (" + usuario.getCargo() + ")");
+        s =     "-------------------------------------------------------\n" +
+		String.format("Qtd. total de itens%36d\n", venda.getNumItens()) +
+		String.format("Valor total R$%41.2f\n", venda.getTotal()) + 
+                "-------------------------------------------------------\n"
+		+ "Operador: " + usuario.getNome() + " (" + usuario.getCargo() + ")";
         notaArray.add(s);
-        
-        Files.write(Paths.get("NotaFiscal.txt"), notaArray, StandardCharsets.UTF_8, StandardOpenOption.TRUNCATE_EXISTING);
+	
+	return (notaArray);
+    }
+    public void salvaNotaArquivo(ArrayList<String> notaArray) throws IOException{
+	DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+	Date date = new Date();
+	String dataHoje = dateFormat.format(date).replaceAll("/", "-");
+	
+	String workingDirectory = System.getProperty("user.dir");
+	int i = 1;
+	File file = new File(workingDirectory, "/Notas/" + "Nota " + dataHoje + "-" + i + ".txt");
+	while (file.isFile()) {
+	    i++;
+	    file = new File(workingDirectory, "/Notas/" + "Nota " + dataHoje + "-" + i + ".txt");
+	};
+
+	Files.write(Paths.get(workingDirectory, "/Notas/" + "Nota " + dataHoje + "-" + i + ".txt"), notaArray, StandardCharsets.UTF_8, StandardOpenOption.CREATE_NEW);
+	
     }
 }
